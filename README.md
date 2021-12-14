@@ -1,3 +1,40 @@
+# Design Overview
+
+## Overview
+The main idea behind this project is to create a web app that displays a user's friends, and their associated timezones, in relation to the timezone of the user.
+
+## Basic Pages and Functionalities
+### Splash
+Welcoming page displaying brief information about the site, and asks users to either Login or Register.
+
+### Registration
+Page that consists of a registration form for new users, asking them to provide the following info:
+- username
+- email
+- password
+- password verification
+- timezone (from dropdown) or maybe it could read this in from IP, and autofill
+
+The page will check that these fields are valid, and upon success will redirect user to the index page, if any of these fields are filled out incorrectly, the user will be prompted with an alert, or redirected to an error page.
+
+### Login
+Allows users to login with username or email. Upon success redirects user to the index page. Inputting incorrect information will prompt an alert or redirect user to an error page.
+
+### Navigation
+A simple top nav bar that dynamically displays certain options depending on whether or not the user is logged in:
+- Login
+- Logout
+- Home
+- Register
+
+## Bonus Features
+If we have time it might be cool to add some other functionalities such as :
+- Light and Dark Mode Settings
+- Some form of communication ability between users
+- Choice in 24 or 12 clock format for display
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
