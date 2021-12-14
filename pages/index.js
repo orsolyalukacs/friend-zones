@@ -26,12 +26,12 @@ export default function Home() {
           {/* TODO: add login page */}
           <a href="" className={styles.card}>
             <h2>Login &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
+            <p>Find out the current time in your friends&apos; timezone</p>
           </a>
         {/* TODO: add sign up page */}
           <a href="" className={styles.card}>
             <h2>Sign up &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+            <p>Sign up to see timezones of your friends</p>
           </a>
 
         </div>
