@@ -1,8 +1,6 @@
 // home page
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import NavBar from './nav/NavBar'
-import Footer from './nav/Footer'
 import Link from 'next/link'
 
 export default function Home() {
@@ -13,7 +11,6 @@ export default function Home() {
         <meta name="description" content="A web app that displays a user's friends, and their associated timezones, in relation to the timezone of the user." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar />
       <main className={styles.main}>
         <h1 className={styles.title}>
           {/* TODO: add deployed page url*/}
@@ -41,7 +38,6 @@ export default function Home() {
         </div>
       </main>
 
-      <Footer />
     </div>
   )
 }
