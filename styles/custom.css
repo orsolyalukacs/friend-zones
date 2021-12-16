@@ -1,0 +1,19 @@
+
+/* navbar */
+.navbar {
+    padding: 20px 0;
+    margin-bottom: 20px;
+    width: 100%;
+    height: auto;
+    background-color: #2196F3;
+  }
+
+  .navlink {
+    display: inline-block;
+    margin-left: 40px;
+  }
+
+  .navbar a {
+    color: #FFF;
+    text-decoration: none;
+  }
