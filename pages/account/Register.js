@@ -99,7 +99,7 @@ const Register = () => {
                             <option timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
                             <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku&apos;alofa</option>
                         </select>
-                        <button className={styles.form_button}>Register</button>
+                        <input type="submit" className={styles.form_button}></input>
                     </form>
                 </div>
             </main>
