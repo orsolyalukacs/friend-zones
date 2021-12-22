@@ -1,10 +1,11 @@
-import Footer from "./Footer";
-import NavBar from "./NavBar";
-
 // layout
+import Footer from "./Footer"
+import NavBar from "./NavBar"
+import styles from "../../styles/layout.module.css"
+
 const Layout = ({ children }) => {
     return (
-        <div className="content">
+        <div className={styles.container}>
             <NavBar />
             {children}
             <Footer />

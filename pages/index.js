@@ -20,7 +20,6 @@ export default function Home() {
         <p className={styles.description}>
           A web app that displays a user&apos;s friends, and their associated timezones, in relation to the timezone of the user.
         </p>
-
         <div className={styles.grid}>
 
           <Link href="/account/Login">
