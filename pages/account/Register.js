@@ -1,20 +1,58 @@
 // register
 import styles from '../../styles/Home.module.css'
+import React from "react";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
+    const onSubmit = (data) => { console.log(data) };
+
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <div className={styles.form_container} /*style={{ border: "2px solid hotpink" }}*/>
-                    <h2 style={{textAlign: "left"}}>Register</h2>
+                <div className={styles.form_container}>
+                    <h2 style={{ textAlign: "left" }}>Register</h2>
                     <p>Please fill in this form to create an account!</p>
                     <hr></hr>
-                    <form className={styles.form} autoComplete='off'>
-                        <input className={styles.form_input} placeholder='Username'></input>
-                        <input className={styles.form_input} placeholder='Email'></input>
-                        <input className={styles.form_input} placeholder='Password'></input>
-                        <input className={styles.form_input} placeholder='Confirm Password'></input>
-                        <select className={styles.form_dropdown}>
+                    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} autoComplete='off'>
+                        <input className={styles.form_input} placeholder='Username'
+                            {...register("username",
+                                {
+                                    required: true,
+                                    maxLength: 20
+                                })}>
+                        </input>
+                        {errors.username?.type === 'required' && "Username is required"}
+                        {errors.username?.type === 'maxLength' && "Can't be more than 20 characters"}
+                        <input className={styles.form_input} placeholder='Email'
+                            {...register("email",
+                                {
+                                    required: true
+                                })}
+                        ></input>
+                        {errors.email?.type === 'required' && "Email is required"}
+                        <input name="password" className={styles.form_input} placeholder='Password'
+                            {...register("password",
+                                {
+                                    required: true
+                                })}>
+                        </input>
+                        {errors.password?.type === 'required' && "Password is required"}
+                        <input className={styles.form_input} placeholder='Confirm Password'
+                            {...register("confirmation",
+                                {
+                                    required: true
+                                })}>
+                        </input>
+                        {errors.confirmation?.type === 'required' && "Must match password"}
+                        {errors}
+
+
+
+
+
+
+                        {/* <select className={styles.form_dropdown}>
                             <option value="" selected disabled>--Please choose your timezone--</option>
                             <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
                             <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
@@ -98,7 +136,7 @@ const Register = () => {
                             <option timeZoneId="80" gmtAdjustment="GMT+12:00" useDaylightTime="1" value="12">(GMT+12:00) Auckland, Wellington</option>
                             <option timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
                             <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku&apos;alofa</option>
-                        </select>
+                        </select> */}
                         <input type="submit" className={styles.form_button}></input>
                     </form>
                 </div>
