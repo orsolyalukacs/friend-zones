@@ -45,7 +45,7 @@ const Register = () => {
                                 })}>
                         </input>
                         {errors.confirmation?.type === 'required' && "Must match password"}
-                        {errors}
+
 
 
 
