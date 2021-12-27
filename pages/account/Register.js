@@ -4,8 +4,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
-    const onSubmit = (data) => { console.log(data) };
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
+    const onSubmit = (data, e) => console.log(data, e);
+    const onError = (errors, e) => console.log(errors, e);
 
     return (
         <div className={styles.container}>
@@ -14,45 +15,45 @@ const Register = () => {
                     <h2 style={{ textAlign: "left" }}>Register</h2>
                     <p>Please fill in this form to create an account!</p>
                     <hr></hr>
-                    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} autoComplete='off'>
+                    <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form} autoComplete='off'>
                         <input className={styles.form_input} placeholder='Username'
                             {...register("username",
                                 {
-                                    required: true,
-                                    maxLength: 20
+                                    required: "Username is required",
+                                    maxLength: {
+                                        value: 20,
+                                        message: "Can't be more than 20 characters"
+                                    }
                                 })}>
                         </input>
-                        {errors.username?.type === 'required' && "Username is required"}
-                        {errors.username?.type === 'maxLength' && "Can't be more than 20 characters"}
+                        {errors.username && <p>{errors.username.message}</p>}
                         <input className={styles.form_input} placeholder='Email'
                             {...register("email",
                                 {
-                                    required: true
+                                    required: "Email is required",
+                                    pattern: {
+                                        value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                        message: "Invalid email address"
+                                    }
                                 })}
                         ></input>
-                        {errors.email?.type === 'required' && "Email is required"}
+                        {errors.email && <p>{errors.email.message}</p>}
                         <input name="password" className={styles.form_input} placeholder='Password'
                             {...register("password",
                                 {
-                                    required: true
+                                    required: "Password is required"
                                 })}>
                         </input>
-                        {errors.password?.type === 'required' && "Password is required"}
+                        {errors.password && <p>{errors.password.message}</p>}
                         <input className={styles.form_input} placeholder='Confirm Password'
                             {...register("confirmation",
                                 {
                                     required: true
                                 })}>
                         </input>
-                        {errors.confirmation?.type === 'required' && "Must match password"}
+                        {getValues("password") != getValues("confirmation") && "Must match password"}
 
-
-
-
-
-
-
-                        {/* <select className={styles.form_dropdown}>
+                        <select className={styles.form_dropdown}>
                             <option value="" selected disabled>--Please choose your timezone--</option>
                             <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
                             <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
@@ -136,7 +137,7 @@ const Register = () => {
                             <option timeZoneId="80" gmtAdjustment="GMT+12:00" useDaylightTime="1" value="12">(GMT+12:00) Auckland, Wellington</option>
                             <option timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
                             <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku&apos;alofa</option>
-                        </select> */}
+                        </select>
                         <input type="submit" className={styles.form_button}></input>
                     </form>
                 </div>
