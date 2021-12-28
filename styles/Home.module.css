@@ -65,36 +65,7 @@
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
-.form {
-	display: flex;
-	flex-direction: column;
-	padding: .5rem;
-	max-width: 300px;
-	/* border: 1px solid black; */
-}
 
-.form_container{
-	max-width: 400px;
-}
-
-.form_input {
-	padding: .4rem;
-	margin: .5rem;
-	border-radius: 2px;
-}
-
-.form_button {
-	padding: .4rem;
-	margin: .5rem;
-	width: 50%;
-	border-radius: 2px;
-}
-
-.form_dropdown {
-	padding: .4rem;
-	margin: .5rem;
-	max-width: 80%;
-}
 
 .grid {
 	display: flex;
@@ -189,3 +160,39 @@
 		font-size: 1.2rem;
 	}
 }
+
+/* Register */
+.form {
+	display: flex;
+	flex-direction: column;
+	padding: .5rem;
+	max-width: 300px;
+}
+
+.form_container{
+	max-width: 400px;
+}
+
+.form_input {
+	padding: .4rem;
+	margin: .5rem;
+	border-radius: 4px;
+}
+
+.form_button {
+	padding: .4rem;
+	margin: .5rem;
+	width: 50%;
+	border-radius: 4px;
+}
+
+.form_dropdown {
+	padding: .4rem;
+	margin: .5rem;
+	max-width: 80%;
+}
+
+.border {
+	border: 1px solid #eaeaea;
+}
+

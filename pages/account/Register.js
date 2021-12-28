@@ -1,9 +1,9 @@
 // register
-import styles from '../../styles/Home.module.css'
+import styles from '../../styles/Home.module.css';
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
-
+import cx from 'classnames';
 
 const Register = () => {
     const router = useRouter();
@@ -16,7 +16,6 @@ const Register = () => {
     const onError = (errors, e) => console.log(errors, e);
 
     return (
-
         <div className={styles.container}>
             <main className={styles.main}>
                 <div className={styles.form_container}>
@@ -24,7 +23,7 @@ const Register = () => {
                     <p>Please fill in this form to create an account!</p>
                     <hr></hr>
                     <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form} autoComplete='off'>
-                        <input className={styles.form_input} placeholder='Username'
+                        <input className={cx(styles.form_input, styles.border)} placeholder='Username'
                             {...register("username",
                                 {
                                     required: "Username is required",
@@ -35,7 +34,7 @@ const Register = () => {
                                 })}>
                         </input>
                         {errors.username && <p>{errors.username.message}</p>}
-                        <input className={styles.form_input} placeholder='Email'
+                        <input className={cx(styles.form_input, styles.border)} placeholder='Email'
                             {...register("email",
                                 {
                                     required: "Email is required",
@@ -46,22 +45,23 @@ const Register = () => {
                                 })}
                         ></input>
                         {errors.email && <p>{errors.email.message}</p>}
-                        <input name="password" className={styles.form_input} placeholder='Password'
+                        <input name="password" className={cx(styles.form_input, styles.border)} placeholder='Password'
                             {...register("password",
                                 {
                                     required: "Password is required"
                                 })}>
                         </input>
                         {errors.password && <p>{errors.password.message}</p>}
-                        <input className={styles.form_input} placeholder='Confirm Password'
+                        <input className={cx(styles.form_input, styles.border)} placeholder='Confirm Password'
                             {...register("confirmation",
                                 {
                                     required: true
                                 })}>
                         </input>
                         {getValues("password") != getValues("confirmation") && "Must match password"}
-
-                        <select {...register("timezone", { required: "Timezone is required" })} className={styles.form_dropdown}>
+                        {/* TODO: 1. Get timezone information of user based on location
+                                  2. Load timezones from an API or separate json file */}
+                        <select {...register("timezone", { required: "Timezone is required" })} className={cx(styles.form_dropdown, styles.border)}>
                             <option value="">--Please choose your timezone--</option>
                             <option timezoneid="1" gmtadjustment="GMT-12:00" usedaylighttime="0" value="-12">(GMT-12:00) International Date Line West</option>
                             <option timezoneid="2" gmtadjustment="GMT-11:00" usedaylighttime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
@@ -147,7 +147,7 @@ const Register = () => {
                             <option timezoneid="82" gmtadjustment="GMT+13:00" usedaylighttime="0" value="13">(GMT+13:00) Nuku&apos;alofa</option>
                         </select>
                         {errors.timezone && <p>{errors.timezone.message}</p>}
-                        <input type="submit" className={styles.form_button}></input>
+                        <input type="submit" className={cx(styles.form_button, styles.border)}></input>
                     </form>
                 </div>
             </main>
