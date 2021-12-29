@@ -3,7 +3,7 @@
 }
 
 .main {
-	min-height: 100vh;
+	min-height: 80vh;
 	padding: 4rem 0;
 	flex: 1;
 	display: flex;
@@ -135,7 +135,7 @@
 /* Responsive styles */
 @media (max-width: 600px) {
 	.main {
-		min-height: 75vh;
+		min-height: 70vh;
 	}
 
 	.description {
