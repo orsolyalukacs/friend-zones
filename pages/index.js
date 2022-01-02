@@ -38,7 +38,7 @@ export default function Home({ isConnected }) {
               <p>Find out the current time in your friends&apos; timezone</p>
             </a>
           </Link>
-          <Link href="/account/Register">
+          <Link href="/account/new">
             <a className={styles.card}>
               <h2>Register &rarr;</h2>
               <p>Sign up to see timezones of your friends</p>
