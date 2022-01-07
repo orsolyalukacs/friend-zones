@@ -1,3 +1,35 @@
-.container {
-	padding: 0 2rem;
+.grid {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+
+}
+
+.zone_container {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid black;
+    padding: 1rem;
+    justify-content: flex-start;
+	overflow-x: auto;
+
+	max-width: 90%;
+
+
+}
+
+.zones {
+    display: flex;
+    flex-direction: column;
+	border: 1px solid black;
+	flex-basis: 2rem;
+	padding: .5rem;
+	margin: 2px;
+
+}
+
+.line_break {
+    width: 100%;
+    color: black;
 }

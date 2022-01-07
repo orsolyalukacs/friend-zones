@@ -2,16 +2,20 @@
 // Pull in timezones from a json file and display them:
 // import
 import styles from '../../styles/protohome.module.css'
+
 const UTC_OFFSETS = require('/data/timezones.json');
+const timeSettings = { hour: '2-digit', minute: '2-digit' };
 
 function DisplayOffsets(props) {
     const offsets = props.offsets
-
     // Display offsets
     const offsetDisplays = offsets.map((offset) =>
-    <div>
-        {offset}
-    </div>
+        <div className={styles.zones}>
+            {offset}
+            <hr className={styles.line_break}></hr>
+            {/*TODO: Check this against friend functionalities not magic number +02:00*/}
+            {(offset === '+02:00') ? new Date().toLocaleTimeString([], {...timeSettings}) : ''}
+        </div>
     );
     return offsetDisplays;
 }
@@ -21,7 +25,11 @@ const ProtoHome = () => {
         <div className={styles.container}>
             <main className={styles.main}>
                 <h3>Proto Home</h3>
-                <DisplayOffsets offsets={UTC_OFFSETS}></DisplayOffsets>
+                <div className={styles.grid}>
+                    <div className={styles.zone_container}>
+                        <DisplayOffsets offsets={UTC_OFFSETS}></DisplayOffsets>
+                    </div>
+                </div>
             </main>
         </div>
     );
