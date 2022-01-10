@@ -68,8 +68,8 @@ const AddFriend = () => {
                     onChange={handleChange}
                     required>
                     <option value="">Select friend's timezone</option>
-                    {UTC_OFFSETS.map((offset) => {
-                        return <option key={offset} value={offset}>{offset}</option>;
+                    {UTC_OFFSETS.map((timezone_offset) => {
+                        return <option key={timezone_offset} value={timezone_offset}>{timezone_offset}</option>;
                     })
                     }
                 </select>
