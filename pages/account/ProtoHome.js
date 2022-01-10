@@ -34,11 +34,6 @@ const ProtoHome = () => {
                 <div className={styles.card}>
                     <AddFriend></AddFriend>
                 </div>
-                {UTC_OFFSETS.length > 0 &&
-                    <h2>
-                        You have {UTC_OFFSETS.length} offsets!
-                    </h2>
-                }
             </main>
         </div>
     );
