@@ -12,9 +12,9 @@ const Form = ({ formId, userForm, forNewUser = true }) => {
 
     const [form, setForm] = useState({
         name: userForm.name,
-        owner_name: userForm.owner_name,
-        species: userForm.species,
-        age: userForm.age,
+        email: userForm.email,
+        password: userForm.password,
+        timezone: userForm.timezone,
     })
 
     // The PUT method edits an existing entry in the mongodb database.
