@@ -91,7 +91,7 @@ const AddFriend = () => {
                     value={form.timezone}
                     onChange={handleChange}
                     required>
-                    <option value="">Select friend's timezone</option>
+                    <option value="">Select friend&apos;s timezone</option>
                     {UTC_OFFSETS.map((timezone_offset) => {
                         return <option key={timezone_offset} value={timezone_offset}>{timezone_offset}</option>;
                     })
