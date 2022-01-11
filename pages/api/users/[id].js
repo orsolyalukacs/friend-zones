@@ -1,5 +1,3 @@
-/* using resources from: https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose */
-
 import dbConnect from '../../../lib/dbConnect'
 import User from '../../../models/User'
 
