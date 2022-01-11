@@ -1,7 +1,7 @@
 // friends
 // Pull in timezones from a json file and display them:
 // import
-import styles from '../../styles/protohome.module.css'
+import styles from '../../styles/dashboard.module.css'
 import AddFriend from '../../components/AddFriend';
 
 const UTC_OFFSETS = require('/data/timezones.json');
@@ -21,11 +21,11 @@ function DisplayOffsets(props) {
     return offsetDisplays;
 }
 
-const ProtoHome = () => {
+const Dashboard = () => {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <h3>Proto Home</h3>
+                <h3>Dashboard</h3>
                 <div className={styles.grid}>
                     <div className={styles.zone_container}>
                         <DisplayOffsets offsets={UTC_OFFSETS}></DisplayOffsets>
@@ -39,4 +39,4 @@ const ProtoHome = () => {
     );
 }
 
-export default ProtoHome;
+export default Dashboard;
