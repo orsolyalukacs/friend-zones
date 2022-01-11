@@ -8,14 +8,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hapi/iron": "^6.0.0",
+    "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
+    "cookie": "^0.4.1",
     "mongodb": "^4.2.2",
     "mongoose": "^6.1.4",
     "next": "12.0.7",
+    "next-connect": "^0.11.0",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.22.2",
-    "swr": "^1.1.2"
+    "swr": "^1.1.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "8.4.1",
