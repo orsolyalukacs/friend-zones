@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         const friendsCollection = db.collection("friendsCollection");
         const result = await friendsCollection.insertOne(data);
         console.log(result);
-        client.close();
+        //client.close();
         res.status(201).json({ message: "Data inserted successfully!" });
     }
 }
