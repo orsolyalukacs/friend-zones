@@ -55,7 +55,6 @@ function DisplayFriends(props) {
 
 const Dashboard = ({ friends }) => {
     const [friendsList, setFriendsList] = useState([friends])
-    console.log(friendsList);
     return (
         <div>
             <div>
