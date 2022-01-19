@@ -3,8 +3,7 @@
 // import
 import styles from '../../styles/dashboard.module.css'
 import AddFriend from '../../components/AddFriend';
-import { connectToDatabase } from '../../util/mongodb';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const UTC_OFFSETS = require('/data/timezones.json');
 const timeSettings = { hour: '2-digit', minute: '2-digit' };
@@ -24,37 +23,50 @@ function DisplayOffsets(props) {
     );
 }
 
-export async function getServerSideProps() {
-    const { db } = await connectToDatabase();
-    const friends = await db
-        .collection("friendsCollection")
-        .find({})
-        .sort({ metacritic: -1 })
-        .limit(20)
-        .toArray();
-    return {
-        props: {
-            friends: JSON.parse(JSON.stringify(friends)),
-        },
-    };
-}
-
 function DisplayFriends(props) {
     // Take the friends object, and display friends on a card
-    const friends = props.friends;
+    const friendList = props.friendList;
     return (
         <div className={styles.card}>
-            <h3>Friends List</h3>
+            <h3>Friend List</h3>
             {/*TODO: Ok to use friend_id? */}
-            {friends.map((friend) => {
+            {friendList.map((friend) => {
                 return <li key={friend._id}>{friend.name}: {friend.timezone}</li>
             })}
         </div>
     )
 }
 
-const Dashboard = ({ friends }) => {
-    const [friendsList, setFriendsList] = useState([friends])
+const Dashboard = () => {
+    const [friendList, setFriendList] = useState([]);
+    const [newFriend, setNewFriend] = useState(false);
+
+    function handleClick() {
+        // Use to refresh friend display
+        setNewFriend(!newFriend);
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch('/api/get_friends');
+
+            if (response.status != 200) {
+                throw new Error('cannot fetch data');
+            }
+            const data = await response.json();
+            return data;
+        }
+        fetchData()
+          .then((data) => {
+              console.log('resolved', data);
+              setFriendList(data);
+          })
+          .catch((err) => {
+              console.log('rejected', err.message);
+          });
+
+    }, [newFriend]);
+
     return (
         <div>
             <div>
@@ -67,8 +79,9 @@ const Dashboard = ({ friends }) => {
                 <div className={styles.grid}>
                     <div className={styles.card}>
                         <AddFriend></AddFriend>
+                        <button onClick={() => handleClick()}>Refresh Friends</button>
                     </div>
-                    <DisplayFriends friends={friends}></DisplayFriends>
+                    {friendList && <DisplayFriends friendList={friendList}></DisplayFriends>}
                 </div>
             </div>
         </div>
