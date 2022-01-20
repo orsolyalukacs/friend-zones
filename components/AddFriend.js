@@ -5,9 +5,9 @@ import styles from '../styles/Home.module.css';
 const UTC_OFFSETS = require('/data/timezones.json');
 
 const AddFriend = () => {
-    const contentType = 'application/json'
-    const [errors, setErrors] = useState({})  // For form validation issues
-    const [message, setMessage] = useState("")  // For db issues
+    const contentType = 'application/json';
+    const [errors, setErrors] = useState({});  // For form validation issues
+    const [message, setMessage] = useState("");  // For db issues
     const [form, setForm] = useState(
         {
             name: "",
@@ -25,48 +25,48 @@ const AddFriend = () => {
                     'Content-Type': contentType,
                 },
                 body: JSON.stringify(form),
-            })
+            });
             // Throw error is API fetch request functionalities
             if (!res.ok) {
-                throw new Error(res.status)
+                throw new Error(res.status);
             }
-            alert('Friend Added!')
+            alert('Friend Added!');
         } catch (error) {
             console.log(error);
             setMessage('Failed to add friend');
         }
-    }
+    };
 
     const handleChange = (e) => {
-        const target = e.target
-        const value = target.value
-        const name = target.name
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
 
         setForm({
             ...form,
             [name]: value,
         }
-        )
-    }
+        );
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        const errs = formValidate()
+        e.preventDefault();
+        const errs = formValidate();
         if (Object.keys(errs).length === 0) {
             // TODO: Change to update db and clock
-            console.log(`Form accepted: ${form.name} ${form.timezone}`)
-            postData(form)
+            console.log(`Form accepted: ${form.name} ${form.timezone}`);
+            postData(form);
         } else {
-            setErrors({ errs })
+            setErrors({ errs });
         }
-    }
+    };
 
     const formValidate = () => {
-        let err = {}
-        if (!form.name) err.name = 'Name is required'
-        if (!form.timezone) err.timezone = 'Timezone is required'
-        return err
-    }
+        let err = {};
+        if (!form.name) err.name = 'Name is required';
+        if (!form.timezone) err.timezone = 'Timezone is required';
+        return err;
+    };
 
     return (
         <div className={styles.form_container}>
@@ -110,7 +110,7 @@ const AddFriend = () => {
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AddFriend
+export default AddFriend;

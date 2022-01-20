@@ -1,4 +1,4 @@
-import Form from '../../components/Form';
+import Form from '../../components/Form'
 
 const NewUser = () => {
     const userForm = {
@@ -11,4 +11,4 @@ const NewUser = () => {
     return <Form formId="add-user-form" userForm={userForm} />
 }
 
-export default NewUser;
+export default NewUser

@@ -9,7 +9,7 @@ const NavBar = () => {
             <NavBarItem link="/account/new" title="Register" />
             <NavBarItem link="/account/Login" title="Log in/out" />
         </nav>
-    );
+    )
 }
 
-export default NavBar;
+export default NavBar

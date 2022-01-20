@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     },
 }, 
     // creates a createdAt and updatedAt field on our models that contain timestamps which will get automatically updated when our model changes
-    { timestamps: true });
+    { timestamps: true })
 
 // register schema with mongoose
 export default mongoose.models.User || mongoose.model('User', UserSchema)

@@ -1,8 +1,10 @@
-/* Gets all users data from db
-    http://localhost:3000/api/users/users
+/** Gets all users data from db
+ * http://localhost:3000/api/users/users
 */
+
 import { connectToDatabase } from "../../util/mongodb";
-export default async function usersApi(req, res) {
+
+export default async function usersApi(res) {
     const { db } = await connectToDatabase();
     const users = await db
         .collection("users")

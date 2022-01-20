@@ -1,14 +1,14 @@
 // friends
 // Pull in timezones from a json file and display them:
 // import
-import styles from '../../styles/dashboard.module.css'
+import styles from '../../styles/dashboard.module.css';
 import AddFriend from '../../components/AddFriend';
 
 const UTC_OFFSETS = require('/data/timezones.json');
 const timeSettings = { hour: '2-digit', minute: '2-digit' };
 
 function DisplayOffsets(props) {
-    const offsets = props.offsets
+    const offsets = props.offsets;
     // Display offsets
     return (
         offsets.map((offset) =>
@@ -38,6 +38,6 @@ const Dashboard = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Dashboard;
