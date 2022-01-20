@@ -1,8 +1,8 @@
 // home page
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Link from 'next/link';
-import clientPromise from '../lib/mongodb';
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+import { connectToDatabase } from '../util/mongodb'
 
 export default function Home({ isConnected }) {
   return (
@@ -53,7 +53,7 @@ export default function Home({ isConnected }) {
 
 export async function getServerSideProps(context) {
   try {
-    await clientPromise
+    await connectToDatabase()
     return {
       props: { isConnected: true },
     }
