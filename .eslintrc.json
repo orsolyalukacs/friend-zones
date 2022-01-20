@@ -1,3 +1,15 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "google",
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "require-jsdoc": 0,
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
 }
