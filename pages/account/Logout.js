@@ -1,5 +1,5 @@
 // logout
-import styles from '../../styles/Home.module.css'
+import styles from '../../styles/Home.module.css';
 
 const Logout = () => {
     return (
@@ -11,6 +11,6 @@ const Logout = () => {
             </main>
         </div>
     );
-}
+};
 
 export default Logout;

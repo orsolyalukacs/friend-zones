@@ -1,12 +1,11 @@
-// login
 import { useState } from 'react';
 import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
-import styles from '../../styles/Home.module.css';
 
-const Login = () => {
-    useUser({ redirectTo: '/', redirectIfFound: true });
+// TODO: add success message after signup
+const Signup = () => {
+    useUser({ redirectTo: '/Login', redirectIfFound: true });
 
     const [errorMsg, setErrorMsg] = useState('');
 
@@ -18,16 +17,22 @@ const Login = () => {
         const body = {
             username: e.currentTarget.username.value,
             password: e.currentTarget.password.value,
+            timezone: e.currentTarget.timezone.value,
         };
 
+        if (body.password !== e.currentTarget.rpassword.value) {
+            setErrorMsg(`The passwords don't match`);
+            return;
+        }
+
         try {
-            const res = await fetch('/api/account/login', {
+            const res = await fetch('/api/account/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             });
-            if (res.status === 200) {
-                Router.push('/account/Dashboard');
+            if (res.status === 201) {
+                Router.push('/account/Login');
             } else {
                 throw new Error(await res.text());
             }
@@ -38,15 +43,15 @@ const Login = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <main className={styles.main}>
+        <div className="container">
+            <main className="main">
                 <h1>
-                    Login
+                    Sign up
                 </h1>
-                <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+                <Form isLogin={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
             </main>
         </div>
     );
 };
 
-export default Login;
+export default Signup;

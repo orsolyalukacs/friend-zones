@@ -1,0 +1,21 @@
+/* Form */
+.container {
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+.submit {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submit > a {
+  text-decoration: none;
+}
+
+.error {
+  color: #f30070;
+  margin: 1rem 0 0;
+}

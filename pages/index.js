@@ -1,21 +1,26 @@
 // home page
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
+import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import { connectToDatabase } from '../util/mongodb';
 
-export default function Home() {
+export default function Home({ isConnected }) {
+
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Friend Zones app</title>
-        <meta name="description" content="A web app that displays a user's friends, and their associated timezones, in relation to the timezone of the user." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>
           {/* TODO: add deployed page url*/}
           Welcome to <a href="">Friend Zones!</a>
         </h1>
+
+        {isConnected ? (
+          <h2 className="subtitle">You are connected to MongoDB</h2>
+        ) : (
+          <h2 className="subtitle">
+            You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
+            for instructions.
+          </h2>
+        )}
 
         <p className={styles.description}>
           A web app that displays a user&apos;s friends, and their associated timezones, in relation to the timezone of the user.
@@ -28,7 +33,7 @@ export default function Home() {
               <p>Find out the current time in your friends&apos; timezone</p>
             </a>
           </Link>
-          <Link href="/account/Register">
+          <Link href="/account/Signup">
             <a className={styles.card}>
               <h2>Register &rarr;</h2>
               <p>Sign up to see timezones of your friends</p>
@@ -36,7 +41,20 @@ export default function Home() {
           </Link>
         </div>
       </main>
-
     </div>
-  )
+  );
+}
+
+export async function getServerSideProps(context) {
+  try {
+    await connectToDatabase();
+    return {
+      props: { isConnected: true },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: { isConnected: false },
+    };
+  }
 }
