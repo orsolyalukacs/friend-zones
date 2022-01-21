@@ -4,6 +4,7 @@
 import styles from '../../styles/dashboard.module.css'
 import AddFriend from '../../components/AddFriend';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const UTC_OFFSETS = require('/data/tznames.json');
 const timeSettings = { hour: '2-digit', minute: '2-digit' };
@@ -29,12 +30,31 @@ function DisplayOffsets(props) {
 function DisplayFriends(props) {
     // Take the friends object, and display friends on a card
     const friendList = props.friendList;
+    const router = useRouter();
+
+    function deleteFriend(e) {
+        const target = e.target;
+        const id = target.parentNode.getAttribute('id');
+        console.log(id);
+        //const { id } = router.query  // add the id to router object
+
+        // Send a delete request to /api/delete_friend/id
+        fetch('/api/friends/' + id, {
+            method: 'DELETE'
+        }).then(() => alert('Friend Deleted'))
+    }
+
     return (
         <div className={styles.card}>
             <h3>Friend List</h3>
             {/*TODO: Ok to use friend_id? */}
             {friendList.map((friend) => {
-                return <li key={friend._id}>{friend.name}: {friend.timezone}</li>
+                return (
+                    <li key={friend._id} id={friend._id}>
+                        {friend.name}: {friend.timezone}
+                        <button onClick={deleteFriend}>Delete</button>
+                    </li>
+                )
             })}
         </div>
     )
@@ -60,13 +80,13 @@ const Dashboard = () => {
             return data;
         }
         fetchData()
-          .then((data) => {
-              console.log('resolved', data);
-              setFriendList(data);
-          })
-          .catch((err) => {
-              console.log('rejected', err.message);
-          });
+            .then((data) => {
+                console.log('resolved', data);
+                setFriendList(data);
+            })
+            .catch((err) => {
+                console.log('rejected', err.message);
+            });
 
     }, [newFriend]);
 
