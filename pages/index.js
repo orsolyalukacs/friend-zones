@@ -1,18 +1,12 @@
 // home page
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
-import { connectToDatabase } from '../util/mongodb'
+import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import { connectToDatabase } from '../util/mongodb';
 
 export default function Home({ isConnected }) {
-  return (
 
+  return (
     <div className={styles.container}>
-      <Head>
-        <title>Friend Zones app</title>
-        <meta name="description" content="A web app that displays a user's friends, and their associated timezones, in relation to the timezone of the user." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>
           {/* TODO: add deployed page url*/}
@@ -39,7 +33,7 @@ export default function Home({ isConnected }) {
               <p>Find out the current time in your friends&apos; timezone</p>
             </a>
           </Link>
-          <Link href="/account/new">
+          <Link href="/account/Signup">
             <a className={styles.card}>
               <h2>Register &rarr;</h2>
               <p>Sign up to see timezones of your friends</p>
@@ -48,19 +42,19 @@ export default function Home({ isConnected }) {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
   try {
-    await connectToDatabase()
+    await connectToDatabase();
     return {
       props: { isConnected: true },
-    }
+    };
   } catch (e) {
-    console.error(e)
+    console.error(e);
     return {
       props: { isConnected: false },
-    }
+    };
   }
 }

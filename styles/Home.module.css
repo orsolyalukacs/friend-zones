@@ -159,41 +159,18 @@
   }
 }
 
-/* Register */
-.form {
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
-  max-width: 300px;
-}
-
-.form_container {
-  max-width: 400px;
-}
-
-.form_input {
-  padding: 0.4rem;
-  margin: 0.5rem;
-  border-radius: 4px;
-}
-
-.form_button {
-  padding: 0.4rem;
-  margin: 0.5rem;
-  width: 50%;
-  border-radius: 4px;
-}
-
-.form_dropdown {
-  padding: 0.4rem;
-  margin: 0.5rem;
-  max-width: 80%;
-}
-
 .border {
   border: 1px solid #eaeaea;
 }
 
 ul.user_list {
   list-style-type: none;
+}
+
+.login {
+  max-width: 21rem;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
