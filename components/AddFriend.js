@@ -62,7 +62,7 @@ const AddFriend = () => {
     };
 
     const formValidate = () => {
-        let err = {};
+        const err = {};
         if (!form.name) err.name = 'Name is required';
         if (!form.timezone) err.timezone = 'Timezone is required';
         return err;
@@ -92,8 +92,8 @@ const AddFriend = () => {
                     onChange={handleChange}
                     required>
                     <option value="">Select friend&apos;s timezone</option>
-                    {UTC_OFFSETS.map((timezone_offset) => {
-                        return <option key={timezone_offset} value={timezone_offset}>{timezone_offset}</option>;
+                    {UTC_OFFSETS.map((timezoneOffset) => {
+                        return <option key={timezoneOffset} value={timezoneOffset}>{timezoneOffset}</option>;
                     })
                     }
                 </select>
