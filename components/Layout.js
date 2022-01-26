@@ -1,7 +1,7 @@
 // layout
-import Footer from "../pages/nav/Footer";
+import Footer from "../components/nav/Footer";
 import Head from 'next/head';
-import NavBar from "../pages/nav/NavBar";
+import NavBar from "../components/nav/NavBar";
 import styles from "../styles/layout.module.css";
 
 const Layout = ({ children }) => {
