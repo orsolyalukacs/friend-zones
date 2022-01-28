@@ -3,7 +3,6 @@ import { connectToDatabase } from '../util/mongodb';
 
 
 function Friends({ friends }) {
-    console.log(friends)
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Friends List</h1>

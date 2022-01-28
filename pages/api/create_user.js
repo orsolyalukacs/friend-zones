@@ -1,4 +1,4 @@
-/* Creates user endpoint */
+/* Creates user endpoint at api/create_user */
 import { connectToDatabase } from "../../util/mongodb";
 
 export default async function handler(req, res) {

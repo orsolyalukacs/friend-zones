@@ -11,7 +11,7 @@ const FriendSchema = new mongoose.Schema({
         type: String, // stores timezone as timezone :"-5"
         required: [true, 'Timezone cannot be empty'],
     }
-});
+})
 
 // register/compile schema with mongoose
 export default mongoose.models.Friends || mongoose.model('Friend', FriendSchema)
