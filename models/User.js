@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
     // TODO: find out how to store timezone in MongoDB database
     timezone: {
         type: String, // stores timezone as timezone :"-5"
-        required: [true, 'Timezone cannit be empty'],
+        required: [true, 'Timezone cannot be empty'],
     },
 },
     // creates a createdAt and updatedAt field on our models that contain timestamps which will get automatically updated when our model changes
