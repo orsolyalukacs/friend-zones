@@ -8,21 +8,23 @@ const NavBar = () => {
 
     return (
         <nav className={styles.navbar}>
-            {user ? (
-                <>
-                    <p className="subtitle">Hello, {JSON.parse(JSON.stringify(user.username))}</p>
-                    <NavBarItem link="/account/Dashboard" title="Dashboard" />
-                    <NavBarItem link="/account/Friends" title="Friends" />
-                    <NavBarItem link="/api/account/logout" title="Log out" />
-                </>
-            ) : (
-                <>
-                    <NavBarItem link="/" title="Home" />
-                    <NavBarItem link="/account/Signup" title="Register" />
-                    <NavBarItem link="/account/Login" title="Log in" />
-                </>
+            {user ?
+                (
+                    <>
+                        <p className="subtitle">Hello, {JSON.parse(JSON.stringify(user.username))}</p>
+                        <NavBarItem link="/account/Dashboard" title="Dashboard" />
+                        <NavBarItem link="/account/Friends" title="Friends" />
+                        <NavBarItem link="/account/UserPage" title="Settings" />
+                        <NavBarItem link="/api/account/logout" title="Log out" />
+                    </>
+                ) : (
+                    <>
+                        <NavBarItem link="/" title="Home" />
+                        <NavBarItem link="/account/Signup" title="Register" />
+                        <NavBarItem link="/account/Login" title="Log in" />
+                    </>
 
-            )}
+                )}
         </nav>
     );
 };

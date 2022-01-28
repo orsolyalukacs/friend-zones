@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 /* UserSchema will correspond to a collection in the MongoDB database. */
 const UserSchema = new mongoose.Schema({
@@ -25,11 +25,11 @@ const UserSchema = new mongoose.Schema({
     // TODO: find out how to store timezone in MongoDB database
     timezone: {
         type: String, // stores timezone as timezone :"-5"
-        required: [true, 'Timezone cannit be empty'],
+        required: [true, 'Timezone cannot be empty'],
     },
-}, 
+},
     // creates a createdAt and updatedAt field on our models that contain timestamps which will get automatically updated when our model changes
-    { timestamps: true })
+    { timestamps: true });
 
 // register schema with mongoose
-export default mongoose.models.User || mongoose.model('User', UserSchema)
+export default mongoose.models.User || mongoose.model('User', UserSchema);
