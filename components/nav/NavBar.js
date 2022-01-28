@@ -14,6 +14,7 @@ const NavBar = () => {
                         <p className="subtitle">Hello, {JSON.parse(JSON.stringify(user.username))}</p>
                         <NavBarItem link="/account/Dashboard" title="Dashboard" />
                         <NavBarItem link="/account/Friends" title="Friends" />
+                        <NavBarItem link="/account/UserPage" title="Settings" />
                         <NavBarItem link="/api/account/logout" title="Log out" />
                     </>
                 ) : (
