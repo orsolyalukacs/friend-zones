@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import styles from '../../styles/dashboard.module.css';
-
 import AddFriend from '../../components/AddFriend';
 import DisplayFriends from '../../components/DisplayFriends';
 import DisplayOffsets from '../../components/DisplayOffsets';
-
+import { useUser } from '../../lib/hooks';
 
 const Friends = () => {
+    const user = useUser();
     const [friendList, setFriendList] = useState([]);
     const [newFriend, setNewFriend] = useState(false);
     const UTC_OFFSETS = require('/data/tznames.json');
@@ -48,7 +48,7 @@ const Friends = () => {
                 </div>
                 <div className={styles.grid}>
                     <div className={styles.card}>
-                        <AddFriend></AddFriend>
+                        <AddFriend user={user}></AddFriend>
                         <button onClick={() => handleClick()}>Refresh Friends</button>
                     </div>
                     {friendList && <DisplayFriends friendList={friendList}></DisplayFriends>}
