@@ -15,7 +15,7 @@ export default async function handler(req, res) {
                 $push: {
                     friendsList:
                     {
-                        "friend_id": ObjectId(),
+                        "friend_id": objectId(),
                         "name": req.body.name,
                         "coordinates":
                             req.body.coordinates

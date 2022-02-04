@@ -35,8 +35,6 @@ const Friends = () => {
 
     // Populate the friendsList
     useEffect(() => {
-        console.log('logged in user: ', userInfo);
-
         const fetchData = async () => {
             const response = await fetch(`/api/get_friends?userInfo=${userInfo}`);
             if (response.status != 200) {
@@ -48,7 +46,7 @@ const Friends = () => {
         };
         fetchData()
             .then((data) => {
-                console.log('resolved', data);
+                // console.log('resolved', data);
                 setFriendList(data[0].friendsList);
             })
             .catch((err) => {
@@ -125,7 +123,9 @@ const Friends = () => {
                                 longitude={selectedFriend.coordinates.longitude}
                                 onClose={() => setSelectedFriend(null)}
                                 closeOnClick={true}>
-                                <FriendInfo friend={selectedFriend}
+                                <FriendInfo
+                                    user={user}
+                                    friend={selectedFriend}
                                     updated={updated}
                                     setUpdated={setUpdated}
                                     setSelectedFriend={setSelectedFriend}>
