@@ -2,6 +2,7 @@
 import NavBarItem from './NavBarItem';
 import styles from '../../styles/Home.module.css';
 import { useUser } from '../../lib/hooks';
+import Link from "next/link";
 
 const NavBar = () => {
     const user = useUser();
@@ -13,7 +14,12 @@ const NavBar = () => {
                     <>
                         <p className="subtitle">Hello, {JSON.parse(JSON.stringify(user.username))}</p>
                         <NavBarItem link="/account/Dashboard" title="Dashboard" />
-                        <NavBarItem link="/account/Friends" title="Friends" />
+                        <div className={styles.navlink}>
+                            <Link href={{
+                                pathname: "/account/Friends",
+                                query: { userInfo: user.username }
+                            }} ><a>Friends</a></Link>
+                        </div>
                         <NavBarItem link="/account/UserPage" title="Settings" />
                         <NavBarItem link="/api/account/logout" title="Log out" />
                     </>

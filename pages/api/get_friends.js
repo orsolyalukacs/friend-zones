@@ -2,13 +2,22 @@
     http://localhost:3000/api/get_friends
 */
 import { connectToDatabase } from "../../util/mongodb";
-export default async function usersApi(req, res) {
+
+export default async function friendsApi(req, res) {
     const { db } = await connectToDatabase();
-    const users = await db
+    const username = req.query.userInfo;
+
+    const friends = await db
         .collection("users")
-        .find({})
+        .find({ "username": username })
         .sort({ metacritic: -1 })
         .limit(20)
         .toArray();
-    res.json(users);
+    res.json(friends);
+    //     }
+    // }
+    // catch (error) {
+    //     console.error(error);
+    //     res.status(500).end(error.message);
+    // }
 }

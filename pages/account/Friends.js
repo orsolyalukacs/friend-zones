@@ -7,11 +7,17 @@ import NewFriend from '../../components/NewFriend';
 import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
 import { useUser } from '../../lib/hooks';
+import { useRouter } from "next/router";
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 
 const Friends = () => {
     const user = useUser();
+    const router = useRouter();
+    const {
+        query: { userInfo },
+    } = router;
+
     // Initialize map
     // TODO: set default lat and long based on user location
     const [viewport, setViewport] = useState({
@@ -29,18 +35,21 @@ const Friends = () => {
 
     // Populate the friendsList
     useEffect(() => {
+        console.log('logged in user: ', userInfo);
+
         const fetchData = async () => {
-            const response = await fetch('/api/get_friends');
+            const response = await fetch(`/api/get_friends?userInfo=${userInfo}`);
             if (response.status != 200) {
                 throw new Error('cannot fetch data');
             }
             const data = await response.json();
+            console.log('friends data fetched: ', data[0].friendsList);
             return data;
         };
         fetchData()
             .then((data) => {
                 console.log('resolved', data);
-                setFriendList(data);
+                setFriendList(data[0].friendsList);
             })
             .catch((err) => {
                 console.log('rejected', err.message);
@@ -95,17 +104,20 @@ const Friends = () => {
                             </Popup>
                         }
 
-                        {friendList.map(friend => (
-                            <Marker
-                                key={friend._id}
-                                latitude={friend.coordinates.latitude}
-                                longitude={friend.coordinates.longitude}>
-                                <FriendPin setSelectedFriend={setSelectedFriend}
-                                    size={20}
-                                    friend={friend}>
-                                </FriendPin>
-                            </Marker>
-                        ))}
+                        {friendList ?
+                            friendList.map(friend => (
+                                <Marker
+                                    key={friend._id}
+                                    latitude={friend.coordinates.latitude}
+                                    longitude={friend.coordinates.longitude}>
+                                    <FriendPin setSelectedFriend={setSelectedFriend}
+                                        size={20}
+                                        friend={friend}>
+                                    </FriendPin>
+                                </Marker>
+                            )) : (
+                                <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
+                                </div>)}
 
                         {selectedFriend &&
                             <Popup
@@ -129,3 +141,7 @@ const Friends = () => {
 };
 
 export default Friends;
+
+Friends.getInitialProps = ({ query: { userInfo } }) => {
+    return { userInfo };
+};
