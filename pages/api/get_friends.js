@@ -5,7 +5,7 @@ import { connectToDatabase } from "../../util/mongodb";
 export default async function usersApi(req, res) {
     const { db } = await connectToDatabase();
     const users = await db
-        .collection("friendsCollection")
+        .collection("users")
         .find({})
         .sort({ metacritic: -1 })
         .limit(20)
