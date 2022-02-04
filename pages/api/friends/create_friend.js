@@ -1,6 +1,6 @@
 /* Creates friend endpoint to be used in POST request */
 import { ObjectId } from "mongodb";
-import { connectToDatabase } from "../../../../util/mongodb";
+import { connectToDatabase } from "../../../util/mongodb";
 
 export default async function handler(req, res) {
     const { db } = await connectToDatabase();

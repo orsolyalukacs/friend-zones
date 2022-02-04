@@ -52,7 +52,7 @@ const Friends = () => {
             .catch((err) => {
                 console.log('rejected', err.message);
             });
-    }, [updated]);
+    }, [updated, userInfo]);
 
     // Update the map clicks for newFriendMarker
     const handleClick = (e) => {
@@ -132,7 +132,6 @@ const Friends = () => {
                                 </FriendInfo>
                             </Popup>
                         }
-
                     </ReactMapGL>
                 </div>
             </div>
