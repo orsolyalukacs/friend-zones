@@ -22,7 +22,7 @@ const NewFriend = (props) => {
         // TODO: fetch timezone api info to add before posting
         // POST data to db
         try {
-            fetch('/api/create_friend', {
+            fetch('/api/friends/create_friend', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newFriend)

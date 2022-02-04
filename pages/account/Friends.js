@@ -36,7 +36,7 @@ const Friends = () => {
     // Populate the friendsList
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/get_friends?userInfo=${userInfo}`);
+            const response = await fetch(`/api/friends/get_friends?userInfo=${userInfo}`);
             if (response.status != 200) {
                 throw new Error('cannot fetch data');
             }

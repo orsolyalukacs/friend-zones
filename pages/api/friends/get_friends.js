@@ -1,7 +1,7 @@
 /* Gets all users data from db
     http://localhost:3000/api/get_friends
 */
-import { connectToDatabase } from "../../util/mongodb";
+import { connectToDatabase } from "../../../util/mongodb";
 
 export default async function friendsApi(req, res) {
     const { db } = await connectToDatabase();
@@ -14,10 +14,4 @@ export default async function friendsApi(req, res) {
         .limit(20)
         .toArray();
     res.json(friends);
-    //     }
-    // }
-    // catch (error) {
-    //     console.error(error);
-    //     res.status(500).end(error.message);
-    // }
 }
