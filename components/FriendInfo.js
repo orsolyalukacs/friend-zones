@@ -12,7 +12,7 @@ const FriendInfo = ({ friend, user, updated, setUpdated, setSelectedFriend }) =>
                 method: 'DELETE'
             });
             console.log('Friend deleted');
-            setUpdated(!(updated));
+            setUpdated(!updated);
             setSelectedFriend(null);
         } catch (error) {
             console.log('Failed to delete friend', error);
