@@ -19,6 +19,7 @@ const FriendPin = (props) => {
             }}
             onMouseOver={() => {
                 props.setSelectedFriend(props.friend);
+                props.setAddingFriend(null);
             }}>
             <path d={ICON} />
 

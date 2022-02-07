@@ -15,7 +15,8 @@ const Pin = (props) => {
     return (
         <svg height={size} viewBox="0 0 24 24" style={pinStyle}
             onMouseOver={() => {
-                props.setAddingFriend(true);
+                (!props.selectedFriend) ? props.setAddingFriend(true) :
+                    props.setSelectedFriend(null);
             }}>
             <path d={ICON} />
 
