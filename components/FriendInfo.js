@@ -1,18 +1,19 @@
 //  FriendInfo for Popup
-const FriendInfo = (props) => {
-    const friend = props.friend;
+const FriendInfo = ({ friend, user, updated, setUpdated, setSelectedFriend }) => {
 
     const handleDelete = (e) => {
         // connects to db, and deletes friend based on id
         e.preventDefault();
         const id = e.target.value;
+
         try {
-            fetch(`/api/friends/${id}`, {
+
+            fetch(`/api/friends/${id}?userInfo=${user.username}`, {
                 method: 'DELETE'
             });
             console.log('Friend deleted');
-            props.setUpdated(!(props.updated));
-            props.setSelectedFriend(null);
+            setUpdated(!updated);
+            setSelectedFriend(null);
         } catch (error) {
             console.log('Failed to delete friend', error);
         }
@@ -21,7 +22,9 @@ const FriendInfo = (props) => {
     return (
         <form>
             <h4>{friend.name}</h4>
-            <button onClick={handleDelete} value={friend._id}>Delete Friend</button>
+            <p>{friend.coordinates.latitude}</p>
+            <p>{friend.coordinates.longitude}</p>
+            <button onClick={handleDelete} value={friend.friend_id}>Delete Friend</button>
         </form>
     );
 };

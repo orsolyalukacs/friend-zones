@@ -4,12 +4,13 @@ import styles from '../styles/Home.module.css';
 
 const UTC_OFFSETS = require('/data/timezones.json');
 
-const AddFriend = () => {
+const AddFriend = ({ user }) => {
     const contentType = 'application/json';
     const [errors, setErrors] = useState({});  // For form validation issues
     const [message, setMessage] = useState("");  // For db issues
     const [form, setForm] = useState(
         {
+            _id: user._id,
             name: "",
             timezone: ""
         }

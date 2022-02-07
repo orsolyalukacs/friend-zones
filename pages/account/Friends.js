@@ -6,11 +6,19 @@ import Pin from '../../components/Pin';
 import NewFriend from '../../components/NewFriend';
 import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
+import { useUser } from '../../lib/hooks';
+import { useRouter } from "next/router";
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 const GEO_TOKEN = process.env.NEXT_PUBLIC_GEO_TOKEN;
 
 const Friends = () => {
+    const user = useUser();
+    const router = useRouter();
+    const {
+        query: { userInfo },
+    } = router;
+
     // Initialize map
     // TODO: set default lat and long based on user location
     const [viewport, setViewport] = useState({
@@ -31,22 +39,23 @@ const Friends = () => {
     // Populate the friendsList
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('/api/get_friends');
+            const response = await fetch(`/api/friends/get_friends?userInfo=${userInfo}`);
             if (response.status != 200) {
                 throw new Error('cannot fetch data');
             }
             const data = await response.json();
+            console.log('friends data fetched: ', data[0].friendsList);
             return data;
         };
         fetchData()
             .then((data) => {
-                console.log('resolved', data);
-                setFriendList(data);
+                // console.log('resolved', data);
+                setFriendList(data[0].friendsList);
             })
             .catch((err) => {
                 console.log('rejected', err.message);
             });
-    }, [updated]);
+    }, [updated, userInfo]);
 
     const fetchAPI = async (latitude, longitude) => {
         const res = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=${GEO_TOKEN}&lat=${latitude}&long=${longitude}`);
@@ -115,25 +124,29 @@ const Friends = () => {
                                     marker={marker}
                                     setUpdated={setUpdated}
                                     updated={updated}
+                                    user={user}
                                     setAddingFriend={setAddingFriend}
                                     data={data}>
                                 </NewFriend>
                             </Popup>
                         }
 
-                        {friendList.map(friend => (
-                            <Marker
-                                key={friend._id}
-                                latitude={friend.coordinates.latitude}
-                                longitude={friend.coordinates.longitude}
-                                offsetTop={-20}
-                                offsetLeft={-10}>
-                                <FriendPin setSelectedFriend={setSelectedFriend}
-                                    size={20}
-                                    friend={friend}>
-                                </FriendPin>
-                            </Marker>
-                        ))}
+                        {friendList ?
+                            friendList.map(friend => (
+                                <Marker
+                                    key={friend._id}
+                                    latitude={friend.coordinates.latitude}
+                                    longitude={friend.coordinates.longitude}
+                                    offsetTop={-20}
+                                    offsetLeft={-10}>
+                                    <FriendPin setSelectedFriend={setSelectedFriend}
+                                        size={20}
+                                        friend={friend}>
+                                    </FriendPin>
+                                </Marker>
+                            )) : (
+                                <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
+                                </div>)}
 
                         {selectedFriend &&
                             <Popup
@@ -141,7 +154,9 @@ const Friends = () => {
                                 longitude={selectedFriend.coordinates.longitude}
                                 onClose={() => setSelectedFriend(null)}
                                 closeOnClick={true}>
-                                <FriendInfo friend={selectedFriend}
+                                <FriendInfo
+                                    user={user}
+                                    friend={selectedFriend}
                                     updated={updated}
                                     setUpdated={setUpdated}
                                     setSelectedFriend={setSelectedFriend}>
@@ -171,3 +186,7 @@ const Friends = () => {
 };
 
 export default Friends;
+
+Friends.getInitialProps = ({ query: { userInfo } }) => {
+    return { userInfo };
+};

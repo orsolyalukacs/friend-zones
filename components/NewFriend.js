@@ -9,6 +9,7 @@ const NewFriend = (props) => {
         e.preventDefault();
 
         const newFriend = {
+            _id: props.user._id,
             name: nameInput.current.value,
             coordinates: {
                 "latitude": marker.latitude,
@@ -19,7 +20,7 @@ const NewFriend = (props) => {
         };
 
         try {
-            fetch('/api/create_friend', {
+            fetch('/api/friends/create_friend', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newFriend)
