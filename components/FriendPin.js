@@ -16,6 +16,9 @@ const FriendPin = (props) => {
         <svg height={size} viewBox="0 0 24 24" style={pinStyle}
             onClick={() => {
                 props.setSelectedFriend(props.friend);
+            }}
+            onMouseOver={() => {
+                props.setSelectedFriend(props.friend);
             }}>
             <path d={ICON} />
 

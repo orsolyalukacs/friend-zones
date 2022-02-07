@@ -2,25 +2,23 @@
 import { useRef } from "react";
 
 const NewFriend = (props) => {
-    // Consts
     const nameInput = useRef(null);
     const marker = props.marker;
 
-    // Functions
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Create the newFriend object
+
         const newFriend = {
             _id: props.user._id,
             name: nameInput.current.value,
             coordinates: {
                 "latitude": marker.latitude,
                 "longitude": marker.longitude
-            }
+            },
+            timezone: props.data.timezone,
+            timezone_offset: props.data.timezone_offset
         };
 
-        // TODO: fetch timezone api info to add before posting
-        // POST data to db
         try {
             fetch('/api/friends/create_friend', {
                 method: 'POST',
