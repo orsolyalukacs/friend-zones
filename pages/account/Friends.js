@@ -125,7 +125,7 @@ const Friends = () => {
                                     setUpdated={setUpdated}
                                     updated={updated}
                                     user={user}
-                                    setAddingFriend={setAddingFriend}>
+                                    setAddingFriend={setAddingFriend}
                                     data={data}>
                                 </NewFriend>
                             </Popup>

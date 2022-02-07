@@ -18,7 +18,9 @@ export default async function handler(req, res) {
                         "friend_id": objectId(),
                         "name": req.body.name,
                         "coordinates":
-                            req.body.coordinates
+                            req.body.coordinates,
+                        "timezone": req.body.timezone,
+                        "timezone_offset": req.body.timezone_offset
                     }
                 },
             }, // Update with newly added friend to friendsList array
