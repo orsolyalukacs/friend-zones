@@ -21,8 +21,6 @@ const FriendInfo = (props) => {
     return (
         <form>
             <h4>{friend.name}</h4>
-            <p>{friend.coordinates.latitude}</p>
-            <p>{friend.coordinates.longitude}</p>
             <button onClick={handleDelete} value={friend._id}>Delete Friend</button>
         </form>
     );
