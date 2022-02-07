@@ -115,9 +115,6 @@ const Friends = () => {
                                     selectedFriend={selectedFriend}
                                     setSelectedFriend={setSelectedFriend}>
                                 </Pin>
-                                <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
-                                    {displayInfoCard ? "Hide Friends" : "Show Friends"}
-                                </button>
                             </Marker>
                         }
 
@@ -178,20 +175,25 @@ const Friends = () => {
                     </ReactMapGL>
                 </div>
 
-                {displayInfoCard &&
-                    <div className={styles.card}>
-                        {friendList.map(friend => (
-                            <div key={friend._id}>
-                                <p>{friend.name}</p>
-                                <p>{friend.coordinates.latitude}</p>
-                                <p>{friend.coordinates.longitude}</p>
-                                <p>{friend.timezone}</p>
-                                <p>{friend.timezone_offset}</p>
-                                <hr></hr>
-                            </div>
-                        ))}
-                    </div>
-                }
+                <div>
+                    <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
+                        {displayInfoCard ? "Hide Friends" : "Show Friends"}
+                    </button>
+                    {displayInfoCard &&
+                        <div className={styles.card}>
+                            {friendList.map(friend => (
+                                <div key={friend._id}>
+                                    <p>{friend.name}</p>
+                                    <p>{friend.coordinates.latitude}</p>
+                                    <p>{friend.coordinates.longitude}</p>
+                                    <p>{friend.timezone}</p>
+                                    <p>{friend.timezone_offset}</p>
+                                    <hr></hr>
+                                </div>
+                            ))}
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     );
