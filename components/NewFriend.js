@@ -29,6 +29,7 @@ const NewFriend = (props) => {
                 console.log('Friend added: ', newFriend);
                 props.setUpdated(!(props.updated));
                 props.setAddingFriend(false);
+                props.setMarker(null);
             });
         } catch (error) {
             console.log('Failed to add Friend', error);
@@ -50,7 +51,7 @@ const NewFriend = (props) => {
             </label>
             <p>Lat: {marker.latitude}</p>
             <p>Long: {marker.longitude}</p>
-            <button type="submit">Add Friend</button>
+            <button type="submit" value={"preventNewMarker"}>Add Friend</button>
         </form>
     );
 };

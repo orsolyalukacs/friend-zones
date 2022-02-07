@@ -70,22 +70,25 @@ const Friends = () => {
     // Update the map clicks for newFriendMarker
     const handleClick = (e) => {
         e.preventDefault();
+        const isAddOrDelete = e.target.value;
         // Parse coordinates for api compatibility
-        const longitude = parseFloat((e.lngLat[0]).toFixed(4));
-        const latitude = parseFloat((e.lngLat[1]).toFixed(4));
-        setMarker({
-            longitude: longitude,
-            latitude: latitude
-        });
-
-        // Get timezone info
-        fetchAPI(latitude, longitude)
-            .then((data) => {
-                console.log('resolved');
-                setData(data);
-            }).catch((error) => {
-                console.log('rejected', error);
+        if (!isAddOrDelete) {
+            const longitude = parseFloat((e.lngLat[0]).toFixed(4));
+            const latitude = parseFloat((e.lngLat[1]).toFixed(4));
+            setMarker({
+                longitude: longitude,
+                latitude: latitude
             });
+
+            // Get timezone info
+            fetchAPI(latitude, longitude)
+                .then((data) => {
+                    console.log('resolved');
+                    setData(data);
+                }).catch((error) => {
+                    console.log('rejected', error);
+                });
+        }
     };
 
     return (
@@ -107,10 +110,11 @@ const Friends = () => {
                                 offsetTop={-20}
                                 offsetLeft={-10}
                                 anchor={"top-left"}>
-                                <Pin setAddingFriend={setAddingFriend} size={20}></Pin>
-                                <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
-                                    {displayInfoCard ? "Hide Friends" : "Show Friends"}
-                                </button>
+                                <Pin setAddingFriend={setAddingFriend}
+                                    size={20}
+                                    selectedFriend={selectedFriend}
+                                    setSelectedFriend={setSelectedFriend}>
+                                </Pin>
                             </Marker>
                         }
 
@@ -118,7 +122,10 @@ const Friends = () => {
                             <Popup
                                 latitude={marker.latitude}
                                 longitude={marker.longitude}
-                                onClose={() => setAddingFriend(false)}
+                                onClose={() => {
+                                    setAddingFriend(false);
+                                    setMarker(null);
+                                }}
                                 closeOnClick={true}>
                                 <NewFriend
                                     marker={marker}
@@ -126,6 +133,7 @@ const Friends = () => {
                                     updated={updated}
                                     user={user}
                                     setAddingFriend={setAddingFriend}
+                                    setMarker={setMarker}
                                     data={data}>
                                 </NewFriend>
                             </Popup>
@@ -140,6 +148,7 @@ const Friends = () => {
                                     offsetTop={-20}
                                     offsetLeft={-10}>
                                     <FriendPin setSelectedFriend={setSelectedFriend}
+                                        setAddingFriend={setAddingFriend}
                                         size={20}
                                         friend={friend}>
                                     </FriendPin>
@@ -166,20 +175,25 @@ const Friends = () => {
                     </ReactMapGL>
                 </div>
 
-                {displayInfoCard &&
-                    <div className={styles.card}>
-                        {friendList.map(friend => (
-                            <div key={friend._id}>
-                                <p>{friend.name}</p>
-                                <p>{friend.coordinates.latitude}</p>
-                                <p>{friend.coordinates.longitude}</p>
-                                <p>{friend.timezone}</p>
-                                <p>{friend.timezone_offset}</p>
-                                <hr></hr>
-                            </div>
-                        ))}
-                    </div>
-                }
+                <div>
+                    <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
+                        {displayInfoCard ? "Hide Friends" : "Show Friends"}
+                    </button>
+                    {displayInfoCard &&
+                        <div className={styles.card}>
+                            {friendList.map(friend => (
+                                <div key={friend._id}>
+                                    <p>{friend.name}</p>
+                                    <p>{friend.coordinates.latitude}</p>
+                                    <p>{friend.coordinates.longitude}</p>
+                                    <p>{friend.timezone}</p>
+                                    <p>{friend.timezone_offset}</p>
+                                    <hr></hr>
+                                </div>
+                            ))}
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     );
