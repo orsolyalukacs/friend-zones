@@ -118,7 +118,10 @@ const Friends = () => {
                             <Popup
                                 latitude={marker.latitude}
                                 longitude={marker.longitude}
-                                onClose={() => setAddingFriend(false)}
+                                onClose={() => {
+                                    setAddingFriend(false)
+                                    setMarker(null)
+                                }}
                                 closeOnClick={true}>
                                 <NewFriend
                                     marker={marker}
