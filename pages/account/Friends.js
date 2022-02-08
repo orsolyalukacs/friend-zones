@@ -122,6 +122,7 @@ const Friends = () => {
                             <Popup
                                 latitude={marker.latitude}
                                 longitude={marker.longitude}
+                                sortByDepth={true}
                                 onClose={() => {
                                     setAddingFriend(false);
                                     setMarker(null);
