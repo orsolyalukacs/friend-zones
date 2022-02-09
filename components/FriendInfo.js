@@ -22,8 +22,9 @@ const FriendInfo = ({ friend, user, updated, setUpdated, setSelectedFriend }) =>
     return (
         <form>
             <h4>{friend.name}</h4>
-            <p>{friend.coordinates.latitude}</p>
-            <p>{friend.coordinates.longitude}</p>
+            <p>Local Time: {new Date().toLocaleTimeString([],
+                { timeZone: (friend.timezone), hour: '2-digit', minute: '2-digit' })}
+            </p>
             <button onClick={handleDelete} value={friend.friend_id}>Delete Friend</button>
         </form>
     );
