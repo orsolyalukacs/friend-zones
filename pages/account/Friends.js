@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../../styles/Friends.module.css';
 import Pin from '../../components/Pin';
@@ -7,7 +7,7 @@ import NewFriend from '../../components/NewFriend';
 import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
 import { useUser } from '../../lib/hooks';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 const GEO_TOKEN = process.env.NEXT_PUBLIC_GEO_TOKEN;
@@ -26,7 +26,7 @@ const Friends = () => {
         longitude: -77.466484,
         width: '80vw',
         height: '80vh',
-        zoom: 2
+        zoom: 2,
     });
     const [friendList, setFriendList] = useState([]);
     const [marker, setMarker] = useState(null);
@@ -35,11 +35,14 @@ const Friends = () => {
     const [selectedFriend, setSelectedFriend] = useState(null);
     const [displayInfoCard, setDisplayInfoCard] = useState(false);
     const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
 
     // Populate the friendsList
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`/api/friends/get_friends?userInfo=${userInfo}`);
+            const response = await fetch(
+                `/api/friends/get_friends?userInfo=${userInfo}`
+            );
             if (response.status != 200) {
                 throw new Error('cannot fetch data');
             }
@@ -58,11 +61,13 @@ const Friends = () => {
     }, [updated, userInfo]);
 
     const fetchAPI = async (latitude, longitude) => {
-        const res = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=${GEO_TOKEN}&lat=${latitude}&long=${longitude}`);
+        const res = await fetch(
+            `https://api.ipgeolocation.io/timezone?apiKey=${GEO_TOKEN}&lat=${latitude}&long=${longitude}`
+        );
 
         if (res.status != 200) {
             throw new Error('unable to fetch timezone data');
-        };
+        }
         const data = await res.json();
         return data;
     };
@@ -73,20 +78,23 @@ const Friends = () => {
         const isAddOrDelete = e.target.value;
         // Parse coordinates for api compatibility
         if (!isAddOrDelete) {
-            const longitude = parseFloat((e.lngLat[0]).toFixed(4));
-            const latitude = parseFloat((e.lngLat[1]).toFixed(4));
+            const longitude = parseFloat(e.lngLat[0].toFixed(4));
+            const latitude = parseFloat(e.lngLat[1].toFixed(4));
             setMarker({
                 longitude: longitude,
-                latitude: latitude
+                latitude: latitude,
             });
 
             // Get timezone info
             fetchAPI(latitude, longitude)
                 .then((data) => {
                     console.log('resolved');
+                    setError(null);
                     setData(data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log('rejected', error);
+                    setError(error);
                 });
         }
     };
@@ -100,25 +108,30 @@ const Friends = () => {
                         mapboxApiAccessToken={MAP_TOKEN}
                         {...viewport}
                         mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
-                        onViewportChange={viewport => setViewport(viewport)}
-                        onClick={handleClick}>
+                        onViewportChange={(viewport) => setViewport(viewport)}
+                        onClick={handleClick}
+                        maxZoom={20}>
 
-                        {marker &&
+                        <GeolocateControl position="top-left" />
+
+                        {marker && (
                             <Marker
                                 latitude={marker.latitude}
                                 longitude={marker.longitude}
                                 offsetTop={-20}
                                 offsetLeft={-10}
-                                anchor={"top-left"}>
-                                <Pin setAddingFriend={setAddingFriend}
+                                anchor={'top-left'}
+                            >
+                                <Pin
+                                    setAddingFriend={setAddingFriend}
                                     size={20}
                                     selectedFriend={selectedFriend}
-                                    setSelectedFriend={setSelectedFriend}>
-                                </Pin>
+                                    setSelectedFriend={setSelectedFriend}
+                                ></Pin>
                             </Marker>
-                        }
+                        )}
 
-                        {addingFriend &&
+                        {addingFriend && (
                             <Popup
                                 latitude={marker.latitude}
                                 longitude={marker.longitude}
@@ -127,7 +140,8 @@ const Friends = () => {
                                     setAddingFriend(false);
                                     setMarker(null);
                                 }}
-                                closeOnClick={true}>
+                                closeOnClick={true}
+                            >
                                 <NewFriend
                                     marker={marker}
                                     setUpdated={setUpdated}
@@ -135,54 +149,62 @@ const Friends = () => {
                                     user={user}
                                     setAddingFriend={setAddingFriend}
                                     setMarker={setMarker}
-                                    data={data}>
-                                </NewFriend>
+                                    data={data}
+                                    error={error}
+                                ></NewFriend>
                             </Popup>
-                        }
+                        )}
 
-                        {friendList ?
-                            friendList.map(friend => (
+                        {friendList ? (
+                            friendList.map((friend) => (
                                 <Marker
                                     key={friend._id}
                                     latitude={friend.coordinates.latitude}
                                     longitude={friend.coordinates.longitude}
                                     offsetTop={-20}
-                                    offsetLeft={-10}>
-                                    <FriendPin setSelectedFriend={setSelectedFriend}
+                                    offsetLeft={-10}
+                                >
+                                    <FriendPin
+                                        setSelectedFriend={setSelectedFriend}
                                         setAddingFriend={setAddingFriend}
                                         size={20}
-                                        friend={friend}>
-                                    </FriendPin>
+                                        friend={friend}
+                                    ></FriendPin>
                                 </Marker>
-                            )) : (
-                                <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
-                                </div>)}
+                            ))
+                        ) : (
+                            <div className={styles.message}>
+                                {' '}
+                                <p>You don&apos;t have any friends added yet.</p>
+                            </div>
+                        )}
 
-                        {selectedFriend &&
+                        {selectedFriend && (
                             <Popup
                                 latitude={selectedFriend.coordinates.latitude}
                                 longitude={selectedFriend.coordinates.longitude}
                                 onClose={() => setSelectedFriend(null)}
-                                closeOnClick={true}>
+                                closeOnClick={true}
+                            >
                                 <FriendInfo
                                     user={user}
                                     friend={selectedFriend}
                                     updated={updated}
                                     setUpdated={setUpdated}
-                                    setSelectedFriend={setSelectedFriend}>
-                                </FriendInfo>
+                                    setSelectedFriend={setSelectedFriend}
+                                ></FriendInfo>
                             </Popup>
-                        }
+                        )}
                     </ReactMapGL>
                 </div>
 
                 <div>
                     <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
-                        {displayInfoCard ? "Hide Friends" : "Show Friends"}
+                        {displayInfoCard ? 'Hide Friends' : 'Show Friends'}
                     </button>
-                    {displayInfoCard &&
+                    {displayInfoCard && (
                         <div className={styles.card}>
-                            {friendList.map(friend => (
+                            {friendList.map((friend) => (
                                 <div key={friend._id}>
                                     <p>{friend.name}</p>
                                     <p>{friend.coordinates.latitude}</p>
@@ -193,7 +215,7 @@ const Friends = () => {
                                 </div>
                             ))}
                         </div>
-                    }
+                    )}
                 </div>
             </div>
         </div>
