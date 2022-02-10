@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../../styles/Friends.module.css';
 import Pin from '../../components/Pin';
@@ -110,7 +110,10 @@ const Friends = () => {
             mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
             onViewportChange={(viewport) => setViewport(viewport)}
             onClick={handleClick}
+            maxZoom={20}
           >
+            <GeolocateControl position="top-left" />
+
             {marker && (
               <Marker
                 latitude={marker.latitude}
