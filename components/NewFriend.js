@@ -1,5 +1,5 @@
 // New Friend
-import { useRef } from "react";
+import { useRef } from 'react';
 
 const NewFriend = (props) => {
     const nameInput = useRef(null);
@@ -12,28 +12,28 @@ const NewFriend = (props) => {
             _id: props.user._id,
             name: nameInput.current.value,
             coordinates: {
-                "latitude": marker.latitude,
-                "longitude": marker.longitude
+                latitude: marker.latitude,
+                longitude: marker.longitude,
             },
             timezone: props.data.timezone,
-            timezone_offset: props.data.timezone_offset
+            timezone_offset: props.data.timezone_offset,
         };
 
         try {
             fetch('/api/friends/create_friend', {
                 method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newFriend)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newFriend),
             }).then(() => {
                 alert(newFriend.name + ' was added!');
                 console.log('Friend added: ', newFriend);
-                props.setUpdated(!(props.updated));
+                props.setUpdated(!props.updated);
                 props.setAddingFriend(false);
                 props.setMarker(null);
             });
         } catch (error) {
             console.log('Failed to add Friend', error);
-        };
+        }
     };
 
     return (
@@ -46,12 +46,15 @@ const NewFriend = (props) => {
                     name="name"
                     maxLength={15}
                     size={10}
-                    ref={nameInput}>
-                </input>
+                    ref={nameInput}
+                ></input>
             </label>
             <p>Lat: {marker.latitude}</p>
             <p>Long: {marker.longitude}</p>
-            <button type="submit" value={"preventNewMarker"}>Add Friend</button>
+            {props.error && <p>Unable to get timezone info from coordinates</p>}
+            <button type="submit" value={'preventNewMarker'}>
+                Add Friend
+            </button>
         </form>
     );
 };
