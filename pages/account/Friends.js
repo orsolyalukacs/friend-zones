@@ -43,7 +43,8 @@ const Friends = () => {
 
     /* Clustering */
     // Prepare the data
-    const points = friendList.map(friend => ({
+    const friends = friendList && !error ? friendList : [];
+    const points = friends.map(friend => ({
         type: "Feature",
         properties: {
             cluster: false,
@@ -203,7 +204,7 @@ const Friends = () => {
                                     </Marker>
                                 );
                             }
-                            return (
+                            return friendList != [] ? (
                                 <Marker
                                     key={cluster.properties.friendId}
                                     latitude={latitude}
@@ -218,7 +219,9 @@ const Friends = () => {
                                         friend={cluster}
                                     ></FriendPin>
                                 </Marker>
-                            );
+                            ) : (
+                                <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
+                                </div>);
                         })}
                         {
                             addingFriend &&
@@ -282,7 +285,7 @@ const Friends = () => {
                     <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
                         {displayInfoCard ? 'Hide Friends' : 'Show Friends'}
                     </button>
-                    {displayInfoCard && (
+                    {displayInfoCard && friendList && (
                         <div className={styles.card}>
                             {friendList.map((friend) => (
                                 <div key={friend._id}>
