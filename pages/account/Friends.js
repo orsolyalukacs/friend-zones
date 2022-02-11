@@ -1,4 +1,4 @@
-import ReactMapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl';
+import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl } from 'react-map-gl';
 import { useEffect, useState, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../../styles/Friends.module.css';
@@ -28,9 +28,8 @@ const Friends = () => {
     const {
         query: { userInfo },
     } = router;
-    const mapRef = useRef();
 
-    // Initialize map
+    // setup map
     // TODO: set default lat and long based on user location
     const [viewport, setViewport] = useState({
         latitude: 37.490079,
@@ -40,16 +39,24 @@ const Friends = () => {
         zoom: 2,
     });
 
+    const mapRef = useRef();
+
     /* Clustering */
     // Prepare the data
     const points = friendList.map(friend => ({
         type: "Feature",
-        properties: { cluster: false, friendId: friend.friend_id },
+        properties: {
+            cluster: false,
+            friendId: friend.friend_id,
+            name: friend.name,
+            timezone: friend.timezone,
+            timezone_offset: friend.timezone_offset
+        },
         geometry: {
             type: "Point",
             coordinates: [
-                parseFloat(friend.coordinates.latitude),
-                parseFloat(friend.coordinates.longitude)
+                parseFloat(friend.coordinates.longitude),
+                parseFloat(friend.coordinates.latitude)
             ]
         }
     }));
@@ -66,9 +73,9 @@ const Friends = () => {
     // get clusters
     const { clusters, supercluster } = useSupercluster({
         points,
-        // bounds,
+        bounds,
         zoom: viewport.zoom,
-        options: { radius: 75, maxZoom: 20 }
+        options: { radius: 50, maxZoom: 20 }
     });
 
     // Populate the friendsList
@@ -119,7 +126,6 @@ const Friends = () => {
                 latitude: latitude,
             });
 
-            console.log('handling click', marker);
             // Get timezone info
             fetchAPI(latitude, longitude)
                 .then((data) => {
@@ -150,71 +156,69 @@ const Friends = () => {
                         ref={mapRef}
                         maxZoom={20}
                     >
-                    <GeolocateControl position="top-left" />
+                        <GeolocateControl position="top-left" />
                         {clusters.map(cluster => {
                             // every cluster point has coordinates
                             const [longitude, latitude] = cluster.geometry.coordinates;
-                            // the point may be either a cluster or a crime point
+                            // the point may be either a cluster or a single friend marker
                             const {
                                 cluster: isCluster,
                                 point_count: pointCount
                             } = cluster.properties;
-                            {
-                                // we have a cluster to render
-                                if (isCluster) {
-                                    console.log(cluster);
-                                    return (
-                                        <Marker
-                                            key={`cluster-${cluster.id}`}
-                                            latitude={latitude}
-                                            longitude={longitude}
-                                        >
-                                            <div
-                                                className="cluster-marker"
-                                                style={{
-                                                    width: `${10 + (pointCount / points.length) * 20}px`,
-                                                    height: `${10 + (pointCount / points.length) * 20}px`
-                                                }}
 
-                                                onClick={() => {
-                                                    const expansionZoom = Math.min(
-                                                        supercluster.getClusterExpansionZoom(cluster.id),
-                                                        20
-                                                    );
-                                                    setViewport({
-                                                        ...viewport,
-                                                        latitude,
-                                                        longitude,
-                                                        zoom: expansionZoom,
-                                                        transitionInterpolator: new FlyToInterpolator({
-                                                            speed: 2
-                                                        }),
-                                                        transitionDuration: "auto"
-                                                    });
-                                                }}
-                                            >
-                                                {pointCount}
-                                            </div>
-                                        </Marker>
-                                    );
-                                }
+                            // we have a cluster to render
+                            if (isCluster) {
                                 return (
-                                    marker &&
                                     <Marker
-                                        key={`friend-${cluster.properties.friendId}`}
-                                        latitude={marker.latitude}
-                                        longitude={marker.longitude}
-                                        offsetTop={-20}
-                                        offsetLeft={-10}
-                                        anchor={"top-left"}>
-                                        <Pin setAddingFriend={setAddingFriend}
-                                            size={20}
-                                            selectedFriend={selectedFriend}
-                                            setSelectedFriend={setSelectedFriend}>
-                                        </Pin>
+                                        key={cluster.id}
+                                        latitude={latitude}
+                                        longitude={longitude}
+                                    >
+                                        <div
+                                            className={styles.clusterMarker}
+                                            style={{
+                                                width: `${10 + (pointCount / points.length) * 70}px`,
+                                                height: `${10 + (pointCount / points.length) * 70}px`
+                                            }}
+
+                                            onClick={() => {
+                                                const expansionZoom = Math.min(
+                                                    supercluster.getClusterExpansionZoom(cluster.id),
+                                                    20
+                                                );
+                                                setViewport({
+                                                    ...viewport,
+                                                    latitude,
+                                                    longitude,
+                                                    zoom: expansionZoom,
+                                                    transitionInterpolator: new FlyToInterpolator({
+                                                        speed: 2
+                                                    }),
+                                                    transitionDuration: "auto"
+                                                });
+                                            }}
+                                        >
+                                            {pointCount}
+                                        </div>
                                     </Marker>
                                 );
                             }
+                            return (
+                                <Marker
+                                    key={cluster.properties.friendId}
+                                    latitude={latitude}
+                                    longitude={longitude}
+                                    offsetTop={-20}
+                                    offsetLeft={-10}
+                                >
+                                    <FriendPin
+                                        setSelectedFriend={setSelectedFriend}
+                                        setAddingFriend={setAddingFriend}
+                                        size={20}
+                                        friend={cluster}
+                                    ></FriendPin>
+                                </Marker>
+                            );
                         })}
                         {
                             addingFriend &&
@@ -239,36 +243,26 @@ const Friends = () => {
                                     error={error}
                                 ></NewFriend>
                             </Popup>
-                        )}
-
-                        {friendList ? (
-                            friendList.map((friend) => (
-                                <Marker
-                                    key={friend._id}
-                                    latitude={friend.coordinates.latitude}
-                                    longitude={friend.coordinates.longitude}
-                                    offsetTop={-20}
-                                    offsetLeft={-10}
-                                >
-                                    <FriendPin
-                                        setSelectedFriend={setSelectedFriend}
-                                        setAddingFriend={setAddingFriend}
-                                        size={20}
-                                        friend={friend}
-                                    ></FriendPin>
-                                </Marker>
-                            ))
-                        ) : (
-                            <div className={styles.message}>
-                                {' '}
-                                <p>You don&apos;t have any friends added yet.</p>
-                            </div>
-                        )}
+                        }
+                        {
+                            marker &&
+                            <Marker
+                                latitude={marker.latitude}
+                                longitude={marker.longitude}
+                                offsetTop={-20}
+                                offsetLeft={-10}
+                                anchor={"top-left"}>
+                                <Pin setAddingFriend={setAddingFriend}
+                                    size={20}
+                                    selectedFriend={selectedFriend}
+                                    setSelectedFriend={setSelectedFriend}>
+                                </Pin>
+                            </Marker>}
 
                         {selectedFriend && (
                             <Popup
-                                latitude={selectedFriend.coordinates.latitude}
-                                longitude={selectedFriend.coordinates.longitude}
+                                latitude={selectedFriend.geometry.coordinates[1]}
+                                longitude={selectedFriend.geometry.coordinates[0]}
                                 onClose={() => setSelectedFriend(null)}
                                 closeOnClick={true}
                             >
