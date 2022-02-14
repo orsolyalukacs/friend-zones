@@ -7,5 +7,5 @@ export default async function logout(req, res) {
     res.writeHead(302, { Location: '/' });
     res.end();
 
-    client.close();
+    // client.close();
 }

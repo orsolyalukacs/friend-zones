@@ -37,6 +37,7 @@ const Friends = () => {
         width: '80vw',
         height: '80vh',
         zoom: 2,
+        renderWorldCopies: false,
     });
 
     const mapRef = useRef();
@@ -89,7 +90,7 @@ const Friends = () => {
                 throw new Error('cannot fetch data');
             }
             const data = await response.json();
-            console.log('friends data fetched: ', data[0].friendsList);
+            // console.log('friends data fetched: ', data[0].friendsList);
             return data;
         };
         fetchData()
