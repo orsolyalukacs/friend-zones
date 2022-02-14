@@ -1,0 +1,102 @@
+[
+    {
+        "timezone": "Pacific/Midway",
+        "utc_offset": "-11:00"
+    },
+    {
+        "timezone": "Pacific/Honolulu",
+        "utc_offset": "-10:00"
+    },
+    {
+        "timezone": "Pacific/Gambier",
+        "utc_offset": "-09:00"
+    },
+    {
+        "timezone": "Pacific/Pitcairn",
+        "utc_offset": "-08:00"
+    },
+    {
+        "timezone": "America/Creston",
+        "utc_offset": "-07:00"
+    },
+    {
+        "timezone": "America/Belize",
+        "utc_offset": "-06:00"
+    },
+    {
+        "timezone": "America/Eirunepe",
+        "utc_offset": "-05:00"
+    },
+    {
+        "timezone": "America/Boa_Vista",
+        "utc_offset": "-04:00"
+    },
+    {
+        "timezone": "America/Bahia",
+        "utc_offset": "-03:00"
+    },
+    {
+        "timezone": "Brazil/DeNoronha",
+        "utc_offset": "-02:00"
+    },
+    {
+        "timezone": "Atlantic/Reykjavik",
+        "utc_offset": "+00:00"
+    },
+    {
+        "timezone": "Africa/Tunis",
+        "utc_offset": "+01:00"
+    },
+    {
+        "timezone": "Africa/Maputo",
+        "utc_offset": "+02:00"
+    },
+    {
+        "timezone": "Africa/Nairobi",
+        "utc_offset": "+03:00"
+    },
+    {
+        "timezone": "Europe/Saratov",
+        "utc_offset": "+04:00"
+    },
+    {
+        "timezone": "Asia/Ashgabat",
+        "utc_offset": "+05:00"
+    },
+    {
+        "timezone": "Asia/Dhaka",
+        "utc_offset": "+06:00"
+    },
+    {
+        "timezone": "Asia/Bangkok",
+        "utc_offset": "+07:00"
+    },
+    {
+        "timezone": "Asia/Singapore",
+        "utc_offset": "+08:00"
+    },
+    {
+        "timezone": "Japan",
+        "utc_offset": "+09:00"
+    },
+    {
+        "timezone": "Pacific/Guam",
+        "utc_offset": "+10:00"
+    },
+    {
+        "timezone": "Pacific/Pohnpei",
+        "utc_offset": "+11:00"
+    },
+    {
+        "timezone": "Pacific/Kwajalein",
+        "utc_offset": "+12:00"
+    },
+    {
+        "timezone": "Pacific/Auckland",
+        "utc_offset": "+13:00"
+    },
+    {
+        "timezone": "Pacific/Kiritimati",
+        "utc_offset": "+14:00"
+    }
+]
