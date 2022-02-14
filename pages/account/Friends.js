@@ -90,12 +90,11 @@ const Friends = () => {
                 throw new Error('cannot fetch data');
             }
             const data = await response.json();
-            // console.log('friends data fetched: ', data[0].friendsList);
             return data;
         };
         fetchData()
             .then((data) => {
-                // console.log('resolved', data);
+                console.log('resolved', data);
                 setFriendList(data[0].friendsList);
             })
             .catch((err) => {
