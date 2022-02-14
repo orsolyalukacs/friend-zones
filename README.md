@@ -14,11 +14,11 @@ Welcoming page displaying brief information about the site, and asks users to ei
 
 Page that consists of a registration form for new users, asking them to provide the following info:
 
-- username
-- email
-- password
-- password verification
-- timezone (from dropdown) or maybe it could read this in from IP, and autofill
+-   username
+-   email
+-   password
+-   password verification
+-   timezone (from dropdown) or maybe it could read this in from IP, and autofill
 
 The page will check that these fields are valid, and upon success will redirect user to the index page, if any of these fields are filled out incorrectly, the user will be prompted with an alert, or redirected to an error page.
 
@@ -30,10 +30,10 @@ Allows users to login with username or email. Upon success redirects user to the
 
 A simple top nav bar that dynamically displays certain options depending on whether or not the user is logged in:
 
-- Login
-- Logout
-- Home
-- Register
+-   Login
+-   Logout
+-   Home
+-   Register
 
 ## Dashboard
 
@@ -43,8 +43,8 @@ There will also be a **Map** which will display markers for the user, and all of
 
 ### SSR for Dashboard
 
-- Only allow to display Dashboard route if user is logged in
-- Switch NavBar from 'Log in' to 'Log out' after sign in immediately
+-   Only allow to display Dashboard route if user is logged in
+-   Switch NavBar from 'Log in' to 'Log out' after sign in immediately
 
 ### Dashboard Mobile
 
@@ -67,37 +67,39 @@ This object will be sent to the User db/ update the user's friend list (This fri
 
 ## User settings
 
-- A page to Edit user's info/settings while logged in
+-   A page to Edit user's info/settings while logged in
 
 ## Tech
 
 Open source projects that helped us along the way:
 
-- [React.js](https://reactjs.org/) - A JavaScript library for building user interfaces
-- [Next.js](https://nextjs.org/) - Full-stack React framework with built-in Server-Side Rendering (SSR)
-- [MongoDB](https://www.mongodb.com/) - Document-oriented database
-- [mongoose](https://mongoosejs.com/) - schema-based solution to model data for MongoDB
-- [CSS Modules] - Component-scoped CSS
-- [Eslint](https://eslint.org/) - Linting
-- [prettier](https://prettier.io/) - Code formatting
-- [classnames](https://www.npmjs.com/package/classnames) - A simple JavaScript utility for conditionally joining classNames together.
-- [passport](https://www.passportjs.org/) - authentication middleware
-- [hapi/iron](https://hapi.dev/module/iron) - encapsulated tokens with encryption and verification
-- [swr](https://swr.vercel.app/) - React hooks for data fetching. Helps with caching & state management
-- [cookies](https://www.npmjs.com/package/cookie) - Basic HTTP cookie parser and serializer for HTTP servers.
-- [next-connect](https://www.npmjs.com/package/next-connect) - Next.js routing and middleware
-- [bcrypt](https://www.npmjs.com/package/bcryptjs) - password hashing with salting
-- [uuid](https://www.npmjs.com/package/uuid) - creates uuid's (universally unique identifier) used in database logic
-- [Next.js with mongodb](https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose) - An example to connect Next.js with MongoDB
-- [Next.js with Passport.js](https://github.com/vercel/next.js/tree/canary/examples/with-passport) - An example to use Next.js with Passport.js for authentication
+-   [React.js](https://reactjs.org/) - A JavaScript library for building user interfaces
+-   [Next.js](https://nextjs.org/) - Full-stack React framework with built-in Server-Side Rendering (SSR)
+-   [MongoDB](https://www.mongodb.com/) - Document-oriented database
+-   [mongoose](https://mongoosejs.com/) - schema-based solution to model data for MongoDB
+-   [CSS Modules] - Component-scoped CSS
+-   [Eslint](https://eslint.org/) - Linting
+-   [prettier](https://prettier.io/) - Code formatting
+-   [classnames](https://www.npmjs.com/package/classnames) - A simple JavaScript utility for conditionally joining classNames together.
+-   [passport](https://www.passportjs.org/) - authentication middleware
+-   [hapi/iron](https://hapi.dev/module/iron) - encapsulated tokens with encryption and verification
+-   [swr](https://swr.vercel.app/) - React hooks for data fetching. Helps with caching & state management
+-   [cookies](https://www.npmjs.com/package/cookie) - Basic HTTP cookie parser and serializer for HTTP servers.
+-   [next-connect](https://www.npmjs.com/package/next-connect) - Next.js routing and middleware
+-   [bcrypt](https://www.npmjs.com/package/bcryptjs) - password hashing with salting
+-   [uuid](https://www.npmjs.com/package/uuid) - creates uuid's (universally unique identifier) used in database logic
+-   [Next.js with mongodb](https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose) - An example to connect Next.js with MongoDB
+-   [Next.js with Passport.js](https://github.com/vercel/next.js/tree/canary/examples/with-passport) - An example to use Next.js with Passport.js for authentication
+-   [react-map-gl](https://visgl.github.io/react-map-gl/) - React wrapper for Mapbox GL JS
+-   [use-supercluster](https://www.npmjs.com/package/use-supercluster) - A hook for using Supercluster with React.
 
 ## Bonus Features
 
 If we have time it might be cool to add some other functionalities such as :
 
-- Light and Dark Mode Settings
-- Some form of communication ability between users
-- Choice in 24 or 12 clock format for display
+-   Light and Dark Mode Settings
+-   Some form of communication ability between users
+-   Choice in 24 or 12 clock format for display
 
 ---
 

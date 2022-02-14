@@ -25,15 +25,15 @@ const FriendInfo = ({
 
     return (
         <form>
-            <h4>{friend.name}</h4>
+            <h4>{friend.properties.name}</h4>
             <p>
                 {new Date().toLocaleTimeString([], {
-                    timeZone: friend.timezone,
+                    timeZone: friend.properties.timezone,
                     hour: '2-digit',
                     minute: '2-digit',
                 })}
             </p>
-            <button onClick={handleDelete} value={friend.friend_id}>
+            <button onClick={handleDelete} value={friend.properties.friendId}>
                 Delete Friend
             </button>
         </form>
