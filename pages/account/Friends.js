@@ -32,12 +32,11 @@ const Friends = () => {
     // setup map
     // TODO: set default lat and long based on user location
     const [viewport, setViewport] = useState({
-        latitude: 37.490079,
-        longitude: -77.466484,
+        latitude: 37.4900,
+        longitude: -77.4664,
         width: '80vw',
         height: '80vh',
         zoom: 2,
-        renderWorldCopies: false,
     });
 
     const mapRef = useRef();
@@ -57,8 +56,8 @@ const Friends = () => {
         geometry: {
             type: "Point",
             coordinates: [
-                parseFloat(friend.coordinates.longitude),
-                parseFloat(friend.coordinates.latitude)
+                parseFloat(friend.coordinates.longitude.toFixed(4)),
+                parseFloat(friend.coordinates.latitude.toFixed(4))
             ]
         }
     }));
@@ -77,7 +76,7 @@ const Friends = () => {
         points,
         bounds,
         zoom: viewport.zoom,
-        options: { radius: 50, maxZoom: 20 }
+        options: { radius: 50, maxZoom: 18 }
     });
 
     // Populate the friendsList
@@ -155,7 +154,8 @@ const Friends = () => {
                         }}
                         onClick={handleClick}
                         ref={mapRef}
-                        maxZoom={20}
+                        maxZoom={18}
+                        minZoom={2}
                     >
                         <GeolocateControl position="top-left" />
                         {clusters.map(cluster => {
@@ -185,7 +185,7 @@ const Friends = () => {
                                             onClick={() => {
                                                 const expansionZoom = Math.min(
                                                     supercluster.getClusterExpansionZoom(cluster.id),
-                                                    20
+                                                    18
                                                 );
                                                 setViewport({
                                                     ...viewport,

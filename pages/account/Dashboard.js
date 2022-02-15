@@ -17,7 +17,8 @@ const Dashboard = () => {
                     </Link>
 
                 ) : (
-                    <><p className="error">You are not logged in</p></>
+                    // TODO: add loader 
+                    <><p className="error">Loading...</p></>
                 )
             }
         </main>
