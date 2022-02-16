@@ -1,4 +1,4 @@
-import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl } from 'react-map-gl';
+import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl, WebMercatorViewport } from 'react-map-gl';
 import { useEffect, useState, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../../styles/Friends.module.css';
@@ -33,8 +33,8 @@ const Friends = () => {
     // setup map
     // TODO: set default lat and long based on user location
     const [viewport, setViewport] = useState({
-        latitude: 37.490079,
-        longitude: -77.466484,
+        latitude: 37.4900,
+        longitude: -77.4664,
         width: '80vw',
         height: '80vh',
         zoom: 2,
@@ -57,8 +57,8 @@ const Friends = () => {
         geometry: {
             type: "Point",
             coordinates: [
-                parseFloat(friend.coordinates.longitude),
-                parseFloat(friend.coordinates.latitude)
+                parseFloat(friend.coordinates.longitude.toFixed(4)),
+                parseFloat(friend.coordinates.latitude.toFixed(4))
             ]
         }
     }));
@@ -77,7 +77,7 @@ const Friends = () => {
         points,
         bounds,
         zoom: viewport.zoom,
-        options: { radius: 50, maxZoom: 20 }
+        options: { radius: 50, maxZoom: 18 }
     });
 
     // Populate the friendsList
@@ -90,12 +90,11 @@ const Friends = () => {
                 throw new Error('cannot fetch data');
             }
             const data = await response.json();
-            console.log('friends data fetched: ', data[0].friendsList);
             return data;
         };
         fetchData()
             .then((data) => {
-                // console.log('resolved', data);
+                console.log('resolved', data);
                 setFriendList(data[0].friendsList);
             })
             .catch((err) => {
@@ -142,6 +141,27 @@ const Friends = () => {
         }
     };
 
+    const isOutOfMaxBounds = (nextSW, nextNE, maxBounds) => {
+        const [[maxSWLng, maxSWLat], [maxNELng, maxNELat]] = maxBounds;
+        const [nextSWLng, nextSWLat] = nextSW;
+        const [nextNELng, nextNELat] = nextNE;
+
+        return (
+            nextSWLng < maxSWLng || nextSWLat < maxSWLat || nextNELng > maxNELng || nextNELat > maxNELat
+        );
+    };
+
+    const onViewportChange = newViewport => {
+        const merc = new WebMercatorViewport(newViewport);
+        // fetch the lat/lng of the edges of the viewport
+        // measured from topLeft
+        const newSouthWest = merc.unproject([0, newViewport.height]);
+        const newNorthEast = merc.unproject([newViewport.width, 0]);
+        if (!isOutOfMaxBounds(newSouthWest, newNorthEast, [[-180, -90], [180, 90]])) {
+            setViewport(newViewport);
+        };
+    };
+
     return (
         <div>
             <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
@@ -153,9 +173,7 @@ const Friends = () => {
                     mapboxApiAccessToken={MAP_TOKEN}
                     {...viewport}
                     mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
-                    onViewportChange={newViewport => {
-                        setViewport({ ...newViewport });
-                    }}
+                    onViewportChange={onViewportChange}
                     onClick={handleClick}
                     ref={mapRef}
                     maxZoom={20}
