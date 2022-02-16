@@ -1,4 +1,4 @@
-import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl } from 'react-map-gl';
+import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl, WebMercatorViewport } from 'react-map-gl';
 import { useEffect, useState, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../../styles/Friends.module.css';
@@ -9,7 +9,6 @@ import FriendInfo from '../../components/FriendInfo';
 import { useUser } from '../../lib/hooks';
 import { useRouter } from "next/router";
 import useSupercluster from 'use-supercluster';
-import { WebMercatorViewport } from 'react-map-gl';
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 const GEO_TOKEN = process.env.NEXT_PUBLIC_GEO_TOKEN;
@@ -176,7 +175,6 @@ const Friends = () => {
                         onClick={handleClick}
                         ref={mapRef}
                         maxZoom={20}
-                        mapOptions={{ renderWorldCopies: false }}
                     >
                         <GeolocateControl position="top-left" />
                         {clusters.map(cluster => {
