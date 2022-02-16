@@ -56,10 +56,14 @@ This page will allow Users to add friends to the db via combination of **AddFrie
 
 ```
 {
+    "friend_id": "620abf87b899decfbff6c250",
     "name": "Jimmy",
+    "coordinates": {
+        "latitude": -27.474,
+        "longitude": 153.017
+    },
     "timezone": "Australia/Brisbane",
     "timezone_offset": 10,
-    "coordinates": [-27.474, 153.017]  // first is lat, second is long
 }
 ```
 
