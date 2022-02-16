@@ -305,7 +305,7 @@ const Friends = () => {
                     {friendList.map((friend) => (
                         <FriendCard
                             friend={friend}
-                            key={friend._id}
+                            key={friend.friend_id}
                         ></FriendCard>
                     ))}
                 </div>
