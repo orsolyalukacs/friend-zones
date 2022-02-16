@@ -9,14 +9,13 @@ const pinStyle = {
     stroke: 'none'
 };
 
-const Pin = (props) => {
-    const size = props.size;
+const Pin = ({ selectedFriend, setSelectedFriend, setAddingFriend, size }) => {
 
     return (
         <svg height={size} viewBox="0 0 24 24" style={pinStyle}
             onMouseOver={() => {
-                (!props.selectedFriend) ? props.setAddingFriend(true) :
-                    props.setSelectedFriend(null);
+                (!selectedFriend) ? setAddingFriend(true) :
+                    setSelectedFriend(null);
             }}>
             <path d={ICON} />
 

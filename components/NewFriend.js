@@ -1,22 +1,21 @@
 // New Friend
 import { useRef } from 'react';
 
-const NewFriend = (props) => {
+const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFriend, setMarker }) => {
     const nameInput = useRef(null);
-    const marker = props.marker;
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const newFriend = {
-            _id: props.user._id,
+            _id: user._id,
             name: nameInput.current.value,
             coordinates: {
                 latitude: marker.latitude,
                 longitude: marker.longitude,
             },
-            timezone: props.data.timezone,
-            timezone_offset: props.data.timezone_offset,
+            timezone: data.timezone,
+            timezone_offset: data.timezone_offset,
         };
 
         try {
@@ -27,9 +26,9 @@ const NewFriend = (props) => {
             }).then(() => {
                 alert(newFriend.name + ' was added!');
                 console.log('Friend added: ', newFriend);
-                props.setUpdated(!props.updated);
-                props.setAddingFriend(false);
-                props.setMarker(null);
+                setUpdated(!updated);
+                setAddingFriend(false);
+                setMarker(null);
             });
         } catch (error) {
             console.log('Failed to add Friend', error);
@@ -51,7 +50,7 @@ const NewFriend = (props) => {
             </label>
             <p>Lat: {marker.latitude}</p>
             <p>Long: {marker.longitude}</p>
-            {props.error && <p>Unable to get timezone info from coordinates</p>}
+            {error && <p>Unable to get timezone info from coordinates</p>}
             <button type="submit" value={'preventNewMarker'}>
                 Add Friend
             </button>

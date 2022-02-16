@@ -1,11 +1,9 @@
-import styles from '../styles/Home.module.css';
 import { connectToDatabase } from '../util/mongodb';
-
 
 function Friends({ friends }) {
     return (
-        <div className={styles.container}>
-            <h1 className={styles.title}>Friends List</h1>
+        <div className="container">
+            <h1 className="title">Friends List</h1>
             <ul>
                 {friends.map((friend, i) => (
                     <li key={i}>

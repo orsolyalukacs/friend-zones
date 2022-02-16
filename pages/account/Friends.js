@@ -6,6 +6,7 @@ import Pin from '../../components/Pin';
 import NewFriend from '../../components/NewFriend';
 import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
+import FriendCard from '../../components/FriendCard';
 import { useUser } from '../../lib/hooks';
 import { useRouter } from "next/router";
 import useSupercluster from 'use-supercluster';
@@ -162,163 +163,153 @@ const Friends = () => {
     };
 
     return (
-        <div>
-            <h3>Friends</h3>
-            <div className={styles.grid}>
-                <div className={styles.MapContainer}>
-                    <ReactMapGL
-                        mapboxApiAccessToken={MAP_TOKEN}
-                        {...viewport}
-                        mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
-                        onViewportChange={onViewportChange}
-                        onClick={handleClick}
-                        ref={mapRef}
-                        maxZoom={20}
-                    >
-                        <GeolocateControl position="top-left" />
-                        {clusters.map(cluster => {
-                            // every cluster point has coordinates
-                            const [longitude, latitude] = cluster.geometry.coordinates;
-                            // the point may be either a cluster or a single friend marker
-                            const {
-                                cluster: isCluster,
-                                point_count: pointCount
-                            } = cluster.properties;
+        <div className="main padding-none">
+            <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
+                {displayInfoCard ? 'Show Map' : 'Show Friends'}
+            </button>
 
-                            // we have a cluster to render
-                            if (isCluster) {
-                                return (
-                                    <Marker
-                                        key={cluster.id}
-                                        latitude={latitude}
-                                        longitude={longitude}
-                                    >
-                                        <div
-                                            className={styles.clusterMarker}
-                                            style={{
-                                                width: `${10 + (pointCount / points.length) * 70}px`,
-                                                height: `${10 + (pointCount / points.length) * 70}px`
-                                            }}
+            {!displayInfoCard ? (
+                <ReactMapGL
+                    mapboxApiAccessToken={MAP_TOKEN}
+                    {...viewport}
+                    mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
+                    onViewportChange={onViewportChange}
+                    onClick={handleClick}
+                    ref={mapRef}
+                    maxZoom={20}
+                >
+                    <GeolocateControl position="top-left" />
+                    {clusters.map(cluster => {
+                        // every cluster point has coordinates
+                        const [longitude, latitude] = cluster.geometry.coordinates;
+                        // the point may be either a cluster or a single friend marker
+                        const {
+                            cluster: isCluster,
+                            point_count: pointCount
+                        } = cluster.properties;
 
-                                            onClick={() => {
-                                                const expansionZoom = Math.min(
-                                                    supercluster.getClusterExpansionZoom(cluster.id),
-                                                    18
-                                                );
-                                                setViewport({
-                                                    ...viewport,
-                                                    latitude,
-                                                    longitude,
-                                                    zoom: expansionZoom,
-                                                    transitionInterpolator: new FlyToInterpolator({
-                                                        speed: 2
-                                                    }),
-                                                    transitionDuration: "auto"
-                                                });
-                                            }}
-                                        >
-                                            {pointCount}
-                                        </div>
-                                    </Marker>
-                                );
-                            }
-                            return friendList != [] ? (
+                        // we have a cluster to render
+                        if (isCluster) {
+                            return (
                                 <Marker
-                                    key={cluster.properties.friendId}
+                                    key={cluster.id}
                                     latitude={latitude}
                                     longitude={longitude}
-                                    offsetTop={-20}
-                                    offsetLeft={-10}
                                 >
-                                    <FriendPin
-                                        setSelectedFriend={setSelectedFriend}
-                                        setAddingFriend={setAddingFriend}
-                                        size={20}
-                                        friend={cluster}
-                                    ></FriendPin>
+                                    <div
+                                        className={styles.clusterMarker}
+                                        style={{
+                                            width: `${10 + (pointCount / points.length) * 70}px`,
+                                            height: `${10 + (pointCount / points.length) * 70}px`
+                                        }}
+
+                                        onClick={() => {
+                                            const expansionZoom = Math.min(
+                                                supercluster.getClusterExpansionZoom(cluster.id),
+                                                20
+                                            );
+                                            setViewport({
+                                                ...viewport,
+                                                latitude,
+                                                longitude,
+                                                zoom: expansionZoom,
+                                                transitionInterpolator: new FlyToInterpolator({
+                                                    speed: 2
+                                                }),
+                                                transitionDuration: "auto"
+                                            });
+                                        }}
+                                    >
+                                        {pointCount}
+                                    </div>
                                 </Marker>
-                            ) : (
-                                <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
-                                </div>);
-                        })}
-                        {
-                            addingFriend &&
-                            <Popup
-                                latitude={marker.latitude}
-                                longitude={marker.longitude}
-                                sortByDepth={true}
-                                onClose={() => {
-                                    setAddingFriend(false);
-                                    setMarker(null);
-                                }}
-                                closeOnClick={true}
-                            >
-                                <NewFriend
-                                    marker={marker}
-                                    setUpdated={setUpdated}
-                                    updated={updated}
-                                    user={user}
-                                    setAddingFriend={setAddingFriend}
-                                    setMarker={setMarker}
-                                    data={data}
-                                    error={error}
-                                ></NewFriend>
-                            </Popup>
+                            );
                         }
-                        {
-                            marker &&
+                        return friendList != [] ? (
                             <Marker
-                                latitude={marker.latitude}
-                                longitude={marker.longitude}
+                                key={cluster.properties.friendId}
+                                latitude={latitude}
+                                longitude={longitude}
                                 offsetTop={-20}
                                 offsetLeft={-10}
-                                anchor={"top-left"}>
-                                <Pin setAddingFriend={setAddingFriend}
-                                    size={20}
-                                    selectedFriend={selectedFriend}
-                                    setSelectedFriend={setSelectedFriend}>
-                                </Pin>
-                            </Marker>}
-
-                        {selectedFriend && (
-                            <Popup
-                                latitude={selectedFriend.geometry.coordinates[1]}
-                                longitude={selectedFriend.geometry.coordinates[0]}
-                                onClose={() => setSelectedFriend(null)}
-                                closeOnClick={true}
                             >
-                                <FriendInfo
-                                    user={user}
-                                    friend={selectedFriend}
-                                    updated={updated}
-                                    setUpdated={setUpdated}
+                                <FriendPin
                                     setSelectedFriend={setSelectedFriend}
-                                ></FriendInfo>
-                            </Popup>
-                        )}
-                    </ReactMapGL>
-                </div>
+                                    setAddingFriend={setAddingFriend}
+                                    size={20}
+                                    friend={cluster}
+                                ></FriendPin>
+                            </Marker>
+                        ) : (
+                            <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
+                            </div>);
+                    })}
+                    {
+                        addingFriend &&
+                        <Popup
+                            latitude={marker.latitude}
+                            longitude={marker.longitude}
+                            sortByDepth={true}
+                            onClose={() => {
+                                setAddingFriend(false);
+                                setMarker(null);
+                            }}
+                            closeOnClick={true}
+                        >
+                            <NewFriend
+                                marker={marker}
+                                setUpdated={setUpdated}
+                                updated={updated}
+                                user={user}
+                                setAddingFriend={setAddingFriend}
+                                setMarker={setMarker}
+                                data={data}
+                                error={error}
+                            ></NewFriend>
+                        </Popup>
+                    }
+                    {
+                        marker &&
+                        <Marker
+                            latitude={marker.latitude}
+                            longitude={marker.longitude}
+                            offsetTop={-20}
+                            offsetLeft={-10}
+                            anchor={"top-left"}>
+                            <Pin setAddingFriend={setAddingFriend}
+                                size={20}
+                                selectedFriend={selectedFriend}
+                                setSelectedFriend={setSelectedFriend}>
+                            </Pin>
+                        </Marker>}
 
-                <div>
-                    <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
-                        {displayInfoCard ? 'Hide Friends' : 'Show Friends'}
-                    </button>
-                    {displayInfoCard && friendList && (
-                        <div className={styles.card}>
-                            {friendList.map((friend) => (
-                                <div key={friend._id}>
-                                    <p>{friend.name}</p>
-                                    <p>{friend.coordinates.latitude}</p>
-                                    <p>{friend.coordinates.longitude}</p>
-                                    <p>{friend.timezone}</p>
-                                    <p>{friend.timezone_offset}</p>
-                                    <hr></hr>
-                                </div>
-                            ))}
-                        </div>
+                    {selectedFriend && (
+                        <Popup
+                            latitude={selectedFriend.geometry.coordinates[1]}
+                            longitude={selectedFriend.geometry.coordinates[0]}
+                            onClose={() => setSelectedFriend(null)}
+                            closeOnClick={true}
+                        >
+                            <FriendInfo
+                                user={user}
+                                friend={selectedFriend}
+                                updated={updated}
+                                setUpdated={setUpdated}
+                                setSelectedFriend={setSelectedFriend}
+                            ></FriendInfo>
+                        </Popup>
                     )}
+                </ReactMapGL>
+            ) : (
+                <div className={styles.grid}>
+                    {friendList.map((friend) => (
+                        <FriendCard
+                            friend={friend}
+                            key={friend.friend_id}
+                        ></FriendCard>
+                    ))}
                 </div>
-            </div>
+            )}
         </div>
     );
 };

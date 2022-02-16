@@ -6,9 +6,9 @@ import { connectToDatabase } from '../util/mongodb';
 export default function Home({ isConnected }) {
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
+    <div className="container">
+      <main className="main">
+        <h1 className="title">
           {/* TODO: add deployed page url*/}
           Welcome to <a href="">Friend Zones!</a>
         </h1>
@@ -28,13 +28,13 @@ export default function Home({ isConnected }) {
         <div className={styles.grid}>
 
           <Link href="/account/Login">
-            <a className={styles.card} >
+            <a className="card">
               <h2>Login &rarr;</h2>
               <p>Find out the current time in your friends&apos; timezone</p>
             </a>
           </Link>
           <Link href="/account/Signup">
-            <a className={styles.card}>
+            <a className="card">
               <h2>Register &rarr;</h2>
               <p>Sign up to see timezones of your friends</p>
             </a>
