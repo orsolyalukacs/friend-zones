@@ -9,7 +9,6 @@ import FriendInfo from '../../components/FriendInfo';
 import { useUser } from '../../lib/hooks';
 import { useRouter } from "next/router";
 import useSupercluster from 'use-supercluster';
-import { WebMercatorViewport } from 'react-map-gl';
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 const GEO_TOKEN = process.env.NEXT_PUBLIC_GEO_TOKEN;
@@ -174,8 +173,7 @@ const Friends = () => {
                         onViewportChange={onViewportChange}
                         onClick={handleClick}
                         ref={mapRef}
-                        maxZoom={18}
-                        minZoom={2}
+                        maxZoom={20}
                     >
                         <GeolocateControl position="top-left" />
                         {clusters.map(cluster => {
