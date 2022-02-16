@@ -1,8 +1,7 @@
 // friend card
-import styles from '../styles/FriendCard.module.css';
 const FriendCard = (props) => {
     return (
-        <div className={styles.card}>
+        <div className="card">
             <p>{props.friend.name}</p>
             <p>
                 {' '}

@@ -118,3 +118,10 @@ button :hover {
   color: #f30070;
   margin: 1rem 0 0;
 }
+@media only screen and (min-width: 360px) and (max-width: 768px) {
+	.card {
+    padding: 1rem;
+    width: 300px;
+    height: 200px;
+}
+}
