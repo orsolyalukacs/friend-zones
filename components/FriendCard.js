@@ -1,21 +1,21 @@
 // friend card
-const FriendCard = (props) => {
+const FriendCard = ({ friend }) => {
     return (
         <div className="card">
-            <p>{props.friend.name}</p>
+            <p>{friend.name}</p>
             <p>
                 {' '}
-                Coordinates: {props.friend.coordinates.latitude},
-                {props.friend.coordinates.longitude}
+                Coordinates: {friend.coordinates.latitude},
+                {friend.coordinates.longitude}
             </p>
             <p>
                 {new Date().toLocaleTimeString([], {
-                    timeZone: props.friend.timezone,
+                    timeZone: friend.timezone,
                     hour: '2-digit',
                     minute: '2-digit',
                 })}
             </p>
-            <p>Timezone: {props.friend.timezone}</p>
+            <p>Timezone: {friend.timezone}</p>
         </div>
     );
 };

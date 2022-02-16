@@ -2,12 +2,12 @@
 import styles from '../../styles/Home.module.css';
 import Link from "next/link";
 
-const NavBarItem = (props) => {
+const NavBarItem = ({ link, title }) => {
     return (
         <div className={styles.navlink}>
-            <Link href={props.link}>
+            <Link href={link}>
                 <a>
-                    {props.title}
+                    {title}
                 </a>
             </Link>
         </div>

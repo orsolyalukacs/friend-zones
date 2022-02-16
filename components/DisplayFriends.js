@@ -1,6 +1,5 @@
-function DisplayFriends(props) {
+function DisplayFriends({ friendList }) {
     // Take the friends object, and display friends on a card
-    const friendList = props.friendList;
 
     function deleteFriend(e) {
         const target = e.target;
