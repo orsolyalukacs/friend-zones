@@ -9,6 +9,7 @@ import FriendInfo from '../../components/FriendInfo';
 import { useUser } from '../../lib/hooks';
 import { useRouter } from "next/router";
 import useSupercluster from 'use-supercluster';
+import { WebMercatorViewport } from 'react-map-gl';
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 const GEO_TOKEN = process.env.NEXT_PUBLIC_GEO_TOKEN;
@@ -141,6 +142,27 @@ const Friends = () => {
         }
     };
 
+    const isOutOfMaxBounds = (nextSW, nextNE, maxBounds) => {
+        const [[maxSWLng, maxSWLat], [maxNELng, maxNELat]] = maxBounds;
+        const [nextSWLng, nextSWLat] = nextSW;
+        const [nextNELng, nextNELat] = nextNE;
+
+        return (
+            nextSWLng < maxSWLng || nextSWLat < maxSWLat || nextNELng > maxNELng || nextNELat > maxNELat
+        );
+    };
+
+    const onViewportChange = newViewport => {
+        const merc = new WebMercatorViewport(newViewport);
+        // fetch the lat/lng of the edges of the viewport
+        // measured from topLeft
+        const newSouthWest = merc.unproject([0, newViewport.height]);
+        const newNorthEast = merc.unproject([newViewport.width, 0]);
+        if (!isOutOfMaxBounds(newSouthWest, newNorthEast, [[-180, -90], [180, 90]])) {
+            setViewport(newViewport);
+        };
+    };
+
     return (
         <div>
             <h3>Friends</h3>
@@ -150,12 +172,11 @@ const Friends = () => {
                         mapboxApiAccessToken={MAP_TOKEN}
                         {...viewport}
                         mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
-                        onViewportChange={newViewport => {
-                            setViewport({ ...newViewport });
-                        }}
+                        onViewportChange={onViewportChange}
                         onClick={handleClick}
                         ref={mapRef}
                         maxZoom={20}
+                        mapOptions={{ renderWorldCopies: false }}
                     >
                         <GeolocateControl position="top-left" />
                         {clusters.map(cluster => {
