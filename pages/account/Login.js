@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
-import styles from '../../styles/Home.module.css';
 
 const Login = () => {
     useUser({ redirectTo: '/', redirectIfFound: true });
@@ -38,8 +37,8 @@ const Login = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <main className={styles.main}>
+        <div className="container">
+            <main className="main">
                 <h1>
                     Login
                 </h1>

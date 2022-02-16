@@ -1,19 +1,18 @@
-
 /* navbar */
 .navbar {
     padding: 20px 0;
     margin-bottom: 20px;
     width: 100%;
     height: auto;
-    background-color: #2196F3;
-  }
+    background-color: #2196f3;
+}
 
-  .navlink {
+.navlink {
     display: inline-block;
     margin-left: 40px;
-  }
+}
 
-  .navbar a {
-    color: #FFF;
+.navbar a {
+    color: #fff;
     text-decoration: none;
-  }
+}
