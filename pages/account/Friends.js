@@ -1,6 +1,10 @@
 import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl, WebMercatorViewport } from 'react-map-gl';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { useRouter } from "next/router";
 import 'mapbox-gl/dist/mapbox-gl.css';
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import useSupercluster from 'use-supercluster';
+import Geocoder from "react-map-gl-geocoder";
 import styles from '../../styles/Friends.module.css';
 import Pin from '../../components/Pin';
 import NewFriend from '../../components/NewFriend';
@@ -8,11 +12,9 @@ import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
 import FriendCard from '../../components/FriendCard';
 import { useUser } from '../../lib/hooks';
-import { useRouter } from "next/router";
-import useSupercluster from 'use-supercluster';
+import { isOutOfMaxBounds, fetchAPI } from '../../util/map-utils';
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
-const GEO_TOKEN = process.env.NEXT_PUBLIC_GEO_TOKEN;
 
 const Friends = () => {
     const [friendList, setFriendList] = useState([]);
@@ -102,17 +104,7 @@ const Friends = () => {
             });
     }, [updated, userInfo]);
 
-    const fetchAPI = async (latitude, longitude) => {
-        const res = await fetch(
-            `https://api.ipgeolocation.io/timezone?apiKey=${GEO_TOKEN}&lat=${latitude}&long=${longitude}`
-        );
 
-        if (res.status != 200) {
-            throw new Error('unable to fetch timezone data');
-        }
-        const data = await res.json();
-        return data;
-    };
 
     // Update the map clicks for newFriendMarker
     const handleClick = (e) => {
@@ -141,17 +133,7 @@ const Friends = () => {
         }
     };
 
-    const isOutOfMaxBounds = (nextSW, nextNE, maxBounds) => {
-        const [[maxSWLng, maxSWLat], [maxNELng, maxNELat]] = maxBounds;
-        const [nextSWLng, nextSWLat] = nextSW;
-        const [nextNELng, nextNELat] = nextNE;
-
-        return (
-            nextSWLng < maxSWLng || nextSWLat < maxSWLat || nextNELng > maxNELng || nextNELat > maxNELat
-        );
-    };
-
-    const onViewportChange = newViewport => {
+    const onViewportChange = useCallback(newViewport => {
         const merc = new WebMercatorViewport(newViewport);
         // fetch the lat/lng of the edges of the viewport
         // measured from topLeft
@@ -160,7 +142,24 @@ const Friends = () => {
         if (!isOutOfMaxBounds(newSouthWest, newNorthEast, [[-180, -90], [180, 90]])) {
             setViewport(newViewport);
         };
-    };
+    }, []);
+
+    const onGeocoderViewportChange = useCallback(
+        (newViewport) => setViewport(newViewport),
+        []
+    );
+
+    const handleGeocoderViewportChange = useCallback(
+        (newViewport) => {
+            const geocoderDefaultOverrides = { transitionDuration: 1000 };
+
+            return onGeocoderViewportChange({
+                ...newViewport,
+                ...geocoderDefaultOverrides
+            });
+        },
+        [onGeocoderViewportChange]
+    );
 
     return (
         <div className="main padding-none">
@@ -179,6 +178,12 @@ const Friends = () => {
                     maxZoom={20}
                 >
                     <GeolocateControl position="top-left" />
+                    <Geocoder
+                        mapRef={mapRef}
+                        onViewportChange={handleGeocoderViewportChange}
+                        mapboxApiAccessToken={MAP_TOKEN}
+                        position="top-right"
+                    />
                     {clusters.map(cluster => {
                         // every cluster point has coordinates
                         const [longitude, latitude] = cluster.geometry.coordinates;
