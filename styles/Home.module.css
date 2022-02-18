@@ -114,7 +114,7 @@ ul.user_list {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 100%;
+    flex: 1;
 }
 
 .navlink {
@@ -130,6 +130,15 @@ ul.user_list {
 .subtitle {
     font-size: 1.4rem;
     font-weight: 600;
+    font-style: italic;
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+    margin-left: 1rem;
+}
+
+.logo {
+    color: #4226f8;
 }
 
 @media only screen and (max-width: 768px) {

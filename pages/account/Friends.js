@@ -37,8 +37,8 @@ const Friends = () => {
     const [viewport, setViewport] = useState({
         latitude: 37.4900,
         longitude: -77.4664,
-        width: '80vw',
-        height: '80vh',
+        width: '95vw',
+        height: '70vh',
         zoom: 2,
     });
 

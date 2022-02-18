@@ -16,7 +16,8 @@ const NavBar = () => {
             {user ?
                 (
                     <div className={styles.navcontainer}>
-                        <p className={styles.subtitle}>Hello, {JSON.parse(JSON.stringify(user.username))}</p>
+                        <h2 className={styles.logo}>Friend-zones</h2>
+                        <p className={styles.subtitle}>Hello, {JSON.parse(JSON.stringify(user.username))}!</p>
                         <div className={!isOpen ?
                             styles.navmenu : styles.navmenu + ' ' + styles.active}>
                             <NavBarItem link="/account/Dashboard" title="Dashboard" isOpen={isOpen} openMenu={openMenu} />
