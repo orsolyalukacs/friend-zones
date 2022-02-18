@@ -201,7 +201,8 @@ const Friends = () => {
                                     latitude={latitude}
                                     longitude={longitude}
                                 >
-                                    <div
+                                    <button
+                                        value={'cluster'}
                                         className={styles.clusterMarker}
                                         style={{
                                             width: `${10 + (pointCount / points.length) * 70}px`,
@@ -226,7 +227,7 @@ const Friends = () => {
                                         }}
                                     >
                                         {pointCount}
-                                    </div>
+                                    </button>
                                 </Marker>
                             );
                         }
