@@ -79,7 +79,7 @@ const Friends = () => {
         points,
         bounds,
         zoom: viewport.zoom,
-        options: { radius: 50, maxZoom: 18 }
+        options: { radius: 50, maxZoom: 20 }
     });
 
     // Populate the friendsList

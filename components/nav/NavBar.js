@@ -20,7 +20,7 @@ const NavBar = () => {
                         <p className={styles.subtitle}>Hello, {JSON.parse(JSON.stringify(user.username))}!</p>
                         <div className={!isOpen ?
                             styles.navmenu : styles.navmenu + ' ' + styles.active}>
-                            <NavBarItem link="/account/Dashboard" title="Dashboard" isOpen={isOpen} openMenu={openMenu} />
+                            {/* <NavBarItem link="/account/Dashboard" title="Dashboard" isOpen={isOpen} openMenu={openMenu} /> */}
                             <div className={styles.navlink}>
                                 <Link href={{
                                     pathname: "/account/Friends",
