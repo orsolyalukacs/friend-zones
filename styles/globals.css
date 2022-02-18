@@ -132,6 +132,15 @@ button :hover {
     margin: 1rem 0 0;
 }
 
+.error_msg {
+    color: #f30070;
+    padding-left: 10px;
+}
+.success_msg {
+    color: green;
+    padding-left: 10px;
+}
+
 .padding-none {
     padding: 0;
 }

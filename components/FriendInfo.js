@@ -5,6 +5,8 @@ const FriendInfo = ({
     updated,
     setUpdated,
     setSelectedFriend,
+    setAlertMsg,
+    setErrorMsg
 }) => {
     const handleDelete = (e) => {
         // connects to db, and deletes friend based on id
@@ -16,10 +18,13 @@ const FriendInfo = ({
                 method: 'DELETE',
             });
             console.log('Friend deleted');
+            setAlertMsg(friend.properties.name + ' was removed');
             setUpdated(!updated);
             setSelectedFriend(null);
         } catch (error) {
             console.log('Failed to delete friend', error);
+            setAlertMsg(null);
+            setErrorMsg('Failed to delete friend!');
         }
     };
 

@@ -46,6 +46,40 @@
     align-items: center;
 }
 
+.alert_box {
+    width: 224px;
+    background: #fff;
+    box-shadow: 0 0 4px rgb(0 0 0 / 15%);
+    border-radius: 3px;
+    margin: 1rem;
+    padding: .5rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: 0px;
+    right: 0;
+    outline: none;
+    cursor: auto;
+    transition: 1s;
+}
+
+.alert_button {
+    background: #fff;
+    background-color: transparent;
+    position: absolute;
+    border: none;
+    width: 2px;
+    top: 0;
+    right: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert_button:hover {
+    background: rgb(235, 235, 235, .4);
+}
+
 @media only screen and (min-width: 360px) and (max-width: 768px) {
     .grid {
         flex-direction: column;

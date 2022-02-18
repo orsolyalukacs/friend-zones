@@ -1,7 +1,17 @@
 // New Friend
 import { useRef } from 'react';
 
-const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFriend, setMarker }) => {
+const NewFriend = ({ user,
+    data,
+    error,
+    marker,
+    updated,
+    setUpdated,
+    setAddingFriend,
+    setMarker,
+    setAlertMsg,
+    setErrorMsg
+}) => {
     const nameInput = useRef(null);
 
     const handleSubmit = (e) => {
@@ -24,7 +34,7 @@ const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFr
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newFriend),
             }).then(() => {
-                alert(newFriend.name + ' was added!');
+                setAlertMsg(newFriend.name + ' was added!');
                 console.log('Friend added: ', newFriend);
                 setUpdated(!updated);
                 setAddingFriend(false);
@@ -32,6 +42,8 @@ const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFr
             });
         } catch (error) {
             console.log('Failed to add Friend', error);
+            setAlertMsg(null);
+            setErrorMsg('Failed to add friend!');
         }
     };
 
