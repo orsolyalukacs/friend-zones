@@ -162,7 +162,7 @@ const Friends = () => {
     );
 
     return (
-        <div className="main padding-none">
+        <div className="main">
             <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
                 {displayInfoCard ? 'Show Map' : 'Show Friends'}
             </button>

@@ -16,13 +16,8 @@ a {
 }
 
 .title a {
-    color: #0070f3;
+    color: #4226f8;
     text-decoration: none;
-}
-
-.subtitle {
-    font-size: 1.4rem;
-    font-weight: 600;
 }
 
 h1 a:hover,
@@ -115,8 +110,19 @@ button :hover {
 .card:hover,
 .card:focus,
 .card:active {
-    color: #0070f3;
-    border-color: #0070f3;
+    color: #4226f8;
+    border-color: #4226f8;
+}
+
+.card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+}
+
+.card p {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
 }
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
@@ -124,6 +130,36 @@ button :hover {
         padding: 1rem;
         width: 300px;
         height: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main {
+        min-height: 70vh;
+        padding: 0;
+    }
+
+    .description {
+        margin: 2rem 0;
+        font-size: 1.4rem;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .main {
+        justify-content: flex-start;
+    }
+
+    button {
+        width: auto;
     }
 }
 
