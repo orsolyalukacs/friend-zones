@@ -13,14 +13,15 @@ export default function Home({ isConnected }) {
           Welcome to <a href="">Friend Zones!</a>
         </h1>
 
-        {isConnected ? (
-          <h2 className="subtitle">You are connected to MongoDB</h2>
+        {/* Used in dev to Check Mongo connection on the front-end */}
+        {/* {isConnected ? (
+          <h2 className={styles.subtitle}>You are connected to MongoDB</h2>
         ) : (
-          <h2 className="subtitle">
+          <h2 className={styles.subtitle}>
             You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
             for instructions.
           </h2>
-        )}
+        )} */}
 
         <p className={styles.description}>
           A web app that displays a user&apos;s friends, and their associated timezones, in relation to the timezone of the user.
