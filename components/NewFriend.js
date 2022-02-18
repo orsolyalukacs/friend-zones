@@ -12,6 +12,10 @@ const NewFriend = ({ user,
     setAlertMsg,
     setErrorMsg
 }) => {
+    const hideAlertMsg = () => {
+        setAlertMsg(null);
+    };
+
     const nameInput = useRef(null);
 
     const handleSubmit = (e) => {
@@ -35,6 +39,7 @@ const NewFriend = ({ user,
                 body: JSON.stringify(newFriend),
             }).then(() => {
                 setAlertMsg(newFriend.name + ' was added!');
+                setTimeout(hideAlertMsg, 3000);
                 console.log('Friend added: ', newFriend);
                 setUpdated(!updated);
                 setAddingFriend(false);
@@ -63,7 +68,7 @@ const NewFriend = ({ user,
             <p>Lat: {marker.latitude}</p>
             <p>Long: {marker.longitude}</p>
             {error && <p>Unable to get timezone info from coordinates</p>}
-            <button type="submit" value={'preventNewMarker'}>
+            <button className='popup' type="submit" value={'preventNewMarker'}>
                 Add Friend
             </button>
         </form>

@@ -48,6 +48,7 @@
 
 .alert_box {
     width: 224px;
+    min-height: 65px;
     background: #fff;
     box-shadow: 0 0 4px rgb(0 0 0 / 15%);
     border-radius: 3px;
@@ -60,7 +61,13 @@
     right: 0;
     outline: none;
     cursor: auto;
-    transition: 1s;
+    opacity: 1;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.alert_box.hide {
+    cursor: grab;
+    opacity: 0;
 }
 
 .alert_button {

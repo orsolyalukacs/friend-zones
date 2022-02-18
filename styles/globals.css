@@ -86,6 +86,11 @@ button :hover {
     border-color: #888;
 }
 
+button.popup {
+    width: auto;
+    margin-left: 0;
+}
+
 .container {
     padding: 0 2rem;
 }

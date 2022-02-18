@@ -148,6 +148,9 @@ const Friends = () => {
         }
     };
 
+    // Timer for alert messages
+
+
     const isOutOfMaxBounds = (nextSW, nextNE, maxBounds) => {
         const [[maxSWLng, maxSWLat], [maxNELng, maxNELat]] = maxBounds;
         const [nextSWLng, nextSWLat] = nextSW;
@@ -185,29 +188,26 @@ const Friends = () => {
                     ref={mapRef}
                     maxZoom={20}
                 >
-                    {alertMsg &&
-                        <div className={styles.alert_box}>
-                            <button value={'close'} className={styles.alert_button} onClick={() => setAlertMsg(null)}>
-                                x
-                            </button>
-                            <IconContext.Provider value={{ color: "green", size: 15 }}>
-                                <FaCheck />
-                            </IconContext.Provider>
-                            <p className='success_msg'>{alertMsg}</p>
-                        </div>
-                    }
 
-                    {errorMsg &&
-                        <div className={styles.alert_box}>
-                            <button value={'close'} className={styles.alert_button} onClick={() => setErrorMsg(null)}>
-                                x
-                            </button>
-                            <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
-                                <MdErrorOutline />
-                            </IconContext.Provider>
-                            <p className='error_msg'>{errorMsg}</p>
-                        </div>
-                    }
+                    <div className={alertMsg ? styles.alert_box : styles.alert_box + " " + styles.hide}>
+                        <button value={'close'} className={styles.alert_button} onClick={() => setAlertMsg(null)}>
+                            x
+                        </button>
+                        <IconContext.Provider value={{ color: "green", size: 15 }}>
+                            <FaCheck />
+                        </IconContext.Provider>
+                        <p className='success_msg'>{alertMsg}</p>
+                    </div>
+
+                    <div className={errorMsg ? styles.alert_box : styles.alert_box + " " + styles.hide}>
+                        <button value={'close'} className={styles.alert_button} onClick={() => setErrorMsg(null)}>
+                            x
+                        </button>
+                        <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
+                            <MdErrorOutline />
+                        </IconContext.Provider>
+                        <p className='error_msg'>{errorMsg}</p>
+                    </div>
 
                     <GeolocateControl position="top-left" />
                     {clusters.map(cluster => {
