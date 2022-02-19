@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;
     bottom: 0px;
-    right: 0;
+    right: 0px;
     outline: none;
     cursor: auto;
     opacity: 1;
@@ -90,5 +90,8 @@
 @media only screen and (min-width: 360px) and (max-width: 768px) {
     .grid {
         flex-direction: column;
+    }
+    .alert_box {
+        bottom: 55px;
     }
 }

@@ -23,7 +23,7 @@ const FriendInfo = ({
             });
             console.log('Friend deleted');
             setAlertMsg(friend.properties.name + ' was removed');
-            setTimeout(hideAlertMsg, 3000);
+            setTimeout(hideAlertMsg, 2000);
             setUpdated(!updated);
             setSelectedFriend(null);
         } catch (error) {

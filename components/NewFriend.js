@@ -39,7 +39,7 @@ const NewFriend = ({ user,
                 body: JSON.stringify(newFriend),
             }).then(() => {
                 setAlertMsg(newFriend.name + ' was added!');
-                setTimeout(hideAlertMsg, 3000);
+                setTimeout(hideAlertMsg, 2000);
                 console.log('Friend added: ', newFriend);
                 setUpdated(!updated);
                 setAddingFriend(false);
