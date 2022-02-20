@@ -97,6 +97,7 @@ Open source projects that helped us along the way:
 -   [react-map-gl](https://visgl.github.io/react-map-gl/) - React wrapper for Mapbox GL JS
 -   [use-supercluster](https://www.npmjs.com/package/use-supercluster) - A hook for using Supercluster with React.
 -   [react-icons](https://react-icons.github.io/react-icons/) - Popular icons that can be easily implemented in React.
+-   [react-map-gl-geocoder](https://www.npmjs.com/package/react-map-gl-geocoder) - React wrapper for mapbox-gl-geocoder for use with react-map-gl.
 
 ## Bonus Features
 
