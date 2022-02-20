@@ -81,6 +81,11 @@ button :hover {
     border-color: #888;
 }
 
+button.popup {
+    width: auto;
+    margin-left: 0;
+}
+
 .container {
     padding: 0 2rem;
 }
@@ -186,6 +191,15 @@ button :hover {
 .error {
     color: #f30070;
     margin: 1rem 0 0;
+}
+
+.error_msg {
+    color: #f30070;
+    padding-left: 10px;
+}
+.success_msg {
+    color: green;
+    padding-left: 10px;
 }
 
 .padding-none {

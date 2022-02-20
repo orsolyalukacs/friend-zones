@@ -1,7 +1,21 @@
 // New Friend
 import { useRef } from 'react';
 
-const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFriend, setMarker }) => {
+const NewFriend = ({ user,
+    data,
+    error,
+    marker,
+    updated,
+    setUpdated,
+    setAddingFriend,
+    setMarker,
+    setAlertMsg,
+    setErrorMsg
+}) => {
+    const hideAlertMsg = () => {
+        setAlertMsg(null);
+    };
+
     const nameInput = useRef(null);
 
     const handleSubmit = (e) => {
@@ -24,7 +38,8 @@ const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFr
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newFriend),
             }).then(() => {
-                alert(newFriend.name + ' was added!');
+                setAlertMsg(newFriend.name + ' was added!');
+                setTimeout(hideAlertMsg, 2000);
                 console.log('Friend added: ', newFriend);
                 setUpdated(!updated);
                 setAddingFriend(false);
@@ -32,6 +47,8 @@ const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFr
             });
         } catch (error) {
             console.log('Failed to add Friend', error);
+            setAlertMsg(null);
+            setErrorMsg('Failed to add friend!');
         }
     };
 
@@ -51,7 +68,7 @@ const NewFriend = ({ user, data, error, marker, updated, setUpdated, setAddingFr
             <p>Lat: {marker.latitude}</p>
             <p>Long: {marker.longitude}</p>
             {error && <p>Unable to get timezone info from coordinates</p>}
-            <button type="submit" value={'preventNewMarker'}>
+            <button className='popup' type="submit" value={'preventNewMarker'}>
                 Add Friend
             </button>
         </form>

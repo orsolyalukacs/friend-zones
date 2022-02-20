@@ -48,9 +48,53 @@
     border-color: transparent;
 }
 
+.alert_box {
+    width: 224px;
+    min-height: 65px;
+    background: #fff;
+    box-shadow: 0 0 4px rgb(0 0 0 / 15%);
+    border-radius: 3px;
+    margin: 1rem;
+    padding: .5rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: 0px;
+    right: 0px;
+    outline: none;
+    cursor: auto;
+    opacity: 1;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.alert_box.hide {
+    cursor: grab;
+    opacity: 0;
+}
+
+.alert_button {
+    background: #fff;
+    background-color: transparent;
+    position: absolute;
+    border: none;
+    width: 2px;
+    top: 0;
+    right: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert_button:hover {
+    background: rgb(235, 235, 235, .4);
+}
+
 @media only screen and (min-width: 360px) and (max-width: 768px) {
     .grid {
         flex-direction: column;
         width: 100%;
+    }
+    .alert_box {
+        bottom: 55px;
     }
 }

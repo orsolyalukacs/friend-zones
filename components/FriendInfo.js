@@ -5,7 +5,13 @@ const FriendInfo = ({
     updated,
     setUpdated,
     setSelectedFriend,
+    setAlertMsg,
+    setErrorMsg
 }) => {
+    const hideAlertMsg = () => {
+        setAlertMsg(null);
+    };
+
     const handleDelete = (e) => {
         // connects to db, and deletes friend based on id
         e.preventDefault();
@@ -16,10 +22,14 @@ const FriendInfo = ({
                 method: 'DELETE',
             });
             console.log('Friend deleted');
+            setAlertMsg(friend.properties.name + ' was removed');
+            setTimeout(hideAlertMsg, 2000);
             setUpdated(!updated);
             setSelectedFriend(null);
         } catch (error) {
             console.log('Failed to delete friend', error);
+            setAlertMsg(null);
+            setErrorMsg('Failed to delete friend!');
         }
     };
 
@@ -33,7 +43,7 @@ const FriendInfo = ({
                     minute: '2-digit',
                 })}
             </p>
-            <button onClick={handleDelete} value={friend.properties.friendId}>
+            <button className="popup" onClick={handleDelete} value={friend.properties.friendId}>
                 Delete Friend
             </button>
         </form>
