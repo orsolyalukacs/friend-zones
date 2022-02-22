@@ -208,3 +208,32 @@ button.popup {
 .padding-none {
     padding: 0;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.card-title {
+    text-decoration: underline;
+    font-size: 1.6rem;
+}
+
+.card-time {
+    font-size: 1.4rem;
+    margin-left: 2rem;
+}
+
+.friend-card {
+    max-width: 650px;
+    width: 650px;
+}
+
+.card-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
