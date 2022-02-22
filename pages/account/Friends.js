@@ -108,8 +108,6 @@ const Friends = () => {
             });
     }, [updated, userInfo]);
 
-
-
     // Update the map clicks for newFriendMarker
     const handleClick = (e) => {
         e.preventDefault();
@@ -211,6 +209,8 @@ const Friends = () => {
                         onViewportChange={handleGeocoderViewportChange}
                         mapboxApiAccessToken={MAP_TOKEN}
                         position="top-right"
+                        reverseGeocode
+
                     />
                     {clusters.map(cluster => {
                         // every cluster point has coordinates
