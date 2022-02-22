@@ -13,7 +13,6 @@ import FriendInfo from '../../components/FriendInfo';
 import FriendCard from '../../components/FriendCard';
 import { useUser } from '../../lib/hooks';
 import { isOutOfMaxBounds, fetchAPI } from '../../util/map-utils';
-
 import { IconContext } from "react-icons";
 import { FaCheck } from 'react-icons/fa';
 import { MdErrorOutline } from 'react-icons/md';
@@ -29,9 +28,7 @@ const Friends = () => {
     const [displayInfoCard, setDisplayInfoCard] = useState(false);
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-
     const [alertMsg, setAlertMsg] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
 
     const user = useUser();
     const router = useRouter();
@@ -189,20 +186,23 @@ const Friends = () => {
                         <button value={'close'} className={styles.alert_button} onClick={() => setAlertMsg(null)}>
                             x
                         </button>
-                        <IconContext.Provider value={{ color: "green", size: 15 }}>
-                            <FaCheck />
-                        </IconContext.Provider>
-                        <p className='success_msg'>{alertMsg}</p>
-                    </div>
+                        {alertMsg && alertMsg.success && (
+                            <>
+                                <IconContext.Provider value={{ color: "green", size: 15 }}>
+                                    <FaCheck />
+                                </IconContext.Provider>
+                                <p className='success_msg'>{alertMsg.success}</p>
+                            </>
+                        )}
 
-                    <div className={errorMsg ? styles.alert_box : styles.alert_box + " " + styles.hide}>
-                        <button value={'close'} className={styles.alert_button} onClick={() => setErrorMsg(null)}>
-                            x
-                        </button>
-                        <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
-                            <MdErrorOutline />
-                        </IconContext.Provider>
-                        <p className='error_msg'>{errorMsg}</p>
+                        {alertMsg && alertMsg.error && (
+                            <>
+                                <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
+                                    <MdErrorOutline />
+                                </IconContext.Provider>
+                                <p className='error_msg'>{alertMsg.error}</p>
+                            </>
+                        )}
                     </div>
 
                     <GeolocateControl position="top-left" />
@@ -300,7 +300,6 @@ const Friends = () => {
                                 setAlertMsg={setAlertMsg}
                                 data={data}
                                 error={error}
-                                setErrorMsg={setErrorMsg}
                             ></NewFriend>
                         </Popup>
                     }
@@ -333,7 +332,6 @@ const Friends = () => {
                                 setUpdated={setUpdated}
                                 setSelectedFriend={setSelectedFriend}
                                 setAlertMsg={setAlertMsg}
-                                setErrorMsg={setErrorMsg}
                             ></FriendInfo>
                         </Popup>
                     )}
