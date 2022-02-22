@@ -23,7 +23,6 @@ const FriendCard = ({ friend }) => {
         fetchLocation()
             .then((data) => {
                 console.log('resolved', data);
-                // setFriendList(data[0].friendsList);
                 setLocation(data.features[0].place_name);
             })
             .catch((err) => {
