@@ -141,6 +141,9 @@ button.popup {
 .mapboxgl-ctrl-geocoder--input {
     box-shadow: 0 0 0 2px rgb(0 0 0 / 10%) !important;
 }
+.mapboxgl-ctrl-geocoder--button {
+    width: auto;
+}
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
     .card {

@@ -5,8 +5,7 @@ const FriendInfo = ({
     updated,
     setUpdated,
     setSelectedFriend,
-    setAlertMsg,
-    setErrorMsg
+    setAlertMsg
 }) => {
     const hideAlertMsg = () => {
         setAlertMsg(null);
@@ -22,14 +21,13 @@ const FriendInfo = ({
                 method: 'DELETE',
             });
             console.log('Friend deleted');
-            setAlertMsg(friend.properties.name + ' was removed');
+            setAlertMsg({ success: friend.properties.name + ' was removed' });
             setTimeout(hideAlertMsg, 2000);
             setUpdated(!updated);
             setSelectedFriend(null);
         } catch (error) {
             console.log('Failed to delete friend', error);
-            setAlertMsg(null);
-            setErrorMsg('Failed to delete friend!');
+            setAlertMsg({ error: 'Failed to delete friend!' });
         }
     };
 

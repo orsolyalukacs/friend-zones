@@ -9,8 +9,7 @@ const NewFriend = ({ user,
     setUpdated,
     setAddingFriend,
     setMarker,
-    setAlertMsg,
-    setErrorMsg
+    setAlertMsg
 }) => {
     const hideAlertMsg = () => {
         setAlertMsg(null);
@@ -38,7 +37,7 @@ const NewFriend = ({ user,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newFriend),
             }).then(() => {
-                setAlertMsg(newFriend.name + ' was added!');
+                setAlertMsg({ success: newFriend.name + ' was added!' });
                 setTimeout(hideAlertMsg, 2000);
                 console.log('Friend added: ', newFriend);
                 setUpdated(!updated);
@@ -47,8 +46,7 @@ const NewFriend = ({ user,
             });
         } catch (error) {
             console.log('Failed to add Friend', error);
-            setAlertMsg(null);
-            setErrorMsg('Failed to add friend!');
+            setAlertMsg({ error: "Failed to add friend!" });
         }
     };
 
