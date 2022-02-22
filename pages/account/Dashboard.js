@@ -7,7 +7,6 @@ const Dashboard = () => {
     return (
         <main className="main">
             <h1> Dashboard</h1>
-            {/* TODO: display map and friends timezones */}
             {user ?
                 (
                     <Link href="/account/EditUserInfo">
@@ -17,7 +16,7 @@ const Dashboard = () => {
                     </Link>
 
                 ) : (
-                    <><p className="error">You are not logged in</p></>
+                    <><p className="error">Loading...</p></>
                 )
             }
         </main>

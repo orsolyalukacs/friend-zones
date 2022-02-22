@@ -1,8 +1,5 @@
-import styles from '../styles/dashboard.module.css';
-
-function DisplayFriends(props) {
+function DisplayFriends({ friendList }) {
     // Take the friends object, and display friends on a card
-    const friendList = props.friendList;
 
     function deleteFriend(e) {
         const target = e.target;
@@ -17,7 +14,7 @@ function DisplayFriends(props) {
     }
 
     return (
-        <div className={styles.card}>
+        <div className="card">
             <h3>Friend List</h3>
             {/* TODO: Ok to use friend_id? */}
             {friendList.map((friend) => {

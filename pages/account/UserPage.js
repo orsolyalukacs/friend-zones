@@ -16,7 +16,6 @@ const UserPage = () => {
                     </Link>
 
                 ) : (
-                    // TODO: add loader if user is signing in
                     <><p>You are not logged in</p></>
                 )
             }

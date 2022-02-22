@@ -56,10 +56,14 @@ This page will allow Users to add friends to the db via combination of **AddFrie
 
 ```
 {
+    "friend_id": "620abf87b899decfbff6c250",
     "name": "Jimmy",
+    "coordinates": {
+        "latitude": -27.474,
+        "longitude": 153.017
+    },
     "timezone": "Australia/Brisbane",
     "timezone_offset": 10,
-    "coordinates": [-27.474, 153.017]  // first is lat, second is long
 }
 ```
 
@@ -92,6 +96,8 @@ Open source projects that helped us along the way:
 -   [Next.js with Passport.js](https://github.com/vercel/next.js/tree/canary/examples/with-passport) - An example to use Next.js with Passport.js for authentication
 -   [react-map-gl](https://visgl.github.io/react-map-gl/) - React wrapper for Mapbox GL JS
 -   [use-supercluster](https://www.npmjs.com/package/use-supercluster) - A hook for using Supercluster with React.
+-   [react-icons](https://react-icons.github.io/react-icons/) - Popular icons that can be easily implemented in React.
+-   [react-map-gl-geocoder](https://www.npmjs.com/package/react-map-gl-geocoder) - React wrapper for mapbox-gl-geocoder for use with react-map-gl.
 
 ## Bonus Features
 

@@ -1,9 +1,7 @@
 import styles from '../styles/dashboard.module.css';
 const timeSettings = { hour: '2-digit', minute: '2-digit' };
 
-function DisplayOffsets(props) {
-  const offsets = props.offsets;
-  const friendList = props.friendList;
+function DisplayOffsets({ offsets, friendList }) {
   // Create zones of friends to check against
   const zones = [];
   friendList.map((friend) => zones.push(friend.timezone));
