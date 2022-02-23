@@ -283,7 +283,11 @@ button.popup {
         font-size: 2.2rem;
     }
 
-    .index-card {
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card {
         padding: 0.8rem;
         margin: 0.4rem;
     }
@@ -294,6 +298,17 @@ button.popup {
 
     .card p {
         font-size: 1rem;
+    }
+
+    .friend-card {
+        max-width: 300px;
+        width: auto;
+        height: auto;
+    }
+
+    .card-time {
+        font-size: 1.2rem;
+        margin-left: 1.5rem;
     }
 }
 
