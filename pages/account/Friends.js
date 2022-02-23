@@ -109,8 +109,6 @@ const Friends = () => {
             });
     }, [updated, userInfo]);
 
-
-
     // Update the map clicks for newFriendMarker
     const handleClick = (e) => {
         e.preventDefault();
@@ -218,6 +216,7 @@ const Friends = () => {
                             mapboxApiAccessToken={MAP_TOKEN}
                             position="top-right"
                             containerRef={geocoderContainerRef}
+                            reverseGeocode
                         />
                         {clusters.map(cluster => {
                             // every cluster point has coordinates

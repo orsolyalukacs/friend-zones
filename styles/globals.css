@@ -100,6 +100,43 @@ button.popup {
     align-items: center;
 }
 
+/* Map */
+
+.mapboxgl-ctrl-group button {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+.mapboxgl-ctrl-group {
+    margin: 10px !important;
+}
+.mapboxgl-ctrl-geocoder--input {
+    box-shadow: 0 0 0 2px rgb(0 0 0 / 10%) !important;
+}
+.mapboxgl-ctrl-geocoder--button {
+    width: auto;
+}
+
+/* Error and alert messages */
+.error {
+    color: #f30070;
+    margin: 1rem 0 0;
+}
+
+.error_msg {
+    color: #f30070;
+    padding-left: 10px;
+}
+.success_msg {
+    color: green;
+    padding-left: 10px;
+}
+
+.padding-none {
+    padding: 0;
+}
+
+/* Card */
 .card {
     margin: 1rem;
     padding: 1.5rem;
@@ -130,26 +167,47 @@ button.popup {
     line-height: 1.5;
 }
 
-.mapboxgl-ctrl-group button {
-    width: 36px !important;
-    height: 36px !important;
+.bold {
+    font-weight: bold;
 }
 
-.mapboxgl-ctrl-group {
-    margin: 10px !important;
+.italic {
+    font-style: italic;
 }
-.mapboxgl-ctrl-geocoder--input {
-    box-shadow: 0 0 0 2px rgb(0 0 0 / 10%) !important;
+
+.card-title {
+    text-decoration: underline;
+    font-size: 1.6rem;
 }
 .mapboxgl-ctrl-geocoder--button {
     width: auto;
 }
 
-@media only screen and (min-width: 360px) and (max-width: 768px) {
-    .card {
-        padding: 1rem;
-        width: 300px;
-        height: 200px;
+.card-time {
+    font-size: 1.4rem;
+    margin-left: 2rem;
+}
+
+.friend-card {
+    max-width: 650px;
+    width: 650px;
+}
+
+.card-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Responsive styles */
+
+@media only screen and (max-width: 768px) {
+    .main {
+        justify-content: flex-start;
+    }
+
+    button {
+        width: auto;
     }
 }
 
@@ -181,30 +239,28 @@ button.popup {
     }
 }
 
-@media only screen and (max-width: 768px) {
-    .main {
-        justify-content: flex-start;
+@media only screen and (min-width: 360px) and (max-width: 768px) {
+    .card {
+        padding: 0.8rem;
+        width: 300px;
+        height: 200px;
     }
 
-    button {
-        width: auto;
+    .card p {
+        font-size: 1rem;
     }
-}
 
-.error {
-    color: #f30070;
-    margin: 1rem 0 0;
-}
+    .friend-card {
+        max-width: 300px;
+        height: auto;
+    }
 
-.error_msg {
-    color: #f30070;
-    padding-left: 10px;
-}
-.success_msg {
-    color: green;
-    padding-left: 10px;
-}
+    .card-title {
+        font-size: 1.2rem;
+    }
 
-.padding-none {
-    padding: 0;
+    .card-time {
+        font-size: 1.2rem;
+        margin-left: 1.5rem;
+    }
 }
