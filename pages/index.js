@@ -29,13 +29,13 @@ export default function Home({ isConnected }) {
         <div className={styles.grid}>
 
           <Link href="/account/Login">
-            <a className="card">
+            <a className="card index-card">
               <h2>Login &rarr;</h2>
               <p>Find out the current time in your friends&apos; timezone</p>
             </a>
           </Link>
           <Link href="/account/Signup">
-            <a className="card">
+            <a className="card index-card">
               <h2>Register &rarr;</h2>
               <p>Sign up to see timezones of your friends</p>
             </a>
