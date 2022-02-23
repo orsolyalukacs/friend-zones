@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
-import { session } from 'passport';
 
 const Login = () => {
     useUser({ redirectTo: '/', redirectIfFound: true });
