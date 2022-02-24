@@ -3,19 +3,19 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from "next/router";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import styles from '../../styles/Friends.module.css';
 import useSupercluster from 'use-supercluster';
 import Geocoder from "react-map-gl-geocoder";
-import styles from '../../styles/Friends.module.css';
+import { IconContext } from "react-icons";
+import { FaCheck } from 'react-icons/fa';
+import { MdErrorOutline } from 'react-icons/md';
+import { useUser } from '../../lib/hooks';
+import { isOutOfMaxBounds, fetchAPI } from '../../util/map-utils';
 import Pin from '../../components/Pin';
 import NewFriend from '../../components/NewFriend';
 import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
 import FriendCard from '../../components/FriendCard';
-import { useUser } from '../../lib/hooks';
-import { isOutOfMaxBounds, fetchAPI } from '../../util/map-utils';
-import { IconContext } from "react-icons";
-import { FaCheck } from 'react-icons/fa';
-import { MdErrorOutline } from 'react-icons/md';
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 
@@ -345,12 +345,14 @@ const Friends = () => {
                 </div>
             ) : (
                 <div className={styles.grid}>
-                    {friendList.map((friend) => (
-                        <FriendCard
-                            friend={friend}
-                            key={friend.friend_id}
-                        ></FriendCard>
-                    ))}
+                    {friendList &&
+                        friendList.map((friend) => (
+                            <FriendCard
+                                friend={friend}
+                                key={friend.friend_id}
+                            ></FriendCard>
+                        ))
+                    }
                 </div>
             )}
 

@@ -47,18 +47,22 @@ const FriendCard = ({ friend }) => {
 
     return (
         <div className="card friend-card">
-            <div className="card-title-container">
-                <h3 className="card-title">{friend.name}</h3>
-                <h3 className="bold card-time">
-                    {new Date().toLocaleTimeString([], {
-                        timeZone: friend.timezone,
-                        hour: '2-digit',
-                        minute: '2-digit',
-                    })}
-                </h3>
-            </div>
-            <p><span className="bold italic">Location:  </span>{location}</p>
-            <p><span className="bold italic">Timezone:  </span> ({GMT}{friend.timezone_offset}) {friend.timezone}</p>
+            {friend ?
+                (<>
+                    <div className="card-title-container">
+                        <h3 className="card-title">{friend.name}</h3>
+                        <h3 className="bold card-time">
+                            {new Date().toLocaleTimeString([], {
+                                timeZone: friend.timezone,
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            })}
+                        </h3>
+                    </div>
+                    <p><span className="bold italic">Location:  </span>{location}</p>
+                    <p><span className="bold italic">Timezone:  </span> ({GMT}{friend.timezone_offset}) {friend.timezone}</p>
+                </>
+                ) : (<h3>No data found.</h3>)}
         </div>
     );
 };
