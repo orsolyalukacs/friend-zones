@@ -110,9 +110,11 @@ button.popup {
 .mapboxgl-ctrl-group {
     margin: 10px !important;
 }
+
 .mapboxgl-ctrl-geocoder--input {
     box-shadow: 0 0 0 2px rgb(0 0 0 / 10%) !important;
 }
+
 .mapboxgl-ctrl-geocoder--button {
     width: auto;
 }
@@ -180,6 +182,10 @@ button.popup {
     font-size: 1.6rem;
 }
 
+.mapboxgl-ctrl-geocoder--button {
+    width: auto;
+}
+
 .card-time {
     font-size: 1.4rem;
     margin-left: 2rem;
@@ -234,6 +240,11 @@ button.popup {
     .mapboxgl-ctrl-group button {
         height: 50px !important;
     }
+
+    .mapboxgl-ctrl-geocoder {
+        width: auto !important;
+        margin-bottom: -15px;
+    }
 }
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
@@ -259,5 +270,19 @@ button.popup {
     .card-time {
         font-size: 1.2rem;
         margin-left: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 360px) {
+    .mapboxgl-ctrl-geocoder {
+        max-width: 200px;
+        min-width: 200px !important;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 640px) {
+    .mapboxgl-ctrl-geocoder {
+        max-width: 260px;
+        min-width: 260px !important;
     }
 }

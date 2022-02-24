@@ -26,7 +26,7 @@ const Login = () => {
                 body: JSON.stringify(body),
             });
             if (res.status === 200) {
-                Router.push('/account/Dashboard');
+                Router.push(`/account/Friends?userInfo=${body.username}`);
             } else {
                 throw new Error(await res.text());
             }

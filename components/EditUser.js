@@ -1,6 +1,6 @@
 import styles from '../styles/Form.module.css';
 import cx from 'classnames';
-const UTC_OFFSETS = require('/data/timezones.json');
+const TIMEZONES = require('/data/tznames.json');
 
 const EditUser = ({ errorMessage, onSubmit }) => (
     <div className={styles.container}>
@@ -17,8 +17,8 @@ const EditUser = ({ errorMessage, onSubmit }) => (
                     name="timezone"
                     required>
                     <option value="">Select your timezone</option>
-                    {UTC_OFFSETS.map((timezoneOffset) => {
-                        return <option key={timezoneOffset} value={timezoneOffset}>{timezoneOffset}</option>;
+                    {TIMEZONES.map((item) => {
+                        return <option key={item.utc_offset}>(GMT{item.utc_offset}) {item.timezone} </option>;
                     })
                     }
                 </select>
