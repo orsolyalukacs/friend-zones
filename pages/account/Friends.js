@@ -171,10 +171,10 @@ const Friends = () => {
             </button>
 
             {!displayInfoCard ? (
-                <>
+                <div>
                     <div
                         ref={geocoderContainerRef}
-                        style={{ position: "absolute", top: 220, right: 20, zIndex: 1 }}
+                        className={styles.search_bar}
                     />
                     <ReactMapGL
                         mapboxApiAccessToken={MAP_TOKEN}
@@ -342,7 +342,7 @@ const Friends = () => {
                             </Popup>
                         )}
                     </ReactMapGL>
-                </>
+                </div>
             ) : (
                 <div className={styles.grid}>
                     {friendList.map((friend) => (
