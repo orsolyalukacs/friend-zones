@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import EditUser from '../../components/EditUser';
 
-// TODO: add success message after signup
+// TODO: add success message after edit
 const EditUserInfo = () => {
     const user = useUser();
 
