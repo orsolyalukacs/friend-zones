@@ -345,12 +345,14 @@ const Friends = () => {
                 </div>
             ) : (
                 <div className={styles.grid}>
-                    {friendList.map((friend) => (
-                        <FriendCard
-                            friend={friend}
-                            key={friend.friend_id}
-                        ></FriendCard>
-                    ))}
+                    {friendList &&
+                        friendList.map((friend) => (
+                            <FriendCard
+                                friend={friend}
+                                key={friend.friend_id}
+                            ></FriendCard>
+                        ))
+                    }
                 </div>
             )}
 
