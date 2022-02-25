@@ -338,6 +338,7 @@ const Friends = () => {
                                     setUpdated={setUpdated}
                                     setSelectedFriend={setSelectedFriend}
                                     setAlertMsg={setAlertMsg}
+                                    setMarker={setMarker}
                                 ></FriendInfo>
                             </Popup>
                         )}

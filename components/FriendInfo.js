@@ -5,7 +5,8 @@ const FriendInfo = ({
     updated,
     setUpdated,
     setSelectedFriend,
-    setAlertMsg
+    setAlertMsg,
+    setMarker
 }) => {
     const hideAlertMsg = () => {
         setAlertMsg(null);
@@ -22,6 +23,7 @@ const FriendInfo = ({
             });
             setUpdated(!updated);
             setSelectedFriend(null);
+            setMarker(null);
             setAlertMsg({ success: friend.properties.name + ' was removed' });
             console.log('Friend deleted');
             setTimeout(hideAlertMsg, 2000);
