@@ -13,7 +13,6 @@ import { useUser } from '../../lib/hooks';
 import { isOutOfMaxBounds, fetchAPI } from '../../util/map-utils';
 import Pin from '../../components/Pin';
 import NewFriend from '../../components/NewFriend';
-import FriendPin from '../../components/FriendPin';
 import FriendInfo from '../../components/FriendInfo';
 import FriendCard from '../../components/FriendCard';
 
@@ -87,7 +86,7 @@ const Friends = () => {
         options: { radius: 50, maxZoom: 20 }
     });
 
-    // Populate the friendsList
+    // Populate the friendList
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(
@@ -107,12 +106,14 @@ const Friends = () => {
             .catch((err) => {
                 console.log('rejected', err.message);
             });
-    }, [updated, userInfo]);
+    }, [updated, userInfo, displayInfoCard]);
 
     // Update the map clicks for newFriendMarker
     const handleClick = (e) => {
         e.preventDefault();
+        // checks if click has a value to determine if a pin already exists there
         const isAddOrDelete = e.target.value;
+        // console.log('isaddordelete', isAddOrDelete);
         // Parse coordinates for api compatibility
         if (!isAddOrDelete) {
             const longitude = parseFloat(e.lngLat[0].toFixed(4));
@@ -265,7 +266,9 @@ const Friends = () => {
                                     </Marker>
                                 );
                             }
-                            return friendList != [] ? (
+                            // if we have friends, display markers
+                            return friendList != "undefined" && friendList != null && friendList.length != null
+                                && friendList.length > 0 ? (
                                 <Marker
                                     key={cluster.properties.friendId}
                                     latitude={latitude}
@@ -273,18 +276,19 @@ const Friends = () => {
                                     offsetTop={-20}
                                     offsetLeft={-10}
                                 >
-                                    <FriendPin
+                                    <Pin
                                         setSelectedFriend={setSelectedFriend}
                                         setAddingFriend={setAddingFriend}
                                         size={20}
                                         friend={cluster}
-                                    ></FriendPin>
+                                    ></Pin>
                                 </Marker>
                             ) : (
                                 <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
                                 </div>);
                         })}
                         {
+                            // brings up the popup on pin hover
                             addingFriend &&
                             <Popup
                                 latitude={marker.latitude}
@@ -322,8 +326,9 @@ const Friends = () => {
                                     selectedFriend={selectedFriend}
                                     setSelectedFriend={setSelectedFriend}>
                                 </Pin>
-                            </Marker>}
-
+                            </Marker>
+                        }
+                        {/* bring up existing friend pin */}
                         {selectedFriend && (
                             <Popup
                                 latitude={selectedFriend.geometry.coordinates[1]}
