@@ -1,6 +1,7 @@
 // login
 import { useState } from 'react';
-import Router from 'next/router';
+import Router from "next/router";
+import { useRouter } from "next/router";
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
 
@@ -8,6 +9,11 @@ const Login = () => {
     useUser({ redirectTo: '/', redirectIfFound: true });
 
     const [errorMsg, setErrorMsg] = useState('');
+    const router = useRouter();
+
+    const {
+        query: { message },
+    } = router;
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -43,9 +49,14 @@ const Login = () => {
                     Login
                 </h1>
                 <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
-            </main>
-        </div>
+                {message && <p className="success_msg">{message}</p>}
+            </main >
+        </div >
     );
 };
 
 export default Login;
+
+Login.getInitialProps = ({ query: { message } }) => {
+    return { message };
+};
