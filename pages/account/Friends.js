@@ -205,7 +205,7 @@ const Friends = () => {
                                     <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
                                         <MdErrorOutline />
                                     </IconContext.Provider>
-                                    <p className='error_msg'>{alertMsg.error}</p>
+                                    <p className='msg error_msg'>{alertMsg.error}</p>
                                 </>
                             )}
                         </div>

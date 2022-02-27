@@ -16,7 +16,7 @@ const Dashboard = () => {
                     </Link>
 
                 ) : (
-                    <><p className="error">Loading...</p></>
+                    <><p className="msg error_msg">Loading...</p></>
                 )
             }
         </main>

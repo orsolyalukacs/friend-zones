@@ -120,18 +120,19 @@ button.popup {
 }
 
 /* Error and alert messages */
-.error {
-    color: #f30070;
-    margin: 1rem 0 0;
+.msg {
+    font-weight: bold;
+    padding: 10px 15px;
 }
 
 .error_msg {
     color: #f30070;
-    padding-left: 10px;
+    background-color: #ffd5d5;
 }
+
 .success_msg {
-    color: green;
-    padding-left: 10px;
+    color: #4f8a10;
+    background-color: #e2f1c7;
 }
 
 .padding-none {
