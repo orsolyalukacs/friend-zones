@@ -57,10 +57,11 @@ const NewFriend = ({ user,
                 <hr></hr>
                 <input
                     type="text"
-                    name="name"
-                    maxLength={15}
+                    minLength={2}
+                    maxLength={50}
                     size={10}
                     ref={nameInput}
+                    required
                 ></input>
             </label>
             <p>Lat: {marker.latitude}</p>
