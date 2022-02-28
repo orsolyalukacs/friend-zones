@@ -11,6 +11,10 @@ const Login = () => {
 
     const [errorMsg, setErrorMsg] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const {
+        query: { message },
+    } = router;
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -47,8 +51,11 @@ const Login = () => {
                     Login
                 </h1>
                 {!isLoading ?
-                    (<Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
-                     {message && <p className="success_msg">{message}</p>})
+                    (<>
+                        <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+                        {message && <p className="success_msg">{message}</p>}
+                    </>
+                    )
                     :
                     <Loader />
                 }
