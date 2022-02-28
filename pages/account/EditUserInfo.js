@@ -27,7 +27,7 @@ const EditUserInfo = () => {
                 body: JSON.stringify(body),
             });
             if (res.status === 201) {
-                Router.push('/account/Dashboard');
+                Router.push('/account/UserPage');
             } else {
                 throw new Error(await res.text());
             }
