@@ -326,3 +326,8 @@ button.popup {
         min-width: 260px !important;
     }
 }
+
+.navigation {
+    top: 45px;
+    right: 10px;
+}

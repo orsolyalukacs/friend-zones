@@ -1,4 +1,4 @@
-import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl, WebMercatorViewport } from 'react-map-gl';
+import ReactMapGL, { FlyToInterpolator, Marker, Popup, GeolocateControl, NavigationControl, WebMercatorViewport } from 'react-map-gl';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from "next/router";
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -347,6 +347,7 @@ const Friends = () => {
                                 ></FriendInfo>
                             </Popup>
                         )}
+                        <NavigationControl className="navigation" showCompass={false} />
                     </ReactMapGL>
                 </div>
             ) : (
