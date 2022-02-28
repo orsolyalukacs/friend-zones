@@ -1,102 +1,102 @@
 [
     {
         "timezone": "Pacific/Midway",
-        "utc_offset": "-11:00"
+        "utc_offset": "-11"
     },
     {
         "timezone": "Pacific/Honolulu",
-        "utc_offset": "-10:00"
+        "utc_offset": "-10"
     },
     {
         "timezone": "Pacific/Gambier",
-        "utc_offset": "-09:00"
+        "utc_offset": "-9"
     },
     {
         "timezone": "Pacific/Pitcairn",
-        "utc_offset": "-08:00"
+        "utc_offset": "-8"
     },
     {
         "timezone": "America/Creston",
-        "utc_offset": "-07:00"
+        "utc_offset": "-7"
     },
     {
         "timezone": "America/Belize",
-        "utc_offset": "-06:00"
+        "utc_offset": "-6"
     },
     {
         "timezone": "America/Eirunepe",
-        "utc_offset": "-05:00"
+        "utc_offset": "-5"
     },
     {
         "timezone": "America/Boa_Vista",
-        "utc_offset": "-04:00"
+        "utc_offset": "-4"
     },
     {
         "timezone": "America/Bahia",
-        "utc_offset": "-03:00"
+        "utc_offset": "-3"
     },
     {
         "timezone": "Brazil/DeNoronha",
-        "utc_offset": "-02:00"
+        "utc_offset": "-2"
     },
     {
         "timezone": "Atlantic/Reykjavik",
-        "utc_offset": "+00:00"
+        "utc_offset": "+00"
     },
     {
         "timezone": "Africa/Tunis",
-        "utc_offset": "+01:00"
+        "utc_offset": "+1"
     },
     {
         "timezone": "Africa/Maputo",
-        "utc_offset": "+02:00"
+        "utc_offset": "+2"
     },
     {
         "timezone": "Africa/Nairobi",
-        "utc_offset": "+03:00"
+        "utc_offset": "+3"
     },
     {
         "timezone": "Europe/Saratov",
-        "utc_offset": "+04:00"
+        "utc_offset": "+4"
     },
     {
         "timezone": "Asia/Ashgabat",
-        "utc_offset": "+05:00"
+        "utc_offset": "+5"
     },
     {
         "timezone": "Asia/Dhaka",
-        "utc_offset": "+06:00"
+        "utc_offset": "+6"
     },
     {
         "timezone": "Asia/Bangkok",
-        "utc_offset": "+07:00"
+        "utc_offset": "+7"
     },
     {
         "timezone": "Asia/Singapore",
-        "utc_offset": "+08:00"
+        "utc_offset": "+8"
     },
     {
         "timezone": "Japan",
-        "utc_offset": "+09:00"
+        "utc_offset": "+9"
     },
     {
         "timezone": "Pacific/Guam",
-        "utc_offset": "+10:00"
+        "utc_offset": "+10"
     },
     {
         "timezone": "Pacific/Pohnpei",
-        "utc_offset": "+11:00"
+        "utc_offset": "+11"
     },
     {
         "timezone": "Pacific/Kwajalein",
-        "utc_offset": "+12:00"
+        "utc_offset": "+12"
     },
     {
         "timezone": "Pacific/Auckland",
-        "utc_offset": "+13:00"
+        "utc_offset": "+13"
     },
     {
         "timezone": "Pacific/Kiritimati",
-        "utc_offset": "+14:00"
+        "utc_offset": "+14"
     }
 ]

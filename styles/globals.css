@@ -110,26 +110,29 @@ button.popup {
 .mapboxgl-ctrl-group {
     margin: 10px !important;
 }
+
 .mapboxgl-ctrl-geocoder--input {
     box-shadow: 0 0 0 2px rgb(0 0 0 / 10%) !important;
 }
+
 .mapboxgl-ctrl-geocoder--button {
     width: auto;
 }
 
 /* Error and alert messages */
-.error {
-    color: #f30070;
-    margin: 1rem 0 0;
+.msg {
+    font-weight: bold;
+    padding: 10px 15px;
 }
 
 .error_msg {
     color: #f30070;
-    padding-left: 10px;
+    background-color: #ffd5d5;
 }
+
 .success_msg {
-    color: green;
-    padding-left: 10px;
+    color: #4f8a10;
+    background-color: #e2f1c7;
 }
 
 .padding-none {
@@ -178,6 +181,10 @@ button.popup {
 .card-title {
     text-decoration: underline;
     font-size: 1.6rem;
+}
+
+.mapboxgl-ctrl-geocoder--button {
+    width: auto;
 }
 
 .card-time {
@@ -234,13 +241,16 @@ button.popup {
     .mapboxgl-ctrl-group button {
         height: 50px !important;
     }
+
+    .mapboxgl-ctrl-geocoder {
+        width: auto !important;
+        margin-bottom: -15px;
+    }
 }
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
     .card {
         padding: 0.8rem;
-        width: 300px;
-        height: 200px;
     }
 
     .card p {
@@ -259,5 +269,60 @@ button.popup {
     .card-time {
         font-size: 1.2rem;
         margin-left: 1.5rem;
+    }
+
+    .index-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 360px) {
+    h1,
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card {
+        padding: 0.8rem;
+        margin: 0.4rem;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+    .card p {
+        font-size: 1rem;
+    }
+
+    .friend-card {
+        max-width: 300px;
+        width: auto;
+        height: auto;
+    }
+
+    .card-time {
+        font-size: 1.2rem;
+        margin-left: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 360px) {
+    .mapboxgl-ctrl-geocoder {
+        max-width: 200px;
+        min-width: 200px !important;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 640px) {
+    .mapboxgl-ctrl-geocoder {
+        max-width: 260px;
+        min-width: 260px !important;
     }
 }

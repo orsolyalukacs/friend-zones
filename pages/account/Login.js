@@ -1,13 +1,20 @@
 // login
 import { useState } from 'react';
-import Router from 'next/router';
+import Router from "next/router";
+import { useRouter } from "next/router";
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
+import Loader from '../../components/Loader';
 
 const Login = () => {
     useUser({ redirectTo: '/', redirectIfFound: true });
 
     const [errorMsg, setErrorMsg] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const {
+        query: { message },
+    } = router;
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -26,7 +33,8 @@ const Login = () => {
                 body: JSON.stringify(body),
             });
             if (res.status === 200) {
-                Router.push('/account/Dashboard');
+                setIsLoading(true);
+                Router.push(`/account/Friends?userInfo=${body.username}`);
             } else {
                 throw new Error(await res.text());
             }
@@ -42,10 +50,22 @@ const Login = () => {
                 <h1>
                     Login
                 </h1>
-                <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+                {!isLoading ?
+                    (<>
+                        <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+                        {message && <p className="success_msg">{message}</p>}
+                    </>
+                    )
+                    :
+                    <Loader />
+                }
             </main>
         </div>
     );
 };
 
 export default Login;
+
+Login.getInitialProps = ({ query: { message } }) => {
+    return { message };
+};

@@ -32,7 +32,10 @@ const Signup = () => {
                 body: JSON.stringify(body),
             });
             if (res.status === 201) {
-                Router.push('/account/Login');
+                Router.push({
+                    pathname: '/account/Login',
+                    query: { message: 'Successful signup!' }
+                });
             } else {
                 throw new Error(await res.text());
             }

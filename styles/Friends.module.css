@@ -55,7 +55,7 @@
     box-shadow: 0 0 4px rgb(0 0 0 / 15%);
     border-radius: 3px;
     margin: 1rem;
-    padding: .5rem;
+    padding: 0.5rem;
     position: absolute;
     display: flex;
     align-items: center;
@@ -64,8 +64,8 @@
     outline: none;
     cursor: auto;
     opacity: 1;
-    -webkit-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 .alert_box.hide {
     cursor: grab;
@@ -86,15 +86,24 @@
 }
 
 .alert_button:hover {
-    background: rgb(235, 235, 235, .4);
+    background: rgb(235, 235, 235, 0.4);
 }
 
-@media only screen and (min-width: 360px) and (max-width: 768px) {
+@media only screen and (min-width: 320px) and (max-width: 768px) {
     .grid {
         flex-direction: column;
         width: 100%;
+        max-width: 300px;
     }
     .alert_box {
         bottom: 55px;
     }
+}
+
+.search_bar {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 10px 10px -45px 0;
 }

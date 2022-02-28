@@ -5,7 +5,8 @@ const FriendInfo = ({
     updated,
     setUpdated,
     setSelectedFriend,
-    setAlertMsg
+    setAlertMsg,
+    setMarker
 }) => {
     const hideAlertMsg = () => {
         setAlertMsg(null);
@@ -19,15 +20,17 @@ const FriendInfo = ({
         try {
             fetch(`/api/friends/${id}?userInfo=${user.username}`, {
                 method: 'DELETE',
+            }).then(() => {
+                setUpdated(!updated);
+                setSelectedFriend(null);
+                setMarker(null);
+                setAlertMsg({ success: friend.properties.name + ' was removed' });
+                console.log('Friend deleted');
+                setTimeout(hideAlertMsg, 2000);
             });
-            console.log('Friend deleted');
-            setAlertMsg({ success: friend.properties.name + ' was removed' });
-            setTimeout(hideAlertMsg, 2000);
-            setUpdated(!updated);
-            setSelectedFriend(null);
         } catch (error) {
-            console.log('Failed to delete friend', error);
             setAlertMsg({ error: 'Failed to delete friend!' });
+            console.log('Failed to delete friend', error);
         }
     };
 

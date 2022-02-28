@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import EditUser from '../../components/EditUser';
 
-// TODO: add success message after signup
+// TODO: add success message after edit
 const EditUserInfo = () => {
     const user = useUser();
 
@@ -27,7 +27,7 @@ const EditUserInfo = () => {
                 body: JSON.stringify(body),
             });
             if (res.status === 201) {
-                Router.push('/account/Dashboard');
+                Router.push('/account/UserPage');
             } else {
                 throw new Error(await res.text());
             }
