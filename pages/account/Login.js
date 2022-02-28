@@ -3,11 +3,13 @@ import { useState } from 'react';
 import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
+import Loader from '../../components/Loader';
 
 const Login = () => {
     useUser({ redirectTo: '/', redirectIfFound: true });
 
     const [errorMsg, setErrorMsg] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -26,6 +28,7 @@ const Login = () => {
                 body: JSON.stringify(body),
             });
             if (res.status === 200) {
+                setIsLoading(true);
                 Router.push(`/account/Friends?userInfo=${body.username}`);
             } else {
                 throw new Error(await res.text());
@@ -42,7 +45,12 @@ const Login = () => {
                 <h1>
                     Login
                 </h1>
-                <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+
+                {!isLoading ?
+                    (<Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />)
+                    :
+                    <Loader />
+                }
             </main>
         </div>
     );
