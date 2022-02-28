@@ -7,6 +7,8 @@ export default async function signup(req, res) {
         if (req.method === "POST") {
             const data = await createUser(req.body);
             const usersCollection = db.collection("users");
+            const userExists = await usersCollection.findOne({username: data.username});
+            if (userExists) throw new Error("Username is in use");
             const result = await usersCollection.insertOne(data);
             console.log(result);
             res.status(201).json({ message: "Data inserted successfully!" });
