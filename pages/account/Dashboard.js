@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from "next/router";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import styles from '../../styles/Friends.module.css';
+import styles from '../../styles/Dashboard.module.css';
 import useSupercluster from 'use-supercluster';
 import Geocoder from "react-map-gl-geocoder";
 import { IconContext } from "react-icons";
@@ -341,7 +341,7 @@ const Dashboard = () => {
                     </ReactMapGL>
                 </div>
             ) : (
-                <div className={styles.grid}>
+                <div className="grid">
                     {friendList &&
                         friendList.map((friend) => (
                             <FriendCard
