@@ -3,7 +3,6 @@ import Router from 'next/router';
 import { useUser } from '../../lib/hooks';
 import Form from '../../components/Form';
 
-// TODO: add success message after signup
 const Signup = () => {
     useUser({ redirectTo: '/Login', redirectIfFound: true });
 
