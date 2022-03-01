@@ -1,3 +1,4 @@
+/* Dashboard styles */
 .mapboxgl_canvas {
     position: absolute;
     top: 0;
@@ -28,13 +29,6 @@
 .message p {
     background-color: white;
     padding: 1.2rem;
-}
-.grid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 1200px;
-    flex-wrap: wrap;
 }
 
 .clusterMarker {
@@ -90,11 +84,6 @@
 }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
-    .grid {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-    }
     .alert_box {
         bottom: 55px;
     }

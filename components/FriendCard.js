@@ -1,6 +1,6 @@
 // friend card
 import { useEffect, useState } from 'react';
-const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
+import { fetchLocation } from '../util/map-utils';
 
 const FriendCard = ({ friend }) => {
     const { latitude, longitude } = friend.coordinates;
@@ -10,17 +10,7 @@ const FriendCard = ({ friend }) => {
 
     useEffect(() => {
         // GET request using fetch inside useEffect React hook
-        const fetchLocation = async () => {
-            const response = await fetch(
-                `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${MAP_TOKEN}`
-            );
-            if (response.status != 200) {
-                throw new Error('cannot fetch friend location');
-            }
-            const data = await response.json();
-            return data;
-        };
-        fetchLocation()
+        fetchLocation(latitude, longitude)
             .then((data) => {
                 console.log('resolved', data);
                 setLocation(data.features[0].place_name);
@@ -41,7 +31,7 @@ const FriendCard = ({ friend }) => {
         };
 
         getGMT(offset);
-    }, []);
+    }, [offset]);
 
 
 

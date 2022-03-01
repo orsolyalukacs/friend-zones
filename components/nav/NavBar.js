@@ -16,11 +16,20 @@ const NavBar = () => {
             {user ?
                 (
                     <div className={styles.navcontainer}>
-                        <h2 className={styles.logo}>Friend-zones</h2>
+                        <h2 className={styles.logo}>
+                            <a href="https://friend-zones.vercel.app/">Friend-zones</a>
+                        </h2>
                         <p className={styles.subtitle}>Hello, {JSON.parse(JSON.stringify(user.username))}!</p>
                         <div className={!isOpen ?
                             styles.navmenu : styles.navmenu + ' ' + styles.active}>
-                            {/* <NavBarItem link="/account/Dashboard" title="Dashboard" isOpen={isOpen} openMenu={openMenu} /> */}
+                            <div className={styles.navlink}>
+                                <Link href={{
+                                    pathname: "/account/Dashboard",
+                                    query: { userInfo: user.username }
+                                }} ><a className={isOpen === false ?
+                                    styles.navlink : styles.navlink + ' ' + styles.active}
+                                    onClick={openMenu}>Dashboard</a></Link>
+                            </div>
                             <div className={styles.navlink}>
                                 <Link href={{
                                     pathname: "/account/Friends",
@@ -29,6 +38,7 @@ const NavBar = () => {
                                     styles.navlink : styles.navlink + ' ' + styles.active}
                                     onClick={openMenu}>Friends</a></Link>
                             </div>
+                            {/* <NavBarItem link="/account/Friends" title="Friends" isOpen={isOpen} openMenu={openMenu} /> */}
                             <NavBarItem link="/account/UserPage" title="Settings" isOpen={isOpen} openMenu={openMenu} />
                             <NavBarItem link="/api/account/logout" title="Log out" isOpen={isOpen} openMenu={openMenu} />
                         </div>
