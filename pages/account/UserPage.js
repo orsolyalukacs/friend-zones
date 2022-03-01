@@ -16,7 +16,7 @@ const UserPage = () => {
                     </Link>
 
                 ) : (
-                    <><p>You are not logged in</p></>
+                    <><p className="msg error_msg">You are not logged in</p></>
                 )
             }
         </main>

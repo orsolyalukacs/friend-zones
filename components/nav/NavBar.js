@@ -24,11 +24,11 @@ const NavBar = () => {
                             styles.navmenu : styles.navmenu + ' ' + styles.active}>
                             <div className={styles.navlink}>
                                 <Link href={{
-                                    pathname: "/account/Friends",
+                                    pathname: "/account/Dashboard",
                                     query: { userInfo: user.username }
                                 }} ><a className={isOpen === false ?
                                     styles.navlink : styles.navlink + ' ' + styles.active}
-                                    onClick={openMenu}>Friends</a></Link>
+                                    onClick={openMenu}>Dashboard</a></Link>
                             </div>
                             <NavBarItem link="/account/UserPage" title="Settings" isOpen={isOpen} openMenu={openMenu} />
                             <NavBarItem link="/api/account/logout" title="Log out" isOpen={isOpen} openMenu={openMenu} />
