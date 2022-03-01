@@ -34,7 +34,7 @@ const Login = () => {
             });
             if (res.status === 200) {
                 setIsLoading(true);
-                Router.push(`/account/Friends?userInfo=${body.username}`);
+                Router.push(`/account/Dashboard?userInfo=${body.username}`);
             } else {
                 throw new Error(await res.text());
             }

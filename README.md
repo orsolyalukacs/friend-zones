@@ -8,7 +8,7 @@ The main idea behind this project is to create a web app that displays a user's 
 
 ### Splash
 
-Welcoming page displaying brief information about the site, and asks users to either Login or Register.
+Welcoming page displaying brief information about the site, and asking users to either Login or Register.
 
 ### Registration
 
@@ -18,41 +18,45 @@ Page that consists of a registration form for new users, asking them to provide 
 -   email
 -   password
 -   password verification
--   timezone (from dropdown) or maybe it could read this in from IP, and autofill
+-   timezone (from dropdown)
 
-The page will check that these fields are valid, and upon success will redirect user to the index page, if any of these fields are filled out incorrectly, the user will be prompted with an alert, or redirected to an error page.
+The page will check that these fields are valid, and upon success will redirect user to the Login page, if any of these fields are filled out incorrectly, the user will be prompted with an error message. The password gets hashed and salted when saving to the MongoDB database.
 
 ### Login
 
-Allows users to login with username or email. Upon success redirects user to the index page. Inputting incorrect information will prompt an alert or redirect user to an error page.
+Allows users to login with username and password. Upon success redirects user to the Dashboard. Inputting incorrect information will prompt user with an error message.
 
 ### Navigation
 
-A simple top nav bar that dynamically displays certain options depending on whether or not the user is logged in:
+A simple top nav bar that dynamically displays certain options depending on whether or not the user is logged in.
+If a user is **logged out**:
 
--   Login
--   Logout
 -   Home
 -   Register
+-   Login
+
+If a user is **logged in**:
+
+-   Dashboard
+-   Settings
+-   Log out
 
 ## Dashboard
 
-This page will pull in the data from the db (to be displayed and not altered). The top will **DisplayOffsets** that will show the timezone offset for each area of the map, and will update with a clock if the User has a friend in that specific offset. This may be part of the top of the map component itself, if a layer can be added via the mapbox api: [Custom Style Layer](https://docs.mapbox.com/mapbox-gl-js/example/custom-style-layer/). Or it should be separate.
+This page pulls in data from the db related to the user. It displays a **Map** with a pin marking each friend. If there are several friends in an area, and map is zoomed out enough, it will show **cluster** with the number of pins it's representing. Once a user clicks on a cluster, the map will zoom in to the cluster to show separate pins.
 
-There will also be a **Map** which will display markers for the user, and all of their friends. The friends will be **Marker** components (from the react map gl library) that will generate **Popups** containing more detailed information upon clicking them.
+The friends will be **Marker** components (from the react map gl library) that will generate **Popups** containing more detailed information upon clicking them.
 
-### SSR for Dashboard
+_Features of the Dashboard include:_
 
--   Only allow to display Dashboard route if user is logged in
--   Switch NavBar from 'Log in' to 'Log out' after sign in immediately
+-   **GeolocateControl** in the top left corner of the map. If clicked on, it asks for user location and displays it on the map.
 
-### Dashboard Mobile
+-   Search for a location via a searchbar (**Geocoder**)
+-   Controls to **Zoom** in and out. Zoom is available via mouse scroll as well.
 
-Maybe for mobile, we could have a slider button at the top to switch between clock, and map displays.
-
-## Friends / Management
-
-This page will allow Users to add friends to the db via combination of **AddFriend** and **AddFriendMap**. The form will ask for the friend's name and get the lat/long coordinates via click from the map. These coordinates will be used and passed to the ipgeolocation api to generate the rest of the friend info, creating a friend object that looks like:
+-   Add friends to the user's friendlist via **NewFriend**.
+    Once clicked on the map where a pin doesn't exist yet, a new pin is created. Hovering on the pin brings up a **Popup** with a form.
+    The form will ask for the friend's name and get the lat/long coordinates via click from the map. These coordinates will be used and passed to the ipgeolocation api to generate the rest of the friend info, creating a friend object that looks like:
 
 ```
 {
@@ -67,11 +71,28 @@ This page will allow Users to add friends to the db via combination of **AddFrie
 }
 ```
 
-This object will be sent to the User db/ update the user's friend list (This friendlist will be an array of friend objects that is another field in the User document.) There will also be a **FriendPanel** that allows the User to update, and delete their friends.
+This object will be sent to the user's db and update the user's friend list (This friendlist will be an array of friend objects that is another field in the user document.)
 
-## User settings
+-   Hovering on an existing friend pin (**FriendInfo**) allows users to **delete** friend via a button.
 
--   A page to Edit user's info/settings while logged in
+## Friends
+
+This page displays friends as a list of **FriendCard** components.
+It includes information of friends such as:
+
+-   name
+-   time (in relation to the timezone of the user)
+-   location (address of friend from the map)
+-   timezone (in GMT and timezone location)
+
+## Settings
+
+-   An account page (**UserPage**) to view or edit user's information while logged in.
+-   If username is edited, the user gets logged out automatically. If only timezone is updated, user stays logged in.
+    It includes information (from **UserInfo** component) of user such as:
+    -   username
+    -   timezone (in GMT and timezone location)
+    -   created at (when the user account was created)
 
 ## Tech
 
@@ -101,9 +122,11 @@ Open source projects that helped us along the way:
 
 ## Bonus Features
 
-If we have time it might be cool to add some other functionalities such as :
+_It would be cool to add some other functionalities such as:_
 
--   Light and Dark Mode Settings
+-   **Edit friend info** from friend cards
+-   **Toggle map layer** with friends' names and local times
+-   **Toggle dark/light theme** - with button in top right corner
 -   Some form of communication ability between users
 -   Choice in 24 or 12 clock format for display
 
@@ -124,6 +147,8 @@ npm i
 > MONGODB_URI="mongodb+srv://username:password@cluster0.pmu5k.mongodb.net/name-of-db?retryWrites=true&w=majority"
 > MONGODB_DB="name-of-db"
 > TOKEN_SECRET="some-kind-of-a-secret-token-with-at-least-32-characters"
+> NEXT_PUBLIC_MAP_TOKEN="mapbox api access token" // Register for token at: mapbox.com
+> NEXT_PUBLIC_GEO_TOKEN="ipgeolocation api token" // Register for token at: ipgeolocation.io
 
 Then run the development server:
 
