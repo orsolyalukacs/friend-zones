@@ -9,6 +9,7 @@ import Geocoder from "react-map-gl-geocoder";
 import { IconContext } from "react-icons";
 import { FaCheck } from 'react-icons/fa';
 import { MdErrorOutline } from 'react-icons/md';
+import { getFriendList } from '../../util/services';
 import { useUser } from '../../lib/hooks';
 import { isOutOfMaxBounds, fetchAPI } from '../../util/map-utils';
 import Pin from '../../components/Pin';
@@ -88,17 +89,7 @@ const Friends = () => {
 
     // Populate the friendList
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(
-                `/api/friends/get_friends?userInfo=${userInfo}`
-            );
-            if (response.status != 200) {
-                throw new Error('cannot fetch data');
-            }
-            const data = await response.json();
-            return data;
-        };
-        fetchData()
+        getFriendList(userInfo)
             .then((data) => {
                 console.log('resolved', data);
                 setFriendList(data[0].friendsList);
@@ -113,7 +104,6 @@ const Friends = () => {
         e.preventDefault();
         // checks if click has a value to determine if a pin already exists there
         const isAddOrDelete = e.target.value;
-        // console.log('isaddordelete', isAddOrDelete);
         // Parse coordinates for api compatibility
         if (!isAddOrDelete) {
             const longitude = parseFloat(e.lngLat[0].toFixed(4));
