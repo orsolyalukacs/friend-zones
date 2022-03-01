@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from "next/router";
 import { getFriendList } from '../../util/services';
-import { useUser } from '../../lib/hooks';
 import FriendCard from '../../components/FriendCard';
 
 const Friends = () => {
-
     const [friendList, setFriendList] = useState([]);
-    const user = useUser();
 
-    const userInfo = user.username;
+    const router = useRouter();
+    const {
+        query: { userInfo },
+    } = router;
 
     useEffect(() => {
         getFriendList(userInfo)
@@ -39,3 +40,7 @@ const Friends = () => {
 };
 
 export default Friends;
+
+Friends.getInitialProps = ({ query: { userInfo } }) => {
+    return { userInfo };
+};
