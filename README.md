@@ -101,8 +101,6 @@ Open source projects that helped us along the way:
 -   [React.js](https://reactjs.org/) - A JavaScript library for building user interfaces
 -   [Next.js](https://nextjs.org/) - Full-stack React framework with built-in Server-Side Rendering (SSR)
 -   [MongoDB](https://www.mongodb.com/) - Document-oriented database
--   [mongoose](https://mongoosejs.com/) - schema-based solution to model data for MongoDB
--   [CSS Modules] - Component-scoped CSS
 -   [Eslint](https://eslint.org/) - Linting
 -   [prettier](https://prettier.io/) - Code formatting
 -   [classnames](https://www.npmjs.com/package/classnames) - A simple JavaScript utility for conditionally joining classNames together.
