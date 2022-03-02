@@ -1,10 +1,9 @@
 // home page
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import { connectToDatabase } from '../util/mongodb';
 import { useUser } from '../lib/hooks';
 
-export default function Home({ isConnected }) {
+export default function Home() {
   const user = useUser();
 
   return (
@@ -36,18 +35,4 @@ export default function Home({ isConnected }) {
       </main>
     </div >
   );
-}
-
-export async function getServerSideProps(context) {
-  try {
-    await connectToDatabase();
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
 }

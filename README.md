@@ -120,6 +120,14 @@ Open source projects that helped us along the way:
 -   [react-icons](https://react-icons.github.io/react-icons/) - Popular icons that can be easily implemented in React.
 -   [react-map-gl-geocoder](https://www.npmjs.com/package/react-map-gl-geocoder) - React wrapper for mapbox-gl-geocoder for use with react-map-gl.
 
+## Information Sources
+
+Articles that have been helpful:
+
+-   [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+-   [Using Mapbox GL with React](https://blog.logrocket.com/how-to-use-mapbox-gl/)
+-   [Fix for Markers don't stick to Map when maxBounds are set] (https://github.com/visgl/react-map-gl/issues/786#issuecomment-861101046)
+
 ## Bonus Features
 
 _It would be cool to add some other functionalities such as:_
