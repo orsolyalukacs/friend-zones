@@ -123,8 +123,11 @@ Open source projects that helped us along the way:
 Articles that have been helpful:
 
 -   [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+-   [Hooks API reference](https://reactjs.org/docs/hooks-reference.html)
 -   [Using Mapbox GL with React](https://blog.logrocket.com/how-to-use-mapbox-gl/)
--   [Fix for Markers don't stick to Map when maxBounds are set] (https://github.com/visgl/react-map-gl/issues/786#issuecomment-861101046)
+-   [Fix for Markers don't stick to Map when maxBounds are set](https://github.com/visgl/react-map-gl/issues/786#issuecomment-861101046)
+-   [How to connect MongoDB Atlas with a Next.js App](https://www.techomoro.com/how-to-connect-mongodb-atlas-with-a-next-js-app/)
+-   [Mapbox Marker Clustering in React](https://morioh.com/p/4e3a9a52a0c8)
 
 ## Bonus Features
 
