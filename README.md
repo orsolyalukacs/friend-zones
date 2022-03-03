@@ -1,3 +1,9 @@
+# FRIEND-ZONES
+
+#### Video Demo: [Friend-zones](https://www.youtube.com/watch?v=RI600eMn2dQ)
+
+#### Description:
+
 # Design Overview
 
 ## Overview
@@ -8,26 +14,31 @@ The main idea behind this project is to create a web app that displays a user's 
 
 ### Splash
 
+_**index.js**_
+
 Welcoming page displaying brief information about the site, and asking users to either Login or Register.
 
 ### Registration
 
-Page that consists of a registration form for new users, asking them to provide the following info:
+_**/pages/acount/Signup.js**_
+Page that consists of a registration form _/components/Form.js_ for new users, asking them to provide the following info:
 
 -   username
 -   email
 -   password
 -   password verification
--   timezone (from dropdown)
+-   timezone (from dropdown) _data/tznames.json_
 
 The page will check that these fields are valid, and upon success will redirect user to the Login page, if any of these fields are filled out incorrectly, the user will be prompted with an error message. The password gets hashed and salted when saving to the MongoDB database.
 
 ### Login
 
+_**/pages/account/Login.js**_
 Allows users to login with username and password. Upon success redirects user to the Dashboard. Inputting incorrect information will prompt user with an error message.
 
 ### Navigation
 
+_**/components/nav/**_
 A simple top nav bar that dynamically displays certain options depending on whether or not the user is logged in.
 If a user is **logged out**:
 
@@ -43,7 +54,8 @@ If a user is **logged in**:
 
 ## Dashboard
 
-This page pulls in data from the db related to the user. It displays a **Map** with a pin marking each friend. If there are several friends in an area, and map is zoomed out enough, it will show **cluster** with the number of pins it's representing. Once a user clicks on a cluster, the map will zoom in to the cluster to show separate pins.
+_/pages/account/Dashboard.js_
+This page pulls in data from the db related to the user. It displays a **Map** with a pin _/components/Pin.js_ marking each friend. If there are several friends in an area, and map is zoomed out enough, it will show **cluster** with the number of pins it's representing. Once a user clicks on a cluster, the map will zoom in to the cluster to show separate pins.
 
 The friends will be **Marker** components (from the react map gl library) that will generate **Popups** containing more detailed information upon clicking them.
 
@@ -54,7 +66,7 @@ _Features of the Dashboard include:_
 -   Search for a location via a searchbar (**Geocoder**)
 -   Controls to **Zoom** in and out. Zoom is available via mouse scroll as well.
 
--   Add friends to the user's friendlist via **NewFriend**.
+-   Add friends to the user's friendlist via _**/components/NewFriend**_
     Once clicked on the map where a pin doesn't exist yet, a new pin is created. Hovering on the pin brings up a **Popup** with a form.
     The form will ask for the friend's name and get the lat/long coordinates via click from the map. These coordinates will be used and passed to the ipgeolocation api to generate the rest of the friend info, creating a friend object that looks like:
 
@@ -73,11 +85,14 @@ _Features of the Dashboard include:_
 
 This object will be sent to the user's db and update the user's friend list (This friendlist will be an array of friend objects that is another field in the user document.)
 
--   Hovering on an existing friend pin (**FriendInfo**) allows users to **delete** friend via a button.
+_**/components/FriendInfo.js**_
+
+-   Hovering on an existing friend pin allows users to **delete** friend via a button.
 
 ## Friends
 
-This page displays friends as a list of **FriendCard** components.
+_**/pages/account/Friends.js**_
+This page displays friends as a list of _**/components/FriendCard.js**_ components.
 It includes information of friends such as:
 
 -   name
@@ -87,12 +102,32 @@ It includes information of friends such as:
 
 ## Settings
 
--   An account page (**UserPage**) to view or edit user's information while logged in.
--   If username is edited, the user gets logged out automatically. If only timezone is updated, user stays logged in.
-    It includes information (from **UserInfo** component) of user such as:
+_**/pages/account/UserPage.js**_
+
+-   An account page to view or edit (_**/pages/account/EditUserInfo.js**_) user's information while logged in.
+-   If username is changed, the user gets logged out automatically. If only timezone is updated, user stays logged in.
+    It includes information (from _**/components/UserInfo.js**_ component) of user such as:
     -   username
     -   timezone (in GMT and timezone location)
     -   created at (when the user account was created)
+
+## API
+
+_pages/api_
+
+-   We have different **/account** and **/friends** endpoints in our api:
+-   _pages/api/account_
+
+    -   _/edit.js_: called by _pages/account/EditUserInfo.js_ to update user info in db
+    -   _/signup.js_: called by _pages/account/Signup.js_ to register user in db
+    -   _/login.js_: called by _/pages/account/Login.js_ to login user (password authenticating with passport.js)
+    -   _/logout.js_: called by _/pages/account/Logout.js_ to logout user
+    -   _/edit.js_: called by _/lib/hooks.js_ to authenticate user
+
+-   _pages/api/friends_:
+    -   _/[id].js_: called by _/components/FriendInfo.js_ to delete friend from db
+    -   _/create_friend.js_: called by _/components/NewFriend.js_ to register friend in db, in user's document
+    -   _/get_friends.js_: called by _/util/services.js_ to get user's friend list
 
 ## Tech
 
