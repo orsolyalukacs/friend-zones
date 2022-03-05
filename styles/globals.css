@@ -7,13 +7,75 @@ body {
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+/* Light & Dark Theme */
+body[data-theme='light'] {
+    --color-text-primary: #27201a;
+    --color-text-secondary: #4226f8;
+    --color-bg-primary: #fff;
+    --color-bg-toggle: #4226f8;
+}
+
+body[data-theme='dark'] {
+    --color-text-primary: #e3e3e3;
+    --color-text-secondary: #1ad7c6;
+    --color-bg-primary: #212121;
+    --color-bg-toggle: #a9a9a9;
+}
+
+body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: sans-serif;
+    transition: background 0.25s ease-in-out;
+}
+
+h1 {
+    color: var(--color-text-secondary);
+}
+
 a {
-    color: inherit;
     text-decoration: none;
+    color: var(--color-text-secondary);
 }
 
 * {
     box-sizing: border-box;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 95vw;
+}
+
+/* dark-light button */
+.toggle-button {
+    width: 38px;
+    height: 38px;
+    padding: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 1.5rem;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+    background: var(--color-bg-toggle);
+    transition: background 0.25s ease-in-out;
+}
+
+.show-button {
+    width: auto;
+    min-width: 120px;
+    background-color: var(--color-bg-toggle);
+    color: var(--color-bg-primary);
+}
+
+.sun-icon path {
+    fill: var(--color-bg-primary);
 }
 
 .title a {
@@ -72,10 +134,13 @@ button {
     padding: 0.4rem 1rem;
     margin: 0.5rem;
     width: 50%;
+    height: 38px;
     border-radius: 4px;
     cursor: pointer;
-    background: #fff;
-    border: 1px solid #ccc;
+    /* background: #fff; */
+    background: var(--color-bg-primary);
+    /* color: var(--color-bg-toggle); */
+    /* border: 1px solid #ccc; */
 }
 
 button :hover {

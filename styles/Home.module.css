@@ -15,6 +15,10 @@
     flex-grow: 1;
 }
 
+.footer p {
+    color: var(--color-text-secondary);
+}
+
 .description {
     text-align: center;
 }
@@ -132,7 +136,7 @@ ul.user_list {
 }
 
 .navlink:hover {
-    color: #4226f8;
+    color: var(--color-text-secondary);
 }
 
 .subtitle {
@@ -143,10 +147,11 @@ ul.user_list {
     flex: 1;
     justify-content: space-evenly;
     margin-left: 1rem;
+    color: var(--color-text-secondary);
 }
 
 .logo {
-    color: #4226f8;
+    color: var(--color-text-secondary);
 }
 
 @media only screen and (max-width: 768px) {
