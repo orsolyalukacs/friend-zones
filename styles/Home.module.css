@@ -119,7 +119,7 @@ ul.user_list {
     margin: 5px auto;
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    background-color: #1f1f1f;
+    background-color: var(--color-text-primary);
 }
 
 .navmenu {
@@ -187,6 +187,7 @@ ul.user_list {
         display: block;
         cursor: pointer;
         z-index: 4;
+        border: 1px solid var(--color-text-primary);
     }
 
     .menu.active .bar:nth-child(2) {

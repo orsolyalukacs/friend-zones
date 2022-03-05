@@ -53,7 +53,7 @@ a {
 /* dark-light button */
 .toggle-button {
     width: 38px;
-    height: 38px;
+    min-height: 38px;
     padding: 4px;
     position: relative;
     display: flex;
@@ -379,23 +379,9 @@ button.popup {
     }
 }
 
-@media only screen and (min-width: 320px) and (max-width: 360px) {
-    .mapboxgl-ctrl-geocoder {
-        max-width: 200px;
-        min-width: 200px !important;
-    }
-}
-
-@media only screen and (min-width: 360px) and (max-width: 640px) {
-    .mapboxgl-ctrl-geocoder {
-        max-width: 260px;
-        min-width: 260px !important;
-    }
-}
-
 .navigation {
     top: 45px;
-    right: 10px;
+    right: 5px;
 }
 
 .grid {
@@ -411,5 +397,23 @@ button.popup {
         flex-direction: column;
         width: 100%;
         max-width: 300px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 360px) {
+    .mapboxgl-ctrl-geocoder {
+        max-width: 200px;
+        min-width: 200px !important;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 640px) {
+    .mapboxgl-ctrl-geocoder {
+        max-width: 260px;
+        min-width: 260px !important;
+    }
+
+    .navigation {
+        top: 65px;
     }
 }
