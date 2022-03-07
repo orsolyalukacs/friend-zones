@@ -30,7 +30,7 @@ const Dashboard = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [alertMsg, setAlertMsg] = useState(null);
-    const [mapStyle, setMapStyle] = useState(null);
+    const [mapStyle, setMapStyle] = useState("mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz");
 
     const user = useUser();
     const router = useRouter();

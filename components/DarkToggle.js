@@ -14,7 +14,8 @@ const DarkToggle = ({ toggleCallback }) => {
     useEffect(() => {
         document.body.dataset.theme = activeTheme;
         window.localStorage.setItem("theme", activeTheme);
-    }, [activeTheme]);
+        toggleCallback(activeTheme);
+    }, [activeTheme, toggleCallback]);
 
     return (
         <button type="button" className="toggle-button"
