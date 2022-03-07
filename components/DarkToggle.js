@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { MdDarkMode } from 'react-icons/md';
 import { FaSun } from 'react-icons/fa';
 
-const DarkToggle = () => {
+const DarkToggle = ({ toggleCallback }) => {
     const [activeTheme, setActiveTheme] = useState("light");
-    const inactiveTheme = activeTheme === "light" ? "dark" : "light";
+    const inactiveTheme = activeTheme === "dark" ? "light" : "dark";
 
     useEffect(() => {
         const savedTheme = window.localStorage.getItem("theme");
@@ -18,7 +18,10 @@ const DarkToggle = () => {
 
     return (
         <button type="button" className="toggle-button"
-            onClick={() => setActiveTheme(inactiveTheme)}>
+            onClick={() => {
+                setActiveTheme(inactiveTheme);
+                toggleCallback(inactiveTheme);
+            }}>
             {activeTheme === "light" ?
                 (
                     <span className="sun-icon"><FaSun /></span>

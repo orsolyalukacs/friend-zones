@@ -30,6 +30,7 @@ const Dashboard = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [alertMsg, setAlertMsg] = useState(null);
+    const [mapStyle, setMapStyle] = useState(null);
 
     const user = useUser();
     const router = useRouter();
@@ -156,6 +157,13 @@ const Dashboard = () => {
         [onGeocoderViewportChange]
     );
 
+    // change map style upon dark-toggle button click
+    const handleToggle = (activeTheme) => {
+        activeTheme === "light" ?
+            setMapStyle("mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz")
+            : setMapStyle("mapbox://styles/orsisi/cl0d5sxfg001p14nypead2syp");
+    };
+
     return (
         <div >
             <div className="main">
@@ -163,7 +171,7 @@ const Dashboard = () => {
                     <button className="show-button" onClick={() => setDisplayInfoCard(!displayInfoCard)}>
                         {displayInfoCard ? 'Show Map' : 'Show Friends'}
                     </button>
-                    <DarkToggle />
+                    <DarkToggle toggleCallback={handleToggle} />
                 </div>
 
                 {!displayInfoCard ? (
@@ -175,7 +183,8 @@ const Dashboard = () => {
                         <ReactMapGL
                             mapboxApiAccessToken={MAP_TOKEN}
                             {...viewport}
-                            mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
+                            mapStyle={mapStyle}
+                            styleDiffing
                             onViewportChange={onViewportChange}
                             onClick={handleClick}
                             ref={mapRef}
