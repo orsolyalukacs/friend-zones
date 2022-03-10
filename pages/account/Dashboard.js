@@ -16,6 +16,7 @@ import Pin from '../../components/Pin';
 import NewFriend from '../../components/NewFriend';
 import FriendInfo from '../../components/FriendInfo';
 import FriendCard from '../../components/FriendCard';
+import DarkToggle from "../../components/DarkToggle";
 
 const MAP_TOKEN = process.env.NEXT_PUBLIC_MAP_TOKEN;
 
@@ -29,6 +30,7 @@ const Dashboard = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [alertMsg, setAlertMsg] = useState(null);
+    const [mapStyle, setMapStyle] = useState("mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz");
 
     const user = useUser();
     const router = useRouter();
@@ -155,205 +157,219 @@ const Dashboard = () => {
         [onGeocoderViewportChange]
     );
 
+    // change map style upon dark-toggle button click
+    const handleToggle = (activeTheme) => {
+        activeTheme === "light" ?
+            setMapStyle("mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz")
+            : setMapStyle("mapbox://styles/orsisi/cl0d5sxfg001p14nypead2syp");
+    };
+
     return (
-        <div className="main">
-            <button onClick={() => setDisplayInfoCard(!displayInfoCard)}>
-                {displayInfoCard ? 'Show Map' : 'Show Friends'}
-            </button>
+        <div >
+            <div className="main">
+                <div className="buttons">
+                    <button className="show-button" onClick={() => setDisplayInfoCard(!displayInfoCard)}>
+                        {displayInfoCard ? 'Show Map' : 'Show Friends'}
+                    </button>
+                    <DarkToggle toggleCallback={handleToggle} />
+                </div>
 
-            {!displayInfoCard ? (
-                <div>
-                    <div
-                        ref={geocoderContainerRef}
-                        className={styles.search_bar}
-                    />
-                    <ReactMapGL
-                        mapboxApiAccessToken={MAP_TOKEN}
-                        {...viewport}
-                        mapStyle="mapbox://styles/mcclellangg/ckyubo7gf000v14pgskavjqhz"
-                        onViewportChange={onViewportChange}
-                        onClick={handleClick}
-                        ref={mapRef}
-                        maxZoom={20}
-                    >
-
-                        <div className={alertMsg ? styles.alert_box : styles.alert_box + " " + styles.hide}>
-                            <button value={'close'} className={styles.alert_button} onClick={() => setAlertMsg(null)}>
-                                x
-                            </button>
-                            {alertMsg && alertMsg.success && (
-                                <>
-                                    <IconContext.Provider value={{ color: "green", size: 15 }}>
-                                        <FaCheck />
-                                    </IconContext.Provider>
-                                    <p className='success_msg'>{alertMsg.success}</p>
-                                </>
-                            )}
-
-                            {alertMsg && alertMsg.error && (
-                                <>
-                                    <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
-                                        <MdErrorOutline />
-                                    </IconContext.Provider>
-                                    <p className='msg error_msg'>{alertMsg.error}</p>
-                                </>
-                            )}
-                        </div>
-
-                        <GeolocateControl position="top-left" />
-                        <Geocoder
-                            mapRef={mapRef}
-                            onViewportChange={handleGeocoderViewportChange}
-                            mapboxApiAccessToken={MAP_TOKEN}
-                            position="top-right"
-                            containerRef={geocoderContainerRef}
-                            reverseGeocode
+                {!displayInfoCard ? (
+                    <div>
+                        <div
+                            ref={geocoderContainerRef}
+                            className={styles.search_bar}
                         />
-                        {clusters.map(cluster => {
-                            // every cluster point has coordinates
-                            const [longitude, latitude] = cluster.geometry.coordinates;
-                            // the point may be either a cluster or a single friend marker
-                            const {
-                                cluster: isCluster,
-                                point_count: pointCount
-                            } = cluster.properties;
+                        <ReactMapGL
+                            mapboxApiAccessToken={MAP_TOKEN}
+                            {...viewport}
+                            mapStyle={mapStyle}
+                            styleDiffing
+                            onViewportChange={onViewportChange}
+                            onClick={handleClick}
+                            ref={mapRef}
+                            maxZoom={20}
+                        >
 
-                            // we have a cluster to render
-                            if (isCluster) {
-                                return (
+                            <div className={alertMsg ? styles.alert_box : styles.alert_box + " " + styles.hide}>
+                                <button value={'close'} className={styles.alert_button} onClick={() => setAlertMsg(null)}>
+                                    x
+                                </button>
+                                {alertMsg && alertMsg.success && (
+                                    <>
+                                        <IconContext.Provider value={{ color: "green", size: 15 }}>
+                                            <FaCheck />
+                                        </IconContext.Provider>
+                                        <p className='success_msg'>{alertMsg.success}</p>
+                                    </>
+                                )}
+
+                                {alertMsg && alertMsg.error && (
+                                    <>
+                                        <IconContext.Provider value={{ color: '#f30070', size: 20 }}>
+                                            <MdErrorOutline />
+                                        </IconContext.Provider>
+                                        <p className='msg error_msg'>{alertMsg.error}</p>
+                                    </>
+                                )}
+                            </div>
+
+                            <GeolocateControl position="top-left" />
+                            <Geocoder
+                                mapRef={mapRef}
+                                onViewportChange={handleGeocoderViewportChange}
+                                mapboxApiAccessToken={MAP_TOKEN}
+                                position="top-right"
+                                containerRef={geocoderContainerRef}
+                                reverseGeocode
+                            />
+                            {clusters.map(cluster => {
+                                // every cluster point has coordinates
+                                const [longitude, latitude] = cluster.geometry.coordinates;
+                                // the point may be either a cluster or a single friend marker
+                                const {
+                                    cluster: isCluster,
+                                    point_count: pointCount
+                                } = cluster.properties;
+
+                                // we have a cluster to render
+                                if (isCluster) {
+                                    return (
+                                        <Marker
+                                            key={cluster.id}
+                                            latitude={latitude}
+                                            longitude={longitude}
+                                        >
+                                            <button
+                                                value={'cluster'}
+                                                className={styles.clusterMarker}
+                                                style={{
+                                                    width: `${10 + (pointCount / points.length) * 70}px`,
+                                                    height: `${10 + (pointCount / points.length) * 70}px`
+                                                }}
+
+                                                onClick={() => {
+                                                    const expansionZoom = Math.min(
+                                                        supercluster.getClusterExpansionZoom(cluster.id),
+                                                        20
+                                                    );
+                                                    setViewport({
+                                                        ...viewport,
+                                                        latitude,
+                                                        longitude,
+                                                        zoom: expansionZoom,
+                                                        transitionInterpolator: new FlyToInterpolator({
+                                                            speed: 2
+                                                        }),
+                                                        transitionDuration: "auto"
+                                                    });
+                                                }}
+                                            >
+                                                {pointCount}
+                                            </button>
+                                        </Marker>
+                                    );
+                                }
+                                // if we have friends, display markers
+                                return friendList != "undefined" && friendList != null && friendList.length != null
+                                    && friendList.length > 0 ? (
                                     <Marker
-                                        key={cluster.id}
+                                        key={cluster.properties.friendId}
                                         latitude={latitude}
                                         longitude={longitude}
+                                        offsetTop={-20}
+                                        offsetLeft={-10}
                                     >
-                                        <button
-                                            value={'cluster'}
-                                            className={styles.clusterMarker}
-                                            style={{
-                                                width: `${10 + (pointCount / points.length) * 70}px`,
-                                                height: `${10 + (pointCount / points.length) * 70}px`
-                                            }}
-
-                                            onClick={() => {
-                                                const expansionZoom = Math.min(
-                                                    supercluster.getClusterExpansionZoom(cluster.id),
-                                                    20
-                                                );
-                                                setViewport({
-                                                    ...viewport,
-                                                    latitude,
-                                                    longitude,
-                                                    zoom: expansionZoom,
-                                                    transitionInterpolator: new FlyToInterpolator({
-                                                        speed: 2
-                                                    }),
-                                                    transitionDuration: "auto"
-                                                });
-                                            }}
-                                        >
-                                            {pointCount}
-                                        </button>
+                                        <Pin
+                                            setSelectedFriend={setSelectedFriend}
+                                            setAddingFriend={setAddingFriend}
+                                            size={20}
+                                            friend={cluster}
+                                        ></Pin>
                                     </Marker>
-                                );
+                                ) : (
+                                    <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
+                                    </div>);
+                            })}
+                            {
+                                // brings up the popup on pin hover
+                                addingFriend &&
+                                <Popup
+                                    latitude={marker.latitude}
+                                    longitude={marker.longitude}
+                                    sortByDepth={true}
+                                    onClose={() => {
+                                        setAddingFriend(false);
+                                        setMarker(null);
+                                    }}
+                                    closeOnClick={true}
+                                >
+                                    <NewFriend
+                                        marker={marker}
+                                        setUpdated={setUpdated}
+                                        updated={updated}
+                                        user={user}
+                                        setAddingFriend={setAddingFriend}
+                                        setMarker={setMarker}
+                                        setAlertMsg={setAlertMsg}
+                                        data={data}
+                                        error={error}
+                                    ></NewFriend>
+                                </Popup>
                             }
-                            // if we have friends, display markers
-                            return friendList != "undefined" && friendList != null && friendList.length != null
-                                && friendList.length > 0 ? (
+                            {
+                                marker &&
                                 <Marker
-                                    key={cluster.properties.friendId}
-                                    latitude={latitude}
-                                    longitude={longitude}
+                                    latitude={marker.latitude}
+                                    longitude={marker.longitude}
                                     offsetTop={-20}
                                     offsetLeft={-10}
-                                >
-                                    <Pin
-                                        setSelectedFriend={setSelectedFriend}
-                                        setAddingFriend={setAddingFriend}
+                                    anchor={"top-left"}>
+                                    <Pin setAddingFriend={setAddingFriend}
                                         size={20}
-                                        friend={cluster}
-                                    ></Pin>
+                                        selectedFriend={selectedFriend}
+                                        setSelectedFriend={setSelectedFriend}>
+                                    </Pin>
                                 </Marker>
-                            ) : (
-                                <div className={styles.message}> <p>You don&apos;t have any friends added yet.</p>
-                                </div>);
-                        })}
-                        {
-                            // brings up the popup on pin hover
-                            addingFriend &&
-                            <Popup
-                                latitude={marker.latitude}
-                                longitude={marker.longitude}
-                                sortByDepth={true}
-                                onClose={() => {
-                                    setAddingFriend(false);
-                                    setMarker(null);
-                                }}
-                                closeOnClick={true}
-                            >
-                                <NewFriend
-                                    marker={marker}
-                                    setUpdated={setUpdated}
-                                    updated={updated}
-                                    user={user}
-                                    setAddingFriend={setAddingFriend}
-                                    setMarker={setMarker}
-                                    setAlertMsg={setAlertMsg}
-                                    data={data}
-                                    error={error}
-                                ></NewFriend>
-                            </Popup>
+                            }
+                            {/* bring up existing friend pin */}
+                            {selectedFriend && (
+                                <Popup
+                                    latitude={selectedFriend.geometry.coordinates[1]}
+                                    longitude={selectedFriend.geometry.coordinates[0]}
+                                    onClose={() => setSelectedFriend(null)}
+                                    closeOnClick={true}
+                                >
+                                    <FriendInfo
+                                        user={user}
+                                        friend={selectedFriend}
+                                        updated={updated}
+                                        setUpdated={setUpdated}
+                                        setSelectedFriend={setSelectedFriend}
+                                        setAlertMsg={setAlertMsg}
+                                        setMarker={setMarker}
+                                    ></FriendInfo>
+                                </Popup>
+                            )}
+                            <NavigationControl className="navigation" showCompass={false} />
+                        </ReactMapGL>
+                    </div>
+                ) : (
+                    <div className="grid">
+                        {friendList &&
+                            friendList.map((friend) => (
+                                <FriendCard
+                                    friend={friend}
+                                    key={friend.friend_id}
+                                ></FriendCard>
+                            ))
                         }
-                        {
-                            marker &&
-                            <Marker
-                                latitude={marker.latitude}
-                                longitude={marker.longitude}
-                                offsetTop={-20}
-                                offsetLeft={-10}
-                                anchor={"top-left"}>
-                                <Pin setAddingFriend={setAddingFriend}
-                                    size={20}
-                                    selectedFriend={selectedFriend}
-                                    setSelectedFriend={setSelectedFriend}>
-                                </Pin>
-                            </Marker>
-                        }
-                        {/* bring up existing friend pin */}
-                        {selectedFriend && (
-                            <Popup
-                                latitude={selectedFriend.geometry.coordinates[1]}
-                                longitude={selectedFriend.geometry.coordinates[0]}
-                                onClose={() => setSelectedFriend(null)}
-                                closeOnClick={true}
-                            >
-                                <FriendInfo
-                                    user={user}
-                                    friend={selectedFriend}
-                                    updated={updated}
-                                    setUpdated={setUpdated}
-                                    setSelectedFriend={setSelectedFriend}
-                                    setAlertMsg={setAlertMsg}
-                                    setMarker={setMarker}
-                                ></FriendInfo>
-                            </Popup>
-                        )}
-                        <NavigationControl className="navigation" showCompass={false} />
-                    </ReactMapGL>
-                </div>
-            ) : (
-                <div className="grid">
-                    {friendList &&
-                        friendList.map((friend) => (
-                            <FriendCard
-                                friend={friend}
-                                key={friend.friend_id}
-                            ></FriendCard>
-                        ))
-                    }
-                </div>
-            )}
+                    </div>
+                )}
 
+            </div>
         </div>
+
     );
 };
 

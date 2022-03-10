@@ -15,6 +15,10 @@
     flex-grow: 1;
 }
 
+.footer p {
+    color: var(--color-text-secondary);
+}
+
 .description {
     text-align: center;
 }
@@ -115,7 +119,7 @@ ul.user_list {
     margin: 5px auto;
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    background-color: #1f1f1f;
+    background-color: var(--color-text-primary);
 }
 
 .navmenu {
@@ -132,7 +136,7 @@ ul.user_list {
 }
 
 .navlink:hover {
-    color: #4226f8;
+    color: var(--color-text-secondary);
 }
 
 .subtitle {
@@ -143,10 +147,11 @@ ul.user_list {
     flex: 1;
     justify-content: space-evenly;
     margin-left: 1rem;
+    color: var(--color-text-secondary);
 }
 
 .logo {
-    color: #4226f8;
+    color: var(--color-text-secondary);
 }
 
 @media only screen and (max-width: 768px) {
@@ -182,6 +187,7 @@ ul.user_list {
         display: block;
         cursor: pointer;
         z-index: 4;
+        border: 1px solid var(--color-text-primary);
     }
 
     .menu.active .bar:nth-child(2) {

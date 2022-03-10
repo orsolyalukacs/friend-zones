@@ -32,8 +32,9 @@
 }
 
 .clusterMarker {
-    color: #fff;
-    background: #4226f8;
+    color: var(--color-bg-primary);
+    font-size: 1.2rem;
+    background: var(--color-text-tertiary);
     border-radius: 50%;
     padding: 10px;
     display: flex;
