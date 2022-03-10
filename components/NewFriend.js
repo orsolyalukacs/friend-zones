@@ -51,10 +51,9 @@ const NewFriend = ({ user,
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="new-friend">
             <label>
                 <span>Friend&apos;s Name</span>
-                <hr></hr>
                 <input
                     type="text"
                     minLength={2}
