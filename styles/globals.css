@@ -11,6 +11,7 @@ body {
 body[data-theme='light'] {
     --color-text-primary: #27201a;
     --color-text-secondary: #4226f8;
+    --color-text-tertiary: #4226f8;
     --color-bg-primary: #fff;
     --color-bg-toggle: #4226f8;
 }
@@ -18,6 +19,7 @@ body[data-theme='light'] {
 body[data-theme='dark'] {
     --color-text-primary: #e3e3e3;
     --color-text-secondary: #1ad7c6;
+    --color-text-tertiary: #ee9922;
     --color-bg-primary: #212121;
     --color-bg-toggle: #a9a9a9;
 }
@@ -150,6 +152,7 @@ button :hover {
 button.popup {
     width: auto;
     margin-left: 0;
+    color: var(--color-text-primary);
 }
 
 .container {
@@ -183,6 +186,30 @@ button.popup {
 
 .mapboxgl-ctrl-geocoder--button {
     width: auto;
+}
+
+/* Popup */
+
+.mapboxgl-popup-content {
+    background-color: var(--color-text-secondary) !important;
+    color: var(--color-bg-primary);
+}
+
+.mapboxgl-popup-close-button {
+    color: var(--color-bg-primary);
+    font-size: 1.8rem;
+    margin-right: 5px;
+    padding: 10px;
+    width: auto;
+}
+
+.mapboxgl-marker svg path {
+    fill: var(--color-text-tertiary) !important;
+}
+
+.new-friend {
+    padding: 1rem 0.5rem 0.5rem;
+    min-width: 235px;
 }
 
 /* Error and alert messages */
