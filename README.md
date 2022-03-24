@@ -62,6 +62,7 @@ The friends will be **Marker** components (from the react map gl library) that w
 _Features of the Dashboard include:_
 
 -   **GeolocateControl** in the top left corner of the map. If clicked on, it asks for user location and displays it on the map.
+-   **Toggle dark/light theme** - with button in top right corner
 
 -   Search for a location via a searchbar (**Geocoder**)
 -   Controls to **Zoom** in and out. Zoom is available via mouse scroll as well.
@@ -170,7 +171,6 @@ _It would be cool to add some other functionalities such as:_
 
 -   **Edit friend info** from friend cards
 -   **Toggle map layer** with friends' names and local times
--   **Toggle dark/light theme** - with button in top right corner
 -   Some form of communication ability between users
 -   Choice in 24 or 12 clock format for display
 
