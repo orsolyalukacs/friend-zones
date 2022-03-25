@@ -1,7 +1,6 @@
 /* layout styles */
 @media only screen and (min-width: 360px) and (max-width: 768px) {
     .container {
-        max-width: 36rem;
         padding: 0 1rem;
         margin: 0.1rem auto 1rem;
     }

@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className={styles.footer}>
             <p>
                 <span className={styles.logo}>
-                    copyright 2021 friend-zones
+                    copyright 2022 friend-zones
                 </span>
             </p>
         </footer>
