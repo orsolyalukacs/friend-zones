@@ -17,17 +17,17 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
             {!isLogin && (
                 <>
                     <label>
-                        <span>Confirm password</span>
+                        <span>Repeat password</span>
                         <input type="password" name="rpassword" required />
                     </label>
                     <label>
-                        <span>Time Zone</span>
+                        <span>Timezone</span>
                         <select
                             className={cx(styles.form_input, styles.border)}
                             type="text"
                             name="timezone"
                             required>
-                            <option value="">Select your Time Zone</option>
+                            <option value="">Select your timezone</option>
                             {TIMEZONES.map((item) => {
                                 return <option key={item.utc_offset}>(GMT{item.utc_offset}) {item.timezone} </option>;
                             })
