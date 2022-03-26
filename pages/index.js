@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <main className="main">
+      <main className="main start-container">
         <h1 className="title">
           Welcome to <a href="https://friend-zones.vercel.app/">Friend Zones!</a>
         </h1>

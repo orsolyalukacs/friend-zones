@@ -14,6 +14,7 @@ body[data-theme='light'] {
     --color-text-tertiary: #4226f8;
     --color-bg-primary: #fff;
     --color-bg-toggle: #4226f8;
+    --color-btn-hover: #873dfd;
 }
 
 body[data-theme='dark'] {
@@ -22,6 +23,7 @@ body[data-theme='dark'] {
     --color-text-tertiary: #ee9922;
     --color-bg-primary: #212121;
     --color-bg-toggle: #a9a9a9;
+    --color-btn-hover: #fdda3d;
 }
 
 body {
@@ -50,6 +52,7 @@ a {
     justify-content: flex-end;
     align-items: flex-end;
     width: 95vw;
+    padding: 0.5rem 0 1rem;
 }
 
 /* dark-light button */
@@ -63,17 +66,25 @@ a {
     justify-content: space-around;
     font-size: 1.5rem;
     line-height: 1;
-    border: 0;
     cursor: pointer;
-    background: var(--color-bg-toggle);
+    background: var(--color-text-secondary);
     transition: background 0.25s ease-in-out;
+}
+
+.toggle-button:hover {
+    background-color: var(--color-btn-hover);
 }
 
 .show-button {
     width: auto;
     min-width: 120px;
-    background-color: var(--color-bg-toggle);
+    background-color: var(--color-text-secondary);
     color: var(--color-bg-primary);
+    transition: 0.4s;
+}
+
+.show-button:hover {
+    background-color: var(--color-btn-hover);
 }
 
 .sun-icon path {
@@ -92,6 +103,7 @@ h1 a:focus,
 h1 a:active,
 .title a:active {
     text-decoration: underline;
+    color: var(--color-text-tertiary);
 }
 
 h1,
@@ -135,6 +147,7 @@ label {
 button {
     padding: 0.4rem 1rem;
     margin: 0.5rem;
+    border: none;
     width: 50%;
     height: 38px;
     border-radius: 4px;
@@ -142,11 +155,6 @@ button {
     /* background: #fff; */
     background: var(--color-bg-primary);
     /* color: var(--color-bg-toggle); */
-    /* border: 1px solid #ccc; */
-}
-
-button :hover {
-    border-color: #888;
 }
 
 button.popup {
@@ -161,10 +169,11 @@ button.popup {
 
 .main {
     min-height: 80vh;
-    padding: 4rem 0;
+    padding: 1rem 0;
     flex: 1;
     display: flex;
     flex-direction: column;
+    /* justify-content: flex-start; */
     justify-content: center;
     align-items: center;
 }
@@ -248,8 +257,9 @@ button.popup {
 .card:hover,
 .card:focus,
 .card:active {
-    color: #4226f8;
-    border-color: #4226f8;
+    /* use toggle color */
+    color: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
 }
 
 .card h2 {
