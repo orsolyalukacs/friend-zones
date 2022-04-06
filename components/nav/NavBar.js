@@ -17,7 +17,7 @@ const NavBar = () => {
                 (
                     <div className={styles.navcontainer}>
                         <h2 className={styles.logo}>
-                            <a href="https://friend-zones.vercel.app/">Friend-zones</a>
+                            Friend-zones
                         </h2>
                         <p className={styles.subtitle}>Hello, {JSON.parse(JSON.stringify(user.username))}!</p>
                         <div className={!isOpen ?

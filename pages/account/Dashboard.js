@@ -292,7 +292,7 @@ const Dashboard = () => {
                                     </div>);
                             })}
                             {
-                                // brings up the popup on pin hover
+                                // brings up the NewFriend popup immediately after clicking on the map 
                                 addingFriend &&
                                 <Popup
                                     latitude={marker.latitude}

@@ -53,7 +53,7 @@ const NewFriend = ({ user,
     return (
         <form onSubmit={handleSubmit} className="new-friend">
             <label>
-                <span>Friend&apos;s Name</span>
+                <div className="newFriendTitle">Friend&apos;s Name</div>
                 <input
                     type="text"
                     minLength={2}
