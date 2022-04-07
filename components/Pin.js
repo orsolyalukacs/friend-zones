@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 // Pin for marker
 const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
   c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
@@ -5,36 +7,44 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 
 const Pin = ({ friend, selectedFriend, setSelectedFriend, setAddingFriend, size }) => {
 
+    // display Newfriend on pageload if no friend belongs to the pin
+    useEffect(() => {
+        if (!friend) {
+            (!selectedFriend) ? setAddingFriend(true) :
+                setSelectedFriend(null);
+        }
+    }, []);
+
     return (
         <>
             {
-                // if we are adding a friend
-                friend ? (
-                    <svg height={size} viewBox="0 0 24 24" style={{
-                        fill: '#e92',
-                        stroke: 'none'
-                    }}
-                        onClick={() => {
-                            setSelectedFriend(friend);
+                // if we have a friend belonging to the pin
+                friend ?
+                    (
+                        <svg height={size} viewBox="0 0 24 24" style={{
+                            fill: '#e92',
+                            stroke: 'none'
                         }}
-                        onMouseOver={() => {
-                            setSelectedFriend(friend);
-                            setAddingFriend(null);
-                        }}>
-                        <path d={ICON} />
+                            onClick={() => {
+                                setSelectedFriend(friend);
+                            }}
+                            onMouseOver={() => {
+                                setSelectedFriend(friend);
+                                setAddingFriend(null);
+                            }}>
+                            <path d={ICON} />
 
-                    </svg>
-                ) : (
-                    // if we have a pin
-                    <svg height={size} viewBox="0 0 24 24" style={{ fill: '#d00', stroke: 'none' }}
-                        onMouseOver={() => {
-                            (!selectedFriend) ? setAddingFriend(true) :
-                                setSelectedFriend(null);
-                        }}>
-                        <path d={ICON} />
-                    </svg >
-                )
-
+                        </svg>
+                    ) : (
+                        // if we are adding a new friend
+                        <svg height={size} viewBox="0 0 24 24" style={{ fill: '#d00', stroke: 'none' }}
+                            onClick={() => {
+                                (!selectedFriend) ? setAddingFriend(true) :
+                                    setSelectedFriend(null);
+                            }}>
+                            <path d={ICON} />
+                        </svg>
+                    )
             }
         </>
     );
