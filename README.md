@@ -8,7 +8,7 @@
 
 ## Overview
 
-The main idea behind this project is to create a web app that displays a user's friends, and their associated timezones, in relation to the timezone of the user.
+The main idea behind this project is to create a web app that displays a user's friends, and their associated time zones, in relation to the timezone of the user.
 
 ## Basic Pages and Functionalities
 
@@ -20,14 +20,14 @@ Welcoming page displaying brief information about the site, and asking users to 
 
 ### Registration
 
-_**/pages/acount/Signup.js**_
+_**/pages/account/Signup.js**_
 Page that consists of a registration form _/components/Form.js_ for new users, asking them to provide the following info:
 
 -   username
 -   email
 -   password
 -   password verification
--   timezone (from dropdown) _data/tznames.json_
+-   time zone (from dropdown) _data/tznames.json_
 
 The page will check that these fields are valid, and upon success will redirect user to the Login page, if any of these fields are filled out incorrectly, the user will be prompted with an error message. The password gets hashed and salted when saving to the MongoDB database.
 
@@ -84,7 +84,7 @@ _Features of the Dashboard include:_
 }
 ```
 
-This object will be sent to the user's db and update the user's friend list (This friendlist will be an array of friend objects that is another field in the user document.)
+This object will be sent to the user's db and update the user's friend list (This friend list will be an array of friend objects that is another field in the user document.)
 
 _**/components/FriendInfo.js**_
 
@@ -97,19 +97,19 @@ This page displays friends as a list of _**/components/FriendCard.js**_ componen
 It includes information of friends such as:
 
 -   name
--   time (in relation to the timezone of the user)
+-   time (in relation to the time zone of the user)
 -   location (address of friend from the map)
--   timezone (in GMT and timezone location)
+-   time zone (in GMT and time zone location)
 
 ## Settings
 
 _**/pages/account/UserPage.js**_
 
 -   An account page to view or edit (_**/pages/account/EditUserInfo.js**_) user's information while logged in.
--   If username is changed, the user gets logged out automatically. If only timezone is updated, user stays logged in.
+-   If username is changed, the user gets logged out automatically. If only time zone is updated, user stays logged in.
     It includes information (from _**/components/UserInfo.js**_ component) of user such as:
     -   username
-    -   timezone (in GMT and timezone location)
+    -   time zone (in GMT and time zone location)
     -   created at (when the user account was created)
 
 ## API
