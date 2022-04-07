@@ -10,13 +10,13 @@ const EditUser = ({ errorMessage, onSubmit }) => (
                 <input type="text" name="username" required />
             </label>
             <label>
-                <span>Timezone</span>
+                <span>Time zone</span>
                 <select
                     className={cx(styles.form_input, styles.border)}
                     type="text"
                     name="timezone"
                     required>
-                    <option value="">Select your timezone</option>
+                    <option value="">Select your time zone</option>
                     {TIMEZONES.map((item) => {
                         return <option key={item.utc_offset}>(GMT{item.utc_offset}) {item.timezone} </option>;
                     })

@@ -8,7 +8,7 @@
 
 ## Overview
 
-The main idea behind this project is to create a web app that displays a user's friends, and their associated time zones, in relation to the timezone of the user.
+The main idea behind this project is to create a web app that displays a user's friends, and their associated time zones, in relation to the time zone of the user.
 
 ## Basic Pages and Functionalities
 

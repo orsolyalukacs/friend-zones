@@ -14,7 +14,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          A web app that displays a user&apos;s friends, and their associated timezones, in relation to the timezone of the user.
+          A web app that displays a user&apos;s friends, and their associated time zones, in relation to the time zone of the user.
         </p>
         {!user ?
           <div className={styles.grid}>
@@ -22,13 +22,13 @@ export default function Home() {
             <Link href="/account/Login">
               <a className="card index-card">
                 <h2>Login &rarr;</h2>
-                <p>Find out the current time in your friends&apos; timezone</p>
+                <p>Find out the current time in your friends&apos; time zone</p>
               </a>
             </Link>
             <Link href="/account/Signup">
               <a className="card index-card">
                 <h2>Register &rarr;</h2>
-                <p>Sign up to see timezones of your friends</p>
+                <p>Sign up to see time zones of your friends</p>
               </a>
             </Link>
           </div> : <></>}
