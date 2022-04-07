@@ -50,7 +50,7 @@ const FriendCard = ({ friend }) => {
                         </h3>
                     </div>
                     <p><span className="bold italic">Location:  </span>{location}</p>
-                    <p><span className="bold italic">Timezone:  </span> ({GMT}{friend.timezone_offset}) {friend.timezone}</p>
+                    <p><span className="bold italic">Time zone:  </span> ({GMT}{friend.timezone_offset}) {friend.timezone}</p>
                 </>
                 ) : (<h3>No data found.</h3>)}
         </div>
