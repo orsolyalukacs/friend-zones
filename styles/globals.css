@@ -213,6 +213,11 @@ button.popup {
     width: auto;
 }
 
+/* TODO: fix popup anchor
+.mapboxgl-popup-anchor-right {
+    transform: translate(-50%, -50%) translate(181.5px, 209.5px);
+} */
+
 .mapboxgl-marker svg path {
     fill: var(--color-text-tertiary) !important;
 }
@@ -288,7 +293,8 @@ button.popup {
 }
 
 .mapboxgl-ctrl-geocoder--button {
-    width: auto;
+    width: 15%;
+    height: 50%;
 }
 
 .card-time {
